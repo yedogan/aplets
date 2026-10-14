@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>İfade Atölyesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Düzen: solda kareli defter sayfası gibi sürüklenebilir şekil, sağda ifade listesi ve seçili ifadenin canlı sınama paneli.
+   1 kare = 1 cm; renkler: mürekkep laciverti, kâğıt, mavi tutamaç, yeşil (tutuyor), kırmızı (karşıt örnek) */
+:root{
+  --bg:#eaf0f9; --panel:#ffffff; --paper:#fbfdff; --grid:#dbe6f6; --ink:#15213b; --ink2:#46557a; --line:#cfd9ea;
+  --accent:#2457d6; --accent-ink:#ffffff; --ok:#12715a; --okbg:#dff3ec; --bad:#c0301d; --badbg:#fde6e1; --warn:#9a5d00; --warnbg:#fff1d6; --fill:#dfe9ff;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --grid:#1a2644; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a;
+  --accent:#7ea4ff; --accent-ink:#0b1120; --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d; --fill:#1d2d58; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --grid:#1a2644; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a;
+  --accent:#7ea4ff; --accent-ink:#0b1120; --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d; --fill:#1d2d58; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45;padding-inline:16px;padding-block:20px 40px}
+.wrap{max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.02em;margin:0;line-height:1.05;text-wrap:balance}
+.sub{margin:6px 0 0;color:var(--ink2);max-width:60ch}
+.score{font-family:var(--f-mono);font-size:.85rem;color:var(--ink2);display:flex;gap:14px;flex-wrap:wrap}
+.score b{color:var(--ink);font-weight:500}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;padding:9px 14px;border-radius:10px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab:focus-visible,button:focus-visible,input:focus-visible,.item:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.stagebox{display:flex;flex-direction:column;gap:12px}
+.lead{margin:0;color:var(--ink2);font-size:.95rem}
+.lead b{color:var(--ink)}
+svg#stage{width:100%;height:auto;display:block;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;touch-action:none;user-select:none;max-width:100%}
+.gridline{stroke:var(--grid);stroke-width:1}
+.hardrow{display:flex;align-items:center;gap:8px;margin:0 0 14px;color:var(--ink2);font-size:.95rem;cursor:pointer}.hardrow input{width:18px;height:18px;accent-color:var(--accent)}
+.ln{stroke:var(--ink);stroke-width:2.4;fill:none;stroke-linecap:round}
+.ln.b{stroke:var(--accent)}
+.ln.dash{stroke-dasharray:6 5;stroke-width:1.6;stroke:var(--ink2)}
+.ln.hot{stroke:var(--bad);stroke-width:3}
+.circ{stroke:var(--accent);stroke-width:2.2;fill:none}
+.circ.r{stroke:var(--bad)}
+.shade{fill:var(--fill);opacity:.8}
+.arc{stroke:var(--warn);stroke-width:2;fill:none}
+.arc.bad{stroke:var(--bad)}
+.dot{fill:var(--ink)}
+.lbl{fill:var(--ink);font-family:var(--f-mono);font-size:13px;text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.lbl.big{font-size:16px;font-weight:700;font-family:var(--f-body)}
+.lbl.w{fill:var(--warn)}
+.handle{fill:var(--accent);stroke:var(--paper);stroke-width:3;cursor:grab}
+.handle:active{cursor:grabbing}
+.rmark{stroke:var(--ink);stroke-width:1.6;fill:none}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.ctl{display:flex;flex-direction:column;gap:2px;min-width:150px;flex:1 1 150px}
+.ctl label{font-size:.8rem;color:var(--ink2);display:flex;justify-content:space-between;gap:8px}
+.ctl label output{font-family:var(--f-mono);color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:.85rem;padding:6px 10px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.read{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.82rem;color:var(--ink2);border-top:1px dashed var(--line);padding-top:10px}
+.read b{color:var(--ink);font-weight:500}
+h2{font-family:var(--f-display);font-size:1.15rem;margin:0 0 8px;letter-spacing:-.01em}
+.list{display:flex;flex-direction:column;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.item{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:start;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:9px 10px;font:inherit;font-size:.92rem;cursor:pointer}
+.item[aria-current="true"]{border-color:var(--accent);background:var(--fill)}
+.st{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink2);margin-top:5px}
+.st.try{background:var(--warn);border-color:var(--warn)}
+.st.found{background:var(--bad);border-color:var(--bad)}
+.st.read{background:var(--ok);border-color:var(--ok)}
+.item small{font-family:var(--f-mono);color:var(--ink2);margin-right:4px}
+.stmt{font-size:1.08rem;line-height:1.5;margin:0 0 10px}
+.stmt .p,.stmt .q{border-radius:6px;padding:1px 4px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pill{font-family:var(--f-mono);font-size:.82rem;padding:3px 9px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink2)}
+.pill.on{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.pill.off{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.verdict{padding:10px 12px;border-radius:10px;font-size:.95rem;border:1.5px solid var(--line);background:var(--paper);margin-bottom:10px}
+.verdict.ex{background:var(--okbg);border-color:var(--ok)}
+.verdict.cx{background:var(--badbg);border-color:var(--bad)}
+.verdict.wait{background:var(--warnbg);border-color:var(--warn)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--bg);font:inherit;font-weight:700;padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.why{border-left:4px solid var(--accent);padding:6px 12px;background:var(--paper);border-radius:0 8px 8px 0;font-size:.93rem}
+.why .t{font-family:var(--f-mono);font-weight:500}
+.why .t.D{color:var(--ok)} .why .t.Y{color:var(--bad)}
+.note{font-size:.82rem;color:var(--ink2);margin:0}
+footer{color:var(--ink2);font-size:.82rem}
+.themebtn{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:.82rem;padding:6px 10px;border-radius:8px;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.verdict{transition:background .15s}}
+</style>
+<style>html{color-scheme:light dark}body{margin:0;max-width:1240px;margin-inline:auto}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>İfade Atölyesi</h1>
+      <p class="sub">5. sınıf geometri: bir "… ise …" ifadesini seç, şekli sürükle, ifadeyi bozan bir durum bulabilecek misin? Sekmeler konu sırasıyla ilerler.</p>
+    </div>
+    <div class="score" aria-live="polite"><span>Karşıt örnek: <b id="sc-found">0</b> / <b id="sc-y">0</b></span><span>Gerekçesi okunan: <b id="sc-read">0</b></span><button class="themebtn" id="resetbtn" type="button">İlerlemeyi sıfırla</button></div>
+  </header>
+  <nav class="tabs" role="tablist" id="tabs" aria-label="Laboratuvarlar"></nav>
+  <label class="hardrow"><input type="checkbox" id="hard"> <span>Zorlayıcı ifadeleri de göster (★)</span></label>
+  <div class="grid">
+    <section class="card stagebox" aria-label="Çizim alanı">
+      <p class="lead" id="lead"></p>
+      <svg id="stage" viewBox="0 0 640 440" role="img" aria-label="Etkileşimli geometri şekli"></svg>
+      <div class="controls" id="controls"></div>
+      <div class="read" id="read" aria-live="polite"></div>
+    </section>
+    <section class="card" aria-label="İfadeler">
+      <h2>İfadeler</h2>
+      <ul class="list" id="list"></ul>
+      <div id="detail"></div>
+    </section>
+  </div>
+  <footer>1 kare = 1 cm. Ölçüler şekilden okunur. Örnek denemek ifadeyi kanıtlamaz; doğru ifadelerin gerekçesini okuyarak bitir. Kırmızı nokta: karşıt örnek bulundu, yeşil: gerekçesi okundu.</footer>
+</div>
+
+<script>
+const DATA={"A1": {"t": "D", "why": "Cetveli iki noktaya dayayıp çizdiğimiz doğru hep aynı yeri tutar; ikinci bir doğru çizersek ilkiyle çakışır.", "ctype": "ters", "cp": "Bir doğru çizilmişse bu doğrunun üzerinde yalnız iki nokta vardır.", "ct": "Y", "cwhy": "Bir doğrunun üzerinde sonsuz sayıda nokta işaretlenebilir. Karşıt örnek: doğru üzerinde üç nokta işaretle."}, "A2": {"t": "Y", "why": "Karşıt örnek: A dan geçen birçok farklı doğru çizilebilir; bir noktadan sonsuz sayıda doğru geçer (kitaptaki doğru-yanlış tablosu).", "ctype": "duzeltme", "cp": "A ve B farklı iki nokta ise A ile B den geçen yalnız bir doğru çizilebilir.", "ct": "D", "cwhy": "İkinci bir nokta eklenince doğrunun yönü belli olur."}, "A3": {"t": "Y", "why": "Doğru iki yönde de sonsuza uzar; uzunluğu ölçülemez. Karşıt örnek: cetvelle ölçmeye çalıştığın çizgi aslında doğrunun bir parçasıdır.", "ctype": "duzeltme", "cp": "Bir şekil doğru parçası ise uzunluğu ölçülebilir.", "ct": "D", "cwhy": "Doğru parçasının iki ucu vardır; ucundan ucuna ölçülür."}, "A4": {"t": "D", "why": "Tanım gereği doğru parçası, bir doğrunun iki noktası arasında kalan kısımdır.", "ctype": "ters", "cp": "İki uç noktası olan her şekil bir doğru parçasıdır.", "ct": "Y", "cwhy": "Karşıt örnek: yarım çember ya da kırık çizgi de iki uç noktaya sahiptir ama doğru parçası değildir."}, "A5": {"t": "D", "why": "Aynı doğru üzerindeki noktalar, o doğrunun noktalarıdır.", "ctype": "ters", "cp": "A, B ve C den geçen bir doğru çizilebiliyorsa bu üç nokta aynı doğru üzerindedir.", "ct": "D", "cwhy": "Doğru üzerinden geçiyorsa nokta o doğrunun üzerindedir (tanım)."}, "A6": {"t": "D", "why": "C den başlayarak biri bir yöne, diğeri ters yöne giden iki ışın elde edilir.", "ctype": "ters", "cp": "Başlangıç noktaları ortak iki ışın varsa bu iki ışın bir doğru oluşturur.", "ct": "Y", "cwhy": "Karşıt örnek: başlangıç noktası ortak ama farklı yönlere giden iki ışın bir açı oluşturur. Işınlar zıt yönlü olmalıdır."}, "B1": {"t": "D", "why": "Çember, merkeze eşit uzaklıktaki noktaların kümesidir (tanım).", "ctype": "ters", "cp": "|OP| yarıçapa eşitse P noktası O merkezli çemberin üzerindedir.", "ct": "D", "cwhy": "Merkeze uzaklığı yarıçap kadar olan her nokta çemberin üzerindedir."}, "B2": {"t": "D", "why": "Çap, yarıçapın iki katıdır: 2 × 5 = 10.", "ctype": "ters", "cp": "Bir çemberin çapı 10 cm ise yarıçapı 5 cm dir.", "ct": "D", "cwhy": "10 ÷ 2 = 5."}, "B3": {"t": "Y", "why": "Çap yarıçapın iki katıdır; yarıçap çapın yarısıdır: 8 ÷ 2 = 4 cm.", "ctype": "duzeltme", "cp": "Bir çemberin çapı 8 cm ise yarıçapı 4 cm dir.", "ct": "D", "cwhy": "Yarıçap çapın yarısıdır."}, "B4": {"t": "Y", "why": "Karşıt örnek: yarıçapları 3 cm olan, ama merkezleri farklı iki çember çizilebilir.", "ctype": "duzeltme", "cp": "İki çemberin merkezleri ve yarıçapları eşit ise bu çemberler çakışıktır.", "ct": "D", "cwhy": "Merkez ve yarıçap bir çemberi belirler."}, "B5": {"t": "D", "why": "Yarıçap, çapın yarısıdır; eşit sayıların yarıları da eşittir.", "ctype": "ters", "cp": "İki çemberin yarıçapları eşit ise çapları da eşittir.", "ct": "D", "cwhy": "Yarıçapın iki katı çapı verir; eşit sayıların iki katları eşittir."}, "B6": {"t": "Y", "why": "Çember üzerindeki noktanın merkeze uzaklığı yarıçapa eşittir; küçük değildir.", "ctype": "duzeltme", "cp": "Bir nokta çemberin iç bölgesindeyse bu noktanın merkeze uzaklığı yarıçaptan küçüktür.", "ct": "D", "cwhy": "İç bölgedeki noktalar çember üzerindeki noktalardan merkeze daha yakındır."}, "C1": {"t": "Y", "why": "Açının ölçüsü kolların açıklığına bağlıdır, kolların uzunluğuna değil. Karşıt örnek: 40° lik açının kollarını uzat, açıölçerle yine 40° ölçülür.", "ctype": "duzeltme", "cp": "Bir açının kolları uzatılsa da açının ölçüsü değişmez.", "ct": "D", "cwhy": "Ölçü, iki kol arasındaki açıklıktır."}, "C2": {"t": "Y", "why": "Karşıt örnek: doğru açı 180° dir; 90° den büyüktür ama geniş açı değildir.", "ctype": "duzeltme", "cp": "Bir açının ölçüsü 90° den büyük ve 180° den küçükse bu açı geniş açıdır.", "ct": "D", "cwhy": "Geniş açı, dik ile doğru açı arasındadır (tanım)."}, "C3": {"t": "D", "why": "Açı x° ise tümleri (90 − x)° dir. 0 < x < 90 ise 0 < 90 − x < 90 olur.", "ctype": "ters", "cp": "Bir açının tümler açısı dar açı ise bu açı da dar açıdır.", "ct": "D", "cwhy": "Aynı hesap iki yönde de geçerlidir."}, "C4": {"t": "D", "why": "Geniş açı 90° den büyüktür; tümleri 90° den küçük bir sayı çıkarmak gerekir ve sonuç 0° ya da negatif olur.", "ctype": "ters", "cp": "Bir açının tümler açısı yoksa bu açı geniş açıdır.", "ct": "Y", "cwhy": "Karşıt örnek: 90° lik dik açının tümleri 0° olur, yani yoktur; ama dik açı geniş açı değildir. Doğru açı için de tümler yoktur."}, "C5": {"t": "D", "why": "Toplamları 90° ve her biri 0° dan büyük olduğu için ikisi de 90° den küçüktür.", "ctype": "ters", "cp": "İki açı da dar açı ise bu açılar tümlerdir.", "ct": "Y", "cwhy": "Karşıt örnek: 30° ve 40° dar açılardır ama toplamları 70°, yani tümler değildir."}, "C6": {"t": "Y", "why": "Karşıt örnek: 90° + 90° = 180°. İki dik açı bütünlerdir.", "ctype": "duzeltme", "cp": "İki açı bütünler ve dik açı değilse biri dar açı, diğeri geniş açıdır.", "ct": "D", "cwhy": "Toplam 180° ve eşit değillerse biri 90° den küçük, diğeri büyük olmak zorundadır."}, "C7": {"t": "D", "why": "İkisi de 90° den küçük olsaydı toplamları 180° den küçük olurdu.", "ctype": "ters", "cp": "İki açı birden dar açı olamıyorsa bu açılar bütünlerdir.", "ct": "Y", "cwhy": "Karşıt örnek: 100° ve 120° açıları birden dar açı olamaz ama bütünler değildir (toplam 220°)."}, "C8": {"t": "D", "why": "180 − 65 = 115.", "ctype": "ters", "cp": "Bir açının bütünler açısı 115° ise açının ölçüsü 65° dir.", "ct": "D", "cwhy": "180 − 115 = 65."}, "D2": {"t": "D", "why": "Ters açıların her biri aynı açının bütünleridir: x + y = 180 ve z + y = 180 ise x = z (açıölçerle ölçerek de görürüz).", "ctype": "ters", "cp": "İki açı eşitse bu açılar ters açıdır.", "ct": "Y", "cwhy": "Karşıt örnek: bir üçgenin ya da karenin dört açısı eşittir ama bunlar ters açı değildir."}, "D3": {"t": "D", "why": "Komşu açıların dış kolları aynı doğru üzerindedir; yan yana gelince doğru açı (180°) oluşur.", "ctype": "ters", "cp": "İki açı bütünler ise bu açılar komşudur.", "ct": "Y", "cwhy": "Karşıt örnek: 70° ve 110° açıları farklı yerlerde çizilmiş olabilir; bütünler olmak komşu olmayı gerektirmez."}, "D4": {"t": "Y", "why": "Dört açının toplamı 360° dir; hepsi 90° den küçük olsaydı toplam 360° den küçük olurdu.", "ctype": "duzeltme", "cp": "İki doğru kesişiyorsa oluşan açılar ya 2 dar + 2 geniş ya da 4 dik açıdır.", "ct": "D", "cwhy": "Biri dar ise komşusu (bütünleri) geniştir; biri dik ise hepsi diktir."}, "D5": {"t": "D", "why": "Biri 90° ise ters açısı 90° ve komşuları 180° − 90° = 90° olur.", "ctype": "ters", "cp": "İki doğru kesişiyor ve oluşan dört açı eşitse bu doğrular birbirine diktir.", "ct": "D", "cwhy": "4 eşit açının toplamı 360° olduğundan her biri 90° dir."}, "D6": {"t": "D", "why": "Paralel doğruların hiç ortak noktası yoktur; ne kadar uzatsak da karşılaşmazlar. (Çakışık doğruların sonsuz sayıda ortak noktası vardır; onlar paralel sayılmaz.)", "ctype": "ters", "cp": "Düzlemde hiç ortak noktası olmayan iki doğru paraleldir.", "ct": "D", "cwhy": "Düzlemde ortak noktası olmayan iki doğru kesişmez ve çakışık da değildir; paraleldir. (Uzayda böyle değildir: çarpık doğrular da kesişmez, ama bu 5. sınıf konusu değildir.)"}, "D7": {"t": "D", "why": "Paralel doğrular kesişmediği için ortak bir köşe, dolayısıyla açı oluşmaz.", "ctype": "ters", "cp": "İki doğru arasında açı oluşmuyorsa bu doğrular paraleldir.", "ct": "Y", "cwhy": "Karşıt örnek: çakışık iki doğru da açı oluşturmaz ama paralel değildir. Doğru söylem: \"paralel ya da çakışıktır\"."}, "E1": {"t": "D", "why": "Altı ışın, ardışık altı açı oluşturur (6 açının toplamı 360°).", "ctype": "ters", "cp": "Üç farklı doğrunun oluşturduğu açıların sayısı 6 ise bu doğrular aynı noktada kesişir.", "ct": "D", "cwhy": "Tüm durumlar: hepsi paralel 0, ikisi paralel + kesen 8, ikişer kesişen 12, aynı noktada kesişen 6 açı verir; 6 ancak aynı noktada kesişirken çıkar."}, "E2": {"t": "Y", "why": "Karşıt örnek: üç doğrudan ikisi birbirine dikse 2 dik açı oluşur; ayrıca 2 geniş + 4 dar açılı durumlar vardır.", "ctype": "duzeltme", "cp": "Üç farklı doğru aynı noktada kesişiyorsa oluşan açılar 6 dar, 2 dik + 4 dar ya da 2 geniş + 4 dar olabilir.", "ct": "D", "cwhy": "Yan yana gelen üç açı toplamda 180° dir; en çok biri 90° ya da daha büyük olabilir."}, "E3": {"t": "D", "why": "Açılar ikişerli eşit olduğundan x + y + z = 180° olur. İkisi 90° ya da daha büyük olsaydı toplam 180° yi aşardı; bu yüzden en az ikisi 90° den küçüktür ve her ölçü iki açıda göründüğünden en az 4 açı dar açıdır.", "ctype": "ters", "cp": "Üç farklı doğrunun oluşturduğu açılardan en az 4 tanesi dar açıysa doğrular aynı noktada kesişir.", "ct": "Y", "cwhy": "Karşıt örnek: ikişer kesişen üç doğru (üçgen oluşturanlar) 12 açıdan 6 dar açı oluşturur; aynı noktada kesişmezler."}, "E4": {"t": "D", "why": "Üç kesişim noktası üçgenin köşeleri, doğruların aralarında kalan parçalar kenarları olur.", "ctype": "ters", "cp": "Üç doğru bir üçgen oluşturuyorsa bu doğrular ikişer ikişer kesişir.", "ct": "D", "cwhy": "Üçgenin her kenarının doğrusu diğer iki kenarın doğrularını köşelerde keser."}, "F10": {"t": "D", "why": "Üçgende her köşe, diğer iki köşeyle zaten bir kenarla birleşmiştir; ardışık olmayan köşe kalmaz.", "ctype": "ters", "cp": "Bir çokgenin köşegeni yoksa bu çokgen üçgendir.", "ct": "D", "cwhy": "Dörtgenden başlayarak her çokgenin köşegeni vardır; köşegeni olmayan tek çokgen üçgendir."}, "F11": {"t": "D", "why": "Dörtgenin her köşesinden 1 köşegen çizilir; her köşegen iki köşeyi birleştirdiğinden 4 × 1 ÷ 2 = 2.", "ctype": "ters", "cp": "Bir çokgenin 2 köşegeni varsa bu çokgen dörtgendir.", "ct": "D", "cwhy": "Köşegen sayısı n(n − 3) ÷ 2 dir; n = 3 için 0, n = 4 için 2, n = 5 için 5, n = 6 için 9: yalnız dörtgende 2."}, "F12": {"t": "D", "why": "Bir köşeden kendisine ve iki komşusuna köşegen çizilemez; kalan n − 3 köşeye köşegen çizilir.", "ctype": "ters", "cp": "Bir çokgenin bir köşesinden n − 3 köşegen çizilebiliyorsa bu çokgenin n kenarı vardır.", "ct": "D", "cwhy": "Aynı eşitlik tersinden okunur."}, "F13": {"t": "Y", "why": "Karşıt örnek: 3 cm × 5 cm lik dikdörtgenin iki köşegeni de eşittir ama dikdörtgen kare değildir.", "ctype": "duzeltme", "cp": "Bir dörtgenin köşegenleri eşitse ve kenarları da eşitse bu dörtgen karedir.", "ct": "D", "cwhy": "Eşit köşegen + eşit kenar karedir."}, "F4": {"t": "D", "why": "Tanım gereği düzgün çokgenin kenarları da açıları da eşittir.", "ctype": "ters", "cp": "Bir çokgenin bütün kenarları eşit uzunluktaysa bu çokgen düzgün çokgendir.", "ct": "Y", "cwhy": "Karşıt örnek: eşkenar dörtgen (kenarlar eşit, ama açılar eşit değil)."}, "F5": {"t": "D", "why": "Tanım gereği düzgün çokgenin kenarları da açıları da eşittir.", "ctype": "ters", "cp": "Bir çokgenin bütün iç açıları eşitse bu çokgen düzgün çokgendir.", "ct": "Y", "cwhy": "Karşıt örnek: dikdörtgen (dört açı da 90° ama kenarlar eşit değil)."}, "F7": {"t": "Y", "why": "Karşıt örnek: kenarları 3 cm ve 5 cm olan dikdörtgenin kenarları eşit değildir.", "ctype": "duzeltme", "cp": "Bir dikdörtgenin dört kenarı da eşitse bu dikdörtgen bir karedir ve düzgün dörtgendir.", "ct": "D", "cwhy": "Kare = dört kenarı ve dört açısı eşit."}, "F8": {"t": "Y", "why": "Karşıt örnek: açıları 60°, 120°, 60°, 120° olan eşkenar dörtgen düzgün dörtgen değildir.", "ctype": "duzeltme", "cp": "Bir eşkenar dörtgenin dört açısı da eşitse bu dörtgen karedir ve düzgün dörtgendir.", "ct": "D", "cwhy": "Eşkenar dörtgen + dik açı = kare."}, "G10": {"t": "Y", "why": "Eşkenar üçgenin bütün açıları 60° dir; geniş açı yoktur.", "ctype": "duzeltme", "cp": "Bir üçgen eşkenarsa bu üçgen dar açılıdır.", "ct": "D", "cwhy": "Bütün açılar 60° < 90°."}, "G11": {"t": "D", "why": "Eşkenarın bütün açıları 60° dir; dik açı (90°) yoktur.", "ctype": "ters", "cp": "Bir üçgen eşkenar değilse bu üçgen dik açılıdır.", "ct": "Y", "cwhy": "Karşıt örnek: açıları 40°, 60°, 80° olan üçgen eşkenar değildir ve dik açısı da yoktur."}, "G12": {"t": "Y", "why": "Karşıt örnek: açıları 30°, 30° ve 120° olan ikizkenar üçgen (iki açı eşit → iki kenar eşit) geniş açılıdır.", "ctype": "duzeltme", "cp": "Bir üçgen geniş açılıysa bu üçgen eşkenar olamaz.", "ct": "D", "cwhy": "Eşkenarın bütün açıları 60° dir."}, "G13": {"t": "D", "why": "İki eşit açı dik ya da geniş olsaydı toplamları en az 180° olur ve üçüncü açıya yer kalmazdı. Eşit açılar hep dardır.", "ctype": "ters", "cp": "Bir üçgenin eşit iki açısı dar açıysa bu üçgen ikizkenardır.", "ct": "D", "cwhy": "Eşit iki açısı olan üçgen, açı-kenar ilişkisinden ikizkenardır."}, "G15": {"t": "D", "why": "Farklı açıların karşısındaki kenarlar da farklıdır (G7 nin tersi). Üç kenar farklı olunca üçgen çeşitkenardır.", "ctype": "ters", "cp": "Bir üçgen çeşitkenarsa üç iç açısının ölçüsü de farklıdır.", "ct": "D", "cwhy": "İki açı eşit olsaydı karşıları da eşit olurdu; üçgen çeşitkenar olamazdı."}, "G3": {"t": "D", "why": "Diğer ikisinin toplamı 180° − 90° = 90° dir; ikisi de 0° dan büyük olduğundan her biri 90° den küçüktür.", "ctype": "ters", "cp": "Bir üçgenin iki iç açısı dar açıysa üçüncü iç açısı dik açıdır.", "ct": "Y", "cwhy": "Karşıt örnek: açıları 60°, 60°, 60° olan üçgende iki açı dardır ama üçüncü açı da dardır, dik değildir."}, "G4": {"t": "D", "why": "Geniş açı 90° den büyükse diğer ikisinin toplamı 90° den küçüktür; ikisi de dar olmak zorundadır.", "ctype": "ters", "cp": "Bir üçgenin iki iç açısı dar açıysa üçüncü iç açısı geniş açıdır.", "ct": "Y", "cwhy": "Karşıt örnek: 60°, 60°, 60° lik üçgende iki dar açının üçüncüsü de dardır. Her üçgenin en az iki açısı dardır; üçüncüsü dar, dik ya da geniş olabilir."}, "G5": {"t": "Y", "why": "Üçgende iki dik açı olsaydı iki dik açının toplamı 180° olurdu; üçüncü açıya yer kalmazdı.", "ctype": "duzeltme", "cp": "Bir üçgenin bir iç açısı dik açı ise diğer iç açıları dar açıdır.", "ct": "D", "cwhy": "İki açının toplamı 90° dir."}, "G6": {"t": "D", "why": "180° − 90° = 90°.", "ctype": "ters", "cp": "Bir üçgenin iki iç açısının ölçüleri toplamı 90° ise bu üçgen dik açılıdır.", "ct": "D", "cwhy": "Üçüncü açı 180° − 90° = 90° olur."}, "G7": {"t": "D", "why": "İkizkenar üçgen kağıttan kesilip ortadan katlandığında iki yarısı üst üste biner (kitaptaki \"eşit kenarları gören açılar\").", "ctype": "ters", "cp": "Bir üçgenin iki açısı eşitse bu açıların karşısındaki kenarlar eşittir.", "ct": "D", "cwhy": "Aynı katlamayı eşit açılı üçgenlerde de yapabiliriz; kenarlar da eşit çıkar."}, "G8": {"t": "D", "why": "Üç açı eşit ve toplamları 180° olduğundan 180 ÷ 3 = 60°.", "ctype": "ters", "cp": "Bir üçgenin her bir iç açısı 60° ise bu üçgen eşkenardır.", "ct": "D", "cwhy": "Açıları eşit olan üçgenin kenarları da eşittir."}, "G9": {"t": "D", "why": "Eşkenarın üç kenarı eşittir; dolayısıyla \"en az iki kenarı eşit\" koşulunu sağlar. (Kitapta üçgenler eşkenar / ikizkenar / çeşitkenar olarak ayrı sınıflar şeklinde de anlatılır. Bu ifade, ikizkenar için \"en az iki kenarı eşit\" tanımıyla doğrudur.)", "ctype": "ters", "cp": "Bir üçgen ikizkenarsa bu üçgen eşkenardır.", "ct": "Y", "cwhy": "Karşıt örnek: kenarları 5, 5 ve 8 cm olan üçgen ikizkenardır ama eşkenar değildir."}, "H1": {"t": "D", "why": "Kesişim noktasının iki merkeze uzaklıkları iki yarıçaptır; yarıçaplar eşit olduğundan iki kenar eşit çıkar.", "ctype": "ters", "cp": "Merkezler ve kesişim noktalarından biri ile oluşturulan üçgen ikizkenarsa çemberlerin yarıçapları eşittir.", "ct": "Y", "cwhy": "Karşıt örnek: yarıçapları 4 cm ve 6 cm, merkezleri arasındaki uzaklık 4 cm ise kenarlar 4, 6, 4 cm olur; üçgen ikizkenardır ama yarıçaplar eşit değildir."}, "H2": {"t": "D", "why": "Üç kenarın üçü de aynı uzunlukta olur. (Çemberler birbirinin merkezinden geçer — kitap Örnek 2.)", "ctype": "ters", "cp": "Oluşan üçgen eşkenarsa çemberlerin yarıçapları eşit ve merkezler arası uzaklık bu yarıçapa eşittir.", "ct": "D", "cwhy": "Üç kenar eşitse iki yarıçap ve merkezler arası uzaklık eşit olmak zorundadır."}, "H3": {"t": "D", "why": "Üçgenin kenarları bu üç uzunluktur ve üçü de farklıdır.", "ctype": "ters", "cp": "Oluşan üçgen çeşitkenarsa iki çemberin yarıçapları farklıdır.", "ct": "D", "cwhy": "Çeşitkenarda hiçbir iki kenar eşit değildir; yarıçapların her biri bir kenar olduğundan farklıdırlar."}, "H4": {"t": "Y", "why": "Karşıt örnek: yarıçaplar 3 cm, merkezler arası 4 cm ise kenarlar 3, 3, 4 olur; üçgen ikizkenardır ama eşkenar değildir.", "ctype": "duzeltme", "cp": "İki çemberin yarıçapları eşit ve merkezlerin arası da bu yarıçapa eşitse oluşan üçgen eşkenardır.", "ct": "D", "cwhy": "Bakınız H2."}, "H5": {"t": "Y", "why": "Yarıçaplar eşitse iki kenar eşit olur; üçgen ikizkenardır ya da eşkenardır (kitaptaki Örnek 2 ç maddesi).", "ctype": "duzeltme", "cp": "Çeşitkenar üçgen inşa etmek için iki çemberin yarıçapları farklı olmalı ve merkezler arası uzaklık da bu yarıçapların ikisinden de farklı olmalıdır.", "ct": "D", "cwhy": "Üç kenar uzunluğu da farklı olmalıdır."}, "H7": {"t": "D", "why": "Yarıçapların toplamı kadar uzaklıkta çemberler birbirine ancak değer; daha uzakta aralarında boşluk kalır. Üçgenin iki kenarının toplamı üçüncü kenardan büyük olmalıdır.", "ctype": "ters", "cp": "İki çember kesişmiyorsa merkezleri arasındaki uzaklık yarıçaplarının toplamından büyüktür.", "ct": "Y", "cwhy": "Karşıt örnek: küçük çember büyük çemberin içinde kalırsa çemberler kesişmez ama merkezler arası uzaklık yarıçaplar toplamından küçüktür."}};
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('stage');
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+const mod=(a,n)=>((a%n)+n)%n;
+const near=(a,b,t)=>Math.abs(a-b)<=t;
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs||{})e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+let G; // çizim katmanı
+const polar=(c,r,d)=>[c[0]+r*Math.cos(rad(d)),c[1]-r*Math.sin(rad(d))];
+function arcPath(c,r,a1,a2){const s=polar(c,r,a1),e=polar(c,r,a2);const large=((a2-a1)%360+360)%360>180?1:0;return `M${s[0].toFixed(1)} ${s[1].toFixed(1)} A${r} ${r} 0 ${large} 0 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`}
+function txt(x,y,s,cls){const t=el('text',{x:x.toFixed?x.toFixed(1):x,y:y.toFixed?y.toFixed(1):y,class:'lbl '+(cls||'')},G);t.textContent=s;return t}
+function line(p,q,cls){return el('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:'ln '+(cls||'')},G)}
+function pdot(p,r){return el('circle',{cx:p[0],cy:p[1],r:r||4.5,class:'dot'},G)}
+function handle(id,p){const h=el('circle',{cx:p[0],cy:p[1],r:12,class:'handle','data-id':id,tabindex:0,role:'slider','aria-label':'Sürüklenebilir nokta'},G);return h}
+function drawGrid(){for(let x=0;x<=640;x+=40)el('line',{x1:x,y1:0,x2:x,y2:440,class:'gridline'},svg);for(let y=0;y<=440;y+=40)el('line',{x1:0,y1:y,x2:640,y2:y,class:'gridline'},svg)}
+function rmark(v,u1,u2,s){ // dik açı işareti, u1 ve u2 birim yönler (ekran koordinatı)
+  const a=[v[0]+u1[0]*s,v[1]+u1[1]*s],c=[v[0]+u2[0]*s,v[1]+u2[1]*s],b=[a[0]+u2[0]*s,a[1]+u2[1]*s];
+  el('polyline',{points:[a,b,c].map(p=>p.join(',')).join(' '),class:'rmark'},G)}
+const unit=(p,q)=>{const d=Math.hypot(q[0]-p[0],q[1]-p[1])||1;return[(q[0]-p[0])/d,(q[1]-p[1])/d]};
+const f1=x=>(Math.round(x*10)/10).toString().replace('.',',');
+const f2=x=>(Math.round(x*100)/100).toString().replace('.',',');
+function lineLine(p1,d1,p2,d2){const det=d1[0]*d2[1]-d1[1]*d2[0];if(Math.abs(det)<1e-9)return null;const t=((p2[0]-p1[0])*d2[1]-(p2[1]-p1[1])*d2[0])/det;return[p1[0]+t*d1[0],p1[1]+t*d1[1]]}
+function longLine(p,d,cls){return line([p[0]-d[0]*900,p[1]-d[1]*900],[p[0]+d[0]*900,p[1]+d[1]*900],cls)}
+
+/* ================================================== LABORATUVARLAR */
+const C0=[320,220];
+const LABS=[];
+
+/* ---- 1. İki doğru */
+LABS.push({id:'iki',title:'İki doğru',
+ lead:'<b>İki doğru</b> kesişebilir, paralel olabilir ya da çakışabilir. Mavi noktayı sürükleyerek ikinci doğruyu döndür.',
+ state:{phi:55,h:2},
+ reset(){this.state={phi:55,h:2}},
+ controls(box){
+   chips(box,[['Dik kesiştir',()=>{this.state.phi=90}],['Paralel yap',()=>{this.state.phi=0;if(this.state.h==0)this.state.h=2}],['Çakışık yap',()=>{this.state.phi=0;this.state.h=0}]]);
+   slider(box,'h','Paralel doğrular arası (cm)',-3,3,0.5,this.state.h,v=>{this.state.h=v},()=>this.state.phi!==0,'cm')},
+ handlePos(){const s=this.state,u=this.u();const o=this.origin();return[o[0]+u[0]*170,o[1]+u[1]*170]},
+ u(){return[Math.cos(rad(this.state.phi)),-Math.sin(rad(this.state.phi))]},
+ origin(){return this.state.phi===0?[C0[0],C0[1]-this.state.h*40]:C0},
+ drag(id,p){const o=this.origin();let a=deg(Math.atan2(-(p[1]-o[1]),p[0]-o[0]));a=mod(a,360);let m=mod(a,180);
+   if(m<4||m>176)a=0;else if(near(m,90,3))a=a>=180?270:90;this.state.phi=a},
+ facts(){const s=this.state,m=mod(s.phi,180);const F={};
+   if(s.phi===0||m===0){F.kind=s.h===0?'cakisik':'paralel';F.angles=[];F.alpha=null}
+   else{F.kind='kesisen';F.alpha=m;F.angles=[m,180-m,m,180-m]}
+   F.hasRight=F.kind==='kesisen'&&near(F.alpha,90,.01);F.fp=F.kind+(F.alpha?Math.round(F.alpha/5):'')+(F.kind=='paralel'?s.h:'');return F},
+ draw(F){
+   const s=this.state,u=this.u(),o=this.origin();
+   longLine([320,220],[1,0],'');txt(40,205,'d₁','big');
+   longLine(o,u,'b');
+   const hp=this.handlePos();txt(hp[0]+(u[0]>=0?18:-18),hp[1]-16,'d₂','big');handle('h',hp);
+   if(F.kind==='kesisen'){
+     pdot(C0,5);
+     const a=F.alpha,ph=mod(s.phi,180);const ang=[[0,ph],[ph,180],[180,180+ph],[180+ph,360]];
+     ang.forEach((r,i)=>{const mid=(r[0]+r[1])/2,v=F.angles[i];
+       el('path',{d:arcPath(C0,22+ (v<90?6:0),r[0],r[1]),class:'arc'},G);
+       const lp=polar(C0,v<40?58:44+(v>140?0:0),mid);txt(lp[0],lp[1],'abcd'[i]+'='+f1(v)+'°','w')});
+     if(F.hasRight){rmark(C0,[1,0],[0,-1],12)}
+   }else if(F.kind==='paralel'){
+     txt(320,420,'Paralel doğrular: ortak nokta yok, açı oluşmaz','big')
+   }else{txt(320,420,'Çakışık doğrular: bütün noktaları ortak, açı oluşmaz','big')}
+ },
+ read(F){const r=[];r.push(['Durum',{kesisen:'kesişen',paralel:'paralel',cakisik:'çakışık'}[F.kind]]);
+   r.push(['Ortak nokta',F.kind==='kesisen'?'1':F.kind==='paralel'?'0':'sonsuz']);r.push(['Oluşan açı sayısı',F.angles.length]);
+   if(F.alpha)r.push(['Ters açılar',f1(F.alpha)+'° ve '+f1(180-F.alpha)+'°']);return r},
+ stmts:[
+  {code:'D2',p:'iki doğru kesişiyor',q:'oluşan ters açılar eşittir',P:f=>f.kind==='kesisen',Q:f=>f.kind==='kesisen'},
+  {code:'D3',p:'iki doğru kesişiyor',q:'komşu açıların ölçüleri toplamı 180° dir',P:f=>f.kind==='kesisen',Q:f=>f.kind==='kesisen'},
+  {code:'D4',p:'iki doğru kesişiyor',q:'oluşan dört açının hepsi dar açıdır',P:f=>f.kind==='kesisen',Q:f=>false},
+  {code:'D5',p:'iki doğru kesişiyor ve açılardan biri dik açı',q:'diğer üçü de dik açıdır',P:f=>f.hasRight,Q:f=>f.hasRight,
+   rev:{p:'iki doğru kesişiyor ve oluşan dört açı eşit',q:'doğrular birbirine diktir',P:f=>f.hasRight,Q:f=>f.hasRight}},
+  {code:'D6',p:'iki doğru düzlemde paralel',q:'bu iki doğru kesişmez',P:f=>f.kind==='paralel',Q:f=>f.kind==='paralel',
+   rev:{p:'düzlemde iki doğrunun hiç ortak noktası yok',q:'bu doğrular paraleldir',P:f=>f.kind==='paralel',Q:f=>f.kind==='paralel'}},
+  {code:'D7',p:'iki doğru paralel',q:'bu doğrular arasında açı oluşmaz',P:f=>f.kind==='paralel',Q:f=>f.angles.length===0,
+   rev:{p:'iki doğru arasında açı oluşmuyor',q:'bu doğrular paraleldir',P:f=>f.angles.length===0,Q:f=>f.kind==='paralel'}}
+ ]});
+
+/* ---- 2. Üç doğru */
+LABS.push({id:'uc',title:'Üç doğru',
+ lead:'<b>Üç doğru</b> aynı noktadan geçebilir ya da ikişer ikişer kesişerek üçgen oluşturabilir. İki mavi noktayı döndür, üçüncü doğruyu kaydır.',
+ state:{p2:55,p3:115,off:0},
+ reset(){this.state={p2:55,p3:115,off:0}},
+ controls(box){
+   chips(box,[['Biri dik olsun',()=>{this.state.p2=90}],['Geniş açılar oluştur',()=>{this.state.p2=30;this.state.p3=55}],['Hepsi dar',()=>{this.state.p2=55;this.state.p3=115}]]);
+   slider(box,'off','3. doğruyu kaydır (cm)',0,2,0.5,this.state.off,v=>{this.state.off=v},null,'cm')},
+ dirs(){return[0,this.state.p2,this.state.p3]},
+ pt3(){const d=rad(this.state.p3),n=[-Math.sin(d),-Math.cos(d)]; // y aşağı koordinatta normal
+   return[C0[0]+n[0]*this.state.off*40*1,C0[1]+n[1]*this.state.off*40*1]},
+ hpos(i){const a=i==2?this.state.p2:this.state.p3;const o=i==2?C0:this.pt3();return polar(o,175,a)},
+ drag(id,p){const i=id==='h2'?2:3;const o=i==2?C0:this.pt3();let a=mod(deg(Math.atan2(-(p[1]-o[1]),p[0]-o[0])),180);
+   if(i==2&&near(a,90,3))a=90;
+   const key=i==2?'p2':'p3',other=i==2?this.state.p3:this.state.p2;
+   const sep=(x,y)=>{const d=mod(x-y,180);return Math.min(d,180-d)};
+   if(sep(a,0)<8||sep(a,other)<8)return;this.state[key]=a},
+ facts(){const s=this.state,d=this.dirs();const F={mode:s.off===0?'conc':'tri'};
+   if(F.mode==='conc'){const rays=[];d.forEach(x=>{rays.push(mod(x,360));rays.push(mod(x+180,360))});rays.sort((a,b)=>a-b);
+     F.gaps=rays.map((r,i)=>mod(rays[(i+1)%6]-r,360)||360);F.rays=rays;F.count=6;
+     F.dar=F.gaps.filter(g=>g<89.99).length;F.dik=F.gaps.filter(g=>near(g,90,.01)).length;F.gen=F.gaps.filter(g=>g>90.01).length}
+   else{F.count=12;F.dar=0;F.dik=0;F.gen=0;[[0,1],[0,2],[1,2]].forEach(([i,j])=>{const dl=mod(d[i]-d[j],180);
+     if(near(dl,90,.01))F.dik+=4;else{F.dar+=2;F.gen+=2}})}
+   F.fp=F.mode+Math.round(s.p2/5)+'-'+Math.round(s.p3/5)+'-'+s.off;return F},
+ draw(F){
+   const s=this.state;
+   longLine(C0,[1,0],'');
+   const o3=this.pt3(),d2=[Math.cos(rad(s.p2)),-Math.sin(rad(s.p2))],d3=[Math.cos(rad(s.p3)),-Math.sin(rad(s.p3))];
+   longLine(C0,d2,'b');longLine(o3,d3,'ln b');
+   txt(40,205,'d₁','big');
+   if(F.mode==='conc'){pdot(C0,5);
+     F.rays.forEach((r,i)=>{const g=F.gaps[i],mid=r+g/2;
+       el('path',{d:arcPath(C0,24+(i%2?8:0),r,r+g),class:'arc'},G);
+       const lp=polar(C0,g<35?66:g<60?54:46,mid);txt(lp[0],lp[1],f1(g)+'°','w')});
+   }else{
+     const P12=lineLine(C0,[1,0],C0,d2),P13=lineLine(C0,[1,0],o3,d3),P23=lineLine(C0,d2,o3,d3);
+     if(P12&&P13&&P23){el('polygon',{points:[P12,P13,P23].map(p=>p.join(',')).join(' '),class:'shade'},G);[P12,P13,P23].forEach(p=>pdot(p,5))}
+   }
+   const h2=this.hpos(2),h3=this.hpos(3);handle('h2',h2);handle('h3',h3);txt(h2[0]+16,h2[1]-16,'d₂','big');txt(h3[0]+16,h3[1]-16,'d₃','big')},
+ read(F){const r=[['Durum',F.mode==='conc'?'aynı noktada kesişiyor':'ikişer ikişer kesişiyor (üçgen)'],['Açı sayısı',F.count],['Dar',F.dar],['Dik',F.dik],['Geniş',F.gen]];return r},
+ stmts:[
+  {code:'E1',p:'üç doğru aynı noktada kesişiyor',q:'6 açı oluşur',P:f=>f.mode==='conc',Q:f=>f.count===6,
+   rev:{p:'üç doğrunun oluşturduğu açı sayısı 6',q:'doğrular aynı noktada kesişir',P:f=>f.count===6,Q:f=>f.mode==='conc'}},
+  {code:'E2',p:'üç doğru aynı noktada kesişiyor',q:'oluşan 6 açının hepsi dar açıdır',P:f=>f.mode==='conc',Q:f=>f.dar===6},
+  {code:'E3',star:1,p:'üç doğru aynı noktada kesişiyor',q:'oluşan açılardan en az 4 tanesi dar açıdır',P:f=>f.mode==='conc',Q:f=>f.dar>=4,
+   rev:{p:'üç doğrunun oluşturduğu açılardan en az 4 tanesi dar açı',q:'doğrular aynı noktada kesişir',P:f=>f.dar>=4,Q:f=>f.mode==='conc'}},
+  {code:'E4',p:'üç doğru ikişer ikişer kesişiyor ve aynı noktadan geçmiyor',q:'bir üçgen oluşur',P:f=>f.mode==='tri',Q:f=>f.mode==='tri',
+   rev:{p:'üç doğru bir üçgen oluşturuyor',q:'doğrular ikişer ikişer kesişir',P:f=>f.mode==='tri',Q:f=>f.mode==='tri'}}
+ ]});
+
+/* ---- 3. Üçgen */
+const PRESETS3={
+ 'Eşkenar':[[200,330],[360,330],[280,330-160*Math.sqrt(3)/2]],
+ 'Dik ikizkenar':[[200,330],[360,330],[200,170]],
+ 'Dik çeşitkenar (3-4-5)':[[200,330],[360,330],[200,210]],
+ 'Geniş ikizkenar (30°-30°-120°)':[[160,330],[480,330],[320,330-160*Math.tan(rad(30))]],
+ 'Geniş çeşitkenar':[[160,330],[400,330],[240,230]],
+ 'Dar ikizkenar':[[200,330],[360,330],[280,130]],
+ 'Dar çeşitkenar':[[160,330],[440,330],[260,170]]};
+LABS.push({id:'ucgen',title:'Üçgen',
+ lead:'Üçgenin köşelerini sürükle (köşeler yarım cm\'lik ağa oturur). Hazır üçgenlerle özel durumlara hızlıca ulaşabilirsin.',
+ state:{v:[[200,330],[400,330],[260,170]]},
+ reset(){this.state={v:[[200,330],[400,330],[260,170]]}},
+ controls(box){chips(box,Object.keys(PRESETS3).map(k=>[k,()=>{this.state.v=PRESETS3[k].map(p=>p.slice())}]))},
+ drag(id,p){const i=+id.slice(1);const x=Math.min(620,Math.max(20,Math.round(p[0]/20)*20)),y=Math.min(420,Math.max(20,Math.round(p[1]/20)*20));
+   const nv=this.state.v.map(q=>q.slice());nv[i]=[x,y];const a=nv[0],b=nv[1],c=nv[2];
+   if(Math.abs((b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]))<400)return;this.state.v=nv},
+ facts(){const [A,B,C]=this.state.v;const d=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1])/40;
+   const a=d(B,C),b=d(A,C),c=d(A,B);const ang=(P,Q,R)=>{const u=[Q[0]-P[0],Q[1]-P[1]],v=[R[0]-P[0],R[1]-P[1]];return deg(Math.acos((u[0]*v[0]+u[1]*v[1])/(Math.hypot(...u)*Math.hypot(...v))))};
+   const an=[ang(A,B,C),ang(B,A,C),ang(C,A,B)]; // A,B,C açıları
+   const F={s:[a,b,c],a:an,tol:.1};const eq=(x,y)=>Math.abs(x-y)<.1;
+   F.eqp=[eq(b,c),eq(a,c),eq(a,b)]; // A,B,C köşelerine ait eşit kenar çiftleri (karşı kenarlar)
+   F.eqn=F.eqp.filter(Boolean).length; F.equil=eq(a,b)&&eq(b,c); F.isos=F.eqp.some(Boolean); F.scal=!F.isos;
+   F.right=an.map(x=>near(x,90,1));F.nr=F.right.filter(Boolean).length;F.hasRight=F.nr>0;F.obt=an.some(x=>x>91);F.acute=an.every(x=>x<89);
+   F.an=an;F.oppEq=(()=>{ // eşit kenarların karşısındaki açılar eşit mi
+     const pairs=[[b,c,1,2],[a,c,0,2],[a,b,0,1]];return pairs.every(([x,y,i,j])=>!eq(x,y)||near(an[i],an[j],1.5))})();
+   F.eqAnglePair=[[0,1],[0,2],[1,2]].filter(([i,j])=>near(an[i],an[j],1.5));
+   F.fp=this.state.v.flat().join(',');return F},
+ draw(F){
+   const [A,B,C]=this.state.v;
+   el('polygon',{points:[A,B,C].map(p=>p.join(',')).join(' '),class:'shade'},G);
+   [[A,B],[B,C],[C,A]].forEach(([p,q])=>line(p,q,''));
+   // eşit kenar işaretleri
+   const sd=[[B,C],[A,C],[A,B]],ctr=[(A[0]+B[0]+C[0])/3,(A[1]+B[1]+C[1])/3];
+   const grp={};F.s.forEach((s,i)=>{let k=Object.keys(grp).find(k=>Math.abs(k-s)<.1);if(k===undefined){k=s;grp[k]=[]}grp[k].push(i)});
+   let gi=0;Object.values(grp).forEach(ix=>{gi++;if(ix.length>1)ix.forEach(i=>{const [p,q]=sd[i];const m=[(p[0]+q[0])/2,(p[1]+q[1])/2],u=unit(p,q),n=[-u[1],u[0]];
+       for(let k=0;k<(gi);k++){const o=(k-(gi-1)/2)*6;line([m[0]+u[0]*o-n[0]*7,m[1]+u[1]*o-n[1]*7],[m[0]+u[0]*o+n[0]*7,m[1]+u[1]*o+n[1]*7],'')}})});
+   // açılar
+   const V=[A,B,C],Nm='ABC';
+   V.forEach((P,i)=>{const Q=V[(i+1)%3],R=V[(i+2)%3];const a1=deg(Math.atan2(-(Q[1]-P[1]),Q[0]-P[0])),a2=deg(Math.atan2(-(R[1]-P[1]),R[0]-P[0]));
+     let d=mod(a2-a1+180,360)-180;const st=d>0?a1:a2,en=d>0?a2:a1;
+     const ai=F.an[i];
+     if(near(ai,90,1)){rmark(P,unit(P,Q),unit(P,R),14)}else el('path',{d:arcPath(P,24,st,st+Math.abs(d)),class:'arc'},G);
+     const bis=mod(st+Math.abs(d)/2,360);const lp=polar(P,48,bis);
+     txt(lp[0],lp[1],f1(ai)+'°','w');
+     const out=unit(ctr,P);txt(P[0]+out[0]*26,P[1]+out[1]*26,Nm[i],'big')});
+   // kenar uzunlukları
+   sd.forEach(([p,q],i)=>{const m=[(p[0]+q[0])/2,(p[1]+q[1])/2];const out=unit(ctr,m);txt(m[0]+out[0]*20,m[1]+out[1]*20,f1(F.s[i])+' cm','')});
+   V.forEach((p,i)=>handle('v'+i,p))},
+ read(F){const side=F.equil?'eşkenar':F.isos?'ikizkenar':'çeşitkenar';const an=F.hasRight?'dik açılı':F.obt?'geniş açılı':'dar açılı';
+   return[['Açılara göre',an],['Kenarlara göre',side],['m(A)+m(B)+m(C)',f1(F.an.reduce((x,y)=>x+y,0))+'°']]},
+ stmts:[
+  {code:'G3',p:'üçgenin bir iç açısı dik açı',q:'diğer iki iç açısı dar açıdır',P:f=>f.hasRight,Q:f=>f.an.filter(x=>!near(x,90,1)).every(x=>x<90),
+   rev:{p:'üçgenin iki iç açısı dar açı',q:'üçüncü iç açısı dik açıdır',P:f=>f.an.filter(x=>x<89).length>=2,Q:f=>f.hasRight}},
+  {code:'G4',p:'üçgenin bir iç açısı geniş açı',q:'diğer iki iç açısı dar açıdır',P:f=>f.obt,Q:f=>[...f.an].sort((x,y)=>x-y).slice(0,2).every(x=>x<89),
+   rev:{p:'üçgenin iki iç açısı dar açı',q:'üçüncü iç açısı geniş açıdır',P:f=>f.an.filter(x=>x<89).length>=2,Q:f=>f.obt}},
+  {code:'G5',p:'üçgenin bir iç açısı dik açı',q:'diğer iç açılarından biri de dik açı olabilir',P:f=>f.hasRight,Q:f=>f.nr>=2},
+  {code:'G6',p:'üçgen dik açılı',q:'diğer iki iç açısının ölçüleri toplamı 90° dir',P:f=>f.hasRight,Q:f=>f.hasRight,
+   rev:{p:'üçgenin iki iç açısının ölçüleri toplamı 90°',q:'bu üçgen dik açılıdır',P:f=>f.hasRight,Q:f=>f.hasRight}},
+  {code:'G7',p:'üçgen ikizkenar (en az iki kenarı eşit)',q:'eşit kenarların karşısındaki açılar eşittir',P:f=>f.isos,Q:f=>f.oppEq,
+   rev:{p:'üçgenin iki açısı eşit',q:'bu açıların karşısındaki kenarlar eşittir',P:f=>f.eqAnglePair.length>0,Q:f=>f.isos}},
+  {code:'G8',p:'üçgen eşkenar',q:'her bir iç açısı 60° dir',P:f=>f.equil,Q:f=>f.an.every(x=>near(x,60,1.5)),
+   rev:{p:'üçgenin her bir iç açısı 60°',q:'bu üçgen eşkenardır',P:f=>f.an.every(x=>near(x,60,1.5)),Q:f=>f.equil}},
+  {code:'G9',star:1,p:'üçgen eşkenar',q:'bu üçgen aynı zamanda ikizkenardır (en az iki kenarı eşit)',P:f=>f.equil,Q:f=>f.isos,
+   rev:{p:'üçgen ikizkenar',q:'bu üçgen eşkenardır',P:f=>f.isos,Q:f=>f.equil}},
+  {code:'G10',p:'üçgen eşkenar',q:'bu üçgen geniş açılıdır',P:f=>f.equil,Q:f=>f.obt},
+  {code:'G11',p:'üçgen dik açılı',q:'bu üçgen eşkenar değildir',P:f=>f.hasRight,Q:f=>!f.equil,
+   rev:{p:'üçgen eşkenar değil',q:'bu üçgen dik açılıdır',P:f=>!f.equil,Q:f=>f.hasRight}},
+  {code:'G12',p:'üçgen geniş açılı',q:'bu üçgen ikizkenar olamaz',P:f=>f.obt,Q:f=>!f.isos},
+  {code:'G13',star:1,p:'üçgen ikizkenar',q:'eşit kenarların karşısındaki açılar dik ya da geniş olamaz',P:f=>f.isos,Q:f=>oppEqAcute(f),
+   rev:{p:'üçgenin eşit iki açısı dar açı',q:'bu üçgen ikizkenardır',P:f=>f.eqAnglePair.some(([i,j])=>f.an[i]<89),Q:f=>f.isos}},
+  {code:'G15',star:1,p:'üçgenin üç iç açısının ölçüsü de farklı',q:'bu üçgen çeşitkenardır',P:f=>f.eqAnglePair.length===0,Q:f=>f.scal,
+   rev:{p:'üçgen çeşitkenar',q:'üç iç açısının ölçüsü de farklıdır',P:f=>f.scal,Q:f=>f.eqAnglePair.length===0}}
+ ]});
+function oppEqAcute(f){ // eşit kenarların karşısındaki iki açı: eşit kenar çifti (x,y) -> karşıt köşeler; bunlar < 90 mı
+  const opp=[[1,2],[0,2],[0,1]]; // eşit kenar çifti k: köşe k hariç iki kenarın karşısı -> açılar (j,l)
+  // F.eqp[k]: kenarlar b,c eşit (k=0) -> karşıt açılar B ve C (1,2)
+  return f.eqp.every((e,k)=>!e||opp[k].every(i=>f.an[i]<89))}
+
+/* ---- 4. Çemberlerle üçgen */
+LABS.push({id:'cember',title:'Çemberlerle üçgen',
+ lead:'İki çemberin merkezleri <b>O₁</b>, <b>O₂</b> ve kesişim noktalarından biri (<b>A</b>) bir üçgen oluşturur. Yarıçapları ve merkezler arası uzaklığı değiştir.',
+ state:{r1:2.5,r2:2.5,d:2.5},
+ reset(){this.state={r1:2.5,r2:2.5,d:2.5}},
+ controls(box){
+   slider(box,'r1','r₁ (cm)',1,4,0.5,this.state.r1,v=>{this.state.r1=v},null,'cm');
+   slider(box,'r2','r₂ (cm)',1,4,0.5,this.state.r2,v=>{this.state.r2=v},null,'cm');
+   slider(box,'d','|O₁O₂| (cm)',0.5,7,0.5,this.state.d,v=>{this.state.d=v},null,'cm');
+   chips(box,[['Eşkenar',()=>{Object.assign(this.state,{r1:2.5,r2:2.5,d:2.5})}],['İkizkenar',()=>{Object.assign(this.state,{r1:2.5,r2:2.5,d:3})}],['Çeşitkenar',()=>{Object.assign(this.state,{r1:2,r2:2.5,d:3.5})}],['r₁ ≠ r₂ ama ikizkenar',()=>{Object.assign(this.state,{r1:1.5,r2:2.5,d:1.5})}],['Kesişmeyen çemberler',()=>{Object.assign(this.state,{r1:1,r2:1.5,d:4})}]])},
+ drag(){},
+ facts(){const {r1,r2,d}=this.state;const F={r1,r2,d};F.tri=Math.abs(r1-r2)<d&&d<r1+r2;F.far=d>r1+r2;F.nested=d<Math.abs(r1-r2);
+   const eq=(a,b)=>Math.abs(a-b)<1e-9;F.eq12=eq(r1,r2);F.eq1d=eq(r1,d);F.eq2d=eq(r2,d);
+   F.equil=F.tri&&F.eq12&&F.eq1d;F.isos=F.tri&&(F.eq12||F.eq1d||F.eq2d);F.scal=F.tri&&!F.isos;F.nokes=!F.tri;
+   F.fp=[r1,r2,d].join('|');return F},
+ draw(F){
+   const {r1,r2,d}=F,O1=[320-d*20,230],O2=[320+d*20,230];
+   el('circle',{cx:O1[0],cy:O1[1],r:r1*40,class:'circ'},G);el('circle',{cx:O2[0],cy:O2[1],r:r2*40,class:'circ r'},G);
+   if(F.tri){const x=(d*d+r1*r1-r2*r2)/(2*d),y=Math.sqrt(r1*r1-x*x),A=[O1[0]+x*40,O1[1]-y*40],A2=[A[0],O1[1]+y*40];
+     el('polygon',{points:[O1,O2,A].map(p=>p.join(',')).join(' '),class:'shade'},G);
+     line(O1,O2,'');line(O1,A,'b');line(O2,A,'hot');pdot(A,5);txt(A[0],A[1]-18,'A','big');
+     const m12=[(O1[0]+O2[0])/2,(O1[1]+O2[1])/2];txt(m12[0],m12[1]+16,f1(d)+' cm','');
+     txt((O1[0]+A[0])/2-16,(O1[1]+A[1])/2-8,f1(r1),'');txt((O2[0]+A[0])/2+16,(O2[1]+A[1])/2-8,f1(r2),'')}
+   else{line(O1,O2,'dash');txt(320,436-12,F.far?'Çemberler birbirine ulaşmıyor: kesişmiyor':'Küçük çember büyüğün içinde kalıyor: kesişmiyor','big')}
+   pdot(O1,5);pdot(O2,5);txt(O1[0],O1[1]+18,'O₁','big');txt(O2[0],O2[1]+18,'O₂','big')},
+ read(F){if(!F.tri)return[['Çemberler','kesişmiyor'],['|O₁O₂|',f1(F.d)+' cm'],['Üçgen','oluşmaz']];
+   return[['Kenarlar',`${f1(F.r1)}, ${f1(F.r2)}, ${f1(F.d)} cm`],['Kenarlara göre',F.equil?'eşkenar':F.isos?'ikizkenar':'çeşitkenar']]},
+ stmts:[
+  {code:'H1',p:'iki çemberin yarıçapları eşit',q:'oluşan üçgen ikizkenardır',P:f=>f.tri&&f.eq12,Q:f=>f.isos,
+   rev:{p:'oluşan üçgen ikizkenar',q:'iki çemberin yarıçapları eşittir',P:f=>f.isos,Q:f=>f.eq12}},
+  {code:'H2',p:'iki yarıçap ve merkezler arası uzaklık eşit',q:'oluşan üçgen eşkenardır',P:f=>f.tri&&f.eq12&&f.eq1d,Q:f=>f.equil,
+   rev:{p:'oluşan üçgen eşkenar',q:'iki yarıçap ve merkezler arası uzaklık eşittir',P:f=>f.equil,Q:f=>f.tri&&f.eq12&&f.eq1d}},
+  {code:'H3',p:'iki yarıçap ve merkezler arası uzaklık birbirinden farklı',q:'oluşan üçgen çeşitkenardır',P:f=>f.tri&&f.scal,Q:f=>f.scal,
+   rev:{p:'oluşan üçgen çeşitkenar',q:'iki çemberin yarıçapları farklıdır',P:f=>f.scal,Q:f=>!f.eq12}},
+  {code:'H4',p:'iki çemberin yarıçapları eşit',q:'oluşan üçgen eşkenardır',P:f=>f.tri&&f.eq12,Q:f=>f.equil},
+  {code:'H5',p:'iki çemberin yarıçapları eşit',q:'oluşan üçgen çeşitkenardır',P:f=>f.tri&&f.eq12,Q:f=>f.scal},
+  {code:'H7',star:1,p:'merkezler arası uzaklık yarıçaplar toplamından büyük',q:'çemberler kesişmez, üçgen oluşmaz',P:f=>f.far,Q:f=>f.nokes,
+   rev:{p:'iki çember kesişmiyor',q:'merkezler arası uzaklık yarıçaplar toplamından büyüktür',P:f=>f.nokes,Q:f=>f.far}}
+ ]});
+
+/* ---- 5. Dörtgenler */
+LABS.push({id:'dortgen',title:'Dörtgenler',
+ lead:'Bir paralelkenarın kenarlarını ve açısını ayarla: kare, dikdörtgen ya da eşkenar dörtgen oluşturabilir misin? Düzgün dörtgen = bütün kenarları ve bütün açıları eşit olan dörtgen.',
+ state:{a:4,b:2.5,t:70},
+ reset(){this.state={a:4,b:2.5,t:70}},
+ controls(box){
+   slider(box,'a','Alt kenar a (cm)',1,5,0.5,this.state.a,v=>{this.state.a=v},null,'cm');
+   slider(box,'b','Yan kenar b (cm)',1,5,0.5,this.state.b,v=>{this.state.b=v},null,'cm');
+   slider(box,'t','Açı (derece)',30,150,5,this.state.t,v=>{this.state.t=v},null,'°');
+   chips(box,[['Kare',()=>{Object.assign(this.state,{a:3,b:3,t:90})}],['Dikdörtgen 3×5',()=>{Object.assign(this.state,{a:5,b:3,t:90})}],['Eşkenar dörtgen',()=>{Object.assign(this.state,{a:3,b:3,t:60})}],['Paralelkenar',()=>{Object.assign(this.state,{a:4,b:2.5,t:70})}]])},
+ drag(){},
+ facts(){const {a,b,t}=this.state;const F={a,b,t};F.sideEq=a===b;F.angEq=t===90;F.reg=F.sideEq&&F.angEq;F.rect=F.angEq;F.rhomb=F.sideEq;
+   const c=Math.cos(rad(t));F.d1=Math.sqrt(a*a+b*b-2*a*b*c);F.d2=Math.sqrt(a*a+b*b+2*a*b*c);F.diagEq=Math.abs(F.d1-F.d2)<1e-9;
+   F.name=F.reg?'kare':F.rect?'dikdörtgen':F.rhomb?'eşkenar dörtgen':'paralelkenar';F.fp=[a,b,t].join('|');return F},
+ draw(F){
+   const {a,b,t}=F,x0=Math.max(70,320-(a*40+b*40*Math.cos(rad(t)))/2),y0=330;
+   const A=[x0,y0],B=[x0+a*40,y0],D=[x0+b*40*Math.cos(rad(t)),y0-b*40*Math.sin(rad(t))],C=[B[0]+(D[0]-A[0]),B[1]+(D[1]-A[1])];
+   el('polygon',{points:[A,B,C,D].map(p=>p.join(',')).join(' '),class:'shade'},G);
+   [[A,B],[B,C],[C,D],[D,A]].forEach(([p,q])=>line(p,q,''));
+   line(A,C,'dash');line(B,D,'dash');
+   const tk=(p,q,n)=>{const m=[(p[0]+q[0])/2,(p[1]+q[1])/2],u=unit(p,q),nn=[-u[1],u[0]];for(let k=0;k<n;k++){const o=(k-(n-1)/2)*6;line([m[0]+u[0]*o-nn[0]*7,m[1]+u[1]*o-nn[1]*7],[m[0]+u[0]*o+nn[0]*7,m[1]+u[1]*o+nn[1]*7],'')}};
+   tk(A,B,1);tk(C,D,1);tk(B,C,F.sideEq?1:2);tk(D,A,F.sideEq?1:2);
+   const V=[A,B,C,D];
+   const angs=[t,180-t,t,180-t];
+   V.forEach((P,i)=>{const Q=V[(i+1)%4],R=V[(i+3)%4];const a1=deg(Math.atan2(-(Q[1]-P[1]),Q[0]-P[0])),a2=deg(Math.atan2(-(R[1]-P[1]),R[0]-P[0]));
+     let d=mod(a2-a1+180,360)-180;const st=d>0?a1:a2;
+     if(angs[i]===90)rmark(P,unit(P,Q),unit(P,R),13);else el('path',{d:arcPath(P,22,st,st+Math.abs(d)),class:'arc'},G);
+     const cen=[(A[0]+B[0]+C[0]+D[0])/4,(A[1]+B[1]+C[1]+D[1])/4];const u=unit(P,cen);txt(P[0]+u[0]*42,P[1]+u[1]*42,angs[i]+'°','w')});
+   const cn=[(A[0]+B[0]+C[0]+D[0])/4,(A[1]+B[1]+C[1]+D[1])/4];txt(cn[0],cn[1]-4,F.name,'big');
+   txt((A[0]+B[0])/2,A[1]+22,f1(a)+' cm','');const m=[(B[0]+C[0])/2,(B[1]+C[1])/2];txt(m[0]+30,m[1],f1(b)+' cm','')},
+ read(F){return[['Şekil',F.name],['Kenarlar',F.sideEq?'hepsi eşit':'eşit değil'],['Açılar',F.angEq?'hepsi eşit (90°)':'eşit değil'],['Köşegenler',f1(F.d1)+' cm ve '+f1(F.d2)+' cm'],['Düzgün dörtgen mi?',F.reg?'evet':'hayır']]},
+ stmts:[
+  {code:'F4',p:'bir dörtgen düzgün dörtgen',q:'bütün kenarları eşit uzunluktadır',P:f=>f.reg,Q:f=>f.sideEq,
+   rev:{p:'bir dörtgenin bütün kenarları eşit uzunlukta',q:'bu dörtgen düzgün dörtgendir',P:f=>f.sideEq,Q:f=>f.reg}},
+  {code:'F5',p:'bir dörtgen düzgün dörtgen',q:'bütün iç açıları eşittir',P:f=>f.reg,Q:f=>f.angEq,
+   rev:{p:'bir dörtgenin bütün iç açıları eşit',q:'bu dörtgen düzgün dörtgendir',P:f=>f.angEq,Q:f=>f.reg}},
+  {code:'F7',p:'bir dörtgen dikdörtgen',q:'bu dörtgen düzgün dörtgendir',P:f=>f.rect,Q:f=>f.reg},
+  {code:'F8',p:'bir dörtgen eşkenar dörtgen',q:'bu dörtgen düzgün dörtgendir',P:f=>f.rhomb,Q:f=>f.reg},
+  {code:'F13',star:1,p:'bir dörtgenin köşegenleri eşit uzunlukta',q:'bu dörtgen karedir',P:f=>f.diagEq,Q:f=>f.reg}
+ ]});
+
+/* ---- 6. Köşegenler */
+LABS.push({id:'kosegen',title:'Köşegenler',
+ lead:'Kenar sayısını değiştir. Bir köşeden çizilen köşegenler kırmızı, diğerleri çizgili gösterilir.',
+ state:{n:6,all:true},
+ reset(){this.state={n:6,all:true}},
+ controls(box){slider(box,'n','Kenar sayısı n',3,12,1,this.state.n,v=>{this.state.n=v},null,'');
+   const b=document.createElement('button');b.className='btn ghost';b.type='button';b.id='alldiag';b.setAttribute('aria-pressed',this.state.all);b.textContent='Tüm köşegenleri göster';
+   b.onclick=()=>{this.state.all=!this.state.all;b.setAttribute('aria-pressed',this.state.all);update(true)};box.appendChild(b)},
+ drag(){},
+ facts(){const n=this.state.n;return{n,one:n-3,total:n*(n-3)/2,fp:'n'+n}},
+ draw(F){
+   const n=F.n,R=165,V=Array.from({length:n},(_,i)=>polar(C0,R,90+i*360/n));
+   el('polygon',{points:V.map(p=>p.join(',')).join(' '),class:'shade'},G);
+   if(this.state.all)for(let i=0;i<n;i++)for(let j=i+2;j<n;j++){if(i===0&&j===n-1)continue;if(i===0)continue;line(V[i],V[j],'dash')}
+   for(let j=2;j<=n-2;j++)line(V[0],V[j],'hot');
+   V.forEach((p,i)=>line(p,V[(i+1)%n],''));V.forEach((p,i)=>{pdot(p,5);const u=unit(C0,p);txt(p[0]+u[0]*20,p[1]+u[1]*20,'ABCDEFGHIJKL'[i],'big')});
+   txt(C0[0],C0[1],{3:'üçgen',4:'dörtgen',5:'beşgen',6:'altıgen',7:'yedigen',8:'sekizgen',9:'dokuzgen',10:'ongen',11:'on birgen',12:'on ikigen'}[n],'big')},
+ read(F){return[['Kenar sayısı n',F.n],['A köşesinden köşegen',F.one],['Toplam köşegen',F.total],['Düzgün çokgenin iç açısı',f1((F.n-2)*180/F.n)+'°']]},
+ stmts:[
+  {code:'F10',p:'bir çokgen üçgen',q:'bu çokgenin köşegeni yoktur',P:f=>f.n===3,Q:f=>f.total===0,
+   rev:{p:'bir çokgenin köşegeni yok',q:'bu çokgen üçgendir',P:f=>f.total===0,Q:f=>f.n===3}},
+  {code:'F11',p:'bir çokgen dörtgen',q:'bu çokgenin 2 köşegeni vardır',P:f=>f.n===4,Q:f=>f.total===2,
+   rev:{p:'bir çokgenin 2 köşegeni var',q:'bu çokgen dörtgendir',P:f=>f.total===2,Q:f=>f.n===4}},
+  {code:'F12',star:1,p:'bir çokgenin kenar sayısı n',q:'bir köşesinden çizilebilen köşegen sayısı n − 3 tür',P:f=>true,Q:f=>f.one===f.n-3,
+   rev:{p:'bir çokgenin bir köşesinden n − 3 köşegen çizilebiliyor',q:'bu çokgenin n kenarı vardır',P:f=>true,Q:f=>f.one===f.n-3}}
+ ]});
+
+/* ---- 0. Nokta ve doğru (A) */
+const snap20=v=>Math.round(v/20)*20, clampPx=(p)=>[Math.min(620,Math.max(20,p[0])),Math.min(420,Math.max(20,p[1]))];
+const tr=(P,Q,A)=>unit(P,Q);
+LABS.push({id:'nokta',title:'Nokta ve doğru',
+ lead:'<b>A</b>, <b>B</b> ve <b>C</b> noktalarını sürükle. Doğru, ışın ve doğru parçasını dene; "A dan C ye de çiz" ile aynı noktadan ikinci bir çizgi çizebilirsin.',
+ state:{A:[160,260],B:[400,180],C:[480,320],kind:'dogru',ac:false},
+ reset(){this.state={A:[160,260],B:[400,180],C:[480,320],kind:'dogru',ac:false}},
+ controls(box){chips(box,[
+   ['Doğru AB',()=>{this.state.kind='dogru'}],['Işın AB',()=>{this.state.kind='isin'}],['Doğru parçası AB',()=>{this.state.kind='parca'}],['Yay (eğri) AB',()=>{this.state.kind='yay'}],
+   ['A dan C ye de çiz (aç / kapat)',()=>{this.state.ac=!this.state.ac}],
+   ['C yi A ile B arasına koy',()=>{const s=this.state;s.C=[(s.A[0]+s.B[0])/2,(s.A[1]+s.B[1])/2]}]])},
+ drag(id,p){const s=this.state;let q=clampPx([snap20(p[0]),snap20(p[1])]);
+   const others=['A','B','C'].filter(k=>k!==id);if(others.some(k=>Math.hypot(s[k][0]-q[0],s[k][1]-q[1])<1))return;s[id]=q},
+ facts(){const s=this.state,A=s.A,B=s.B,C=s.C;
+   const cr=(B[0]-A[0])*(C[1]-A[1])-(B[1]-A[1])*(C[0]-A[0]);
+   const F={kind:s.kind,ac:s.ac,col:Math.abs(cr)<1e-6,len:Math.hypot(B[0]-A[0],B[1]-A[1])/40};
+   F.opp=F.col&&((B[0]-A[0])*(C[0]-A[0])+(B[1]-A[1])*(C[1]-A[1]))<0;
+   F.fp=[s.kind,s.ac,A,B,C].join('|');return F},
+ draw(F){const s=this.state,A=s.A,B=s.B,C=s.C;
+   const fig=(P,Q,cls)=>{const u=unit(P,Q);
+     if(s.kind==='dogru')longLine(P,u,cls);
+     else if(s.kind==='isin')line(P,[P[0]+u[0]*900,P[1]+u[1]*900],cls);
+     else if(s.kind==='parca')line(P,Q,cls);
+     else{const r=Math.hypot(Q[0]-P[0],Q[1]-P[1])/2;el('path',{d:`M${P[0]} ${P[1]} A${r} ${r} 0 0 1 ${Q[0]} ${Q[1]}`,class:'ln '+cls},G)}};
+   if(s.ac)fig(A,C,'hot');
+   if(s.kind==='dogru'&&F.col&&!s.ac){const u=unit(A,B);line(C,[C[0]+u[0]*900,C[1]+u[1]*900],'b');line(C,[C[0]-u[0]*900,C[1]-u[1]*900],'hot')}
+   else fig(A,B,'b');
+   [['A',A],['B',B],['C',C]].forEach(([n,p])=>{pdot(p,5);txt(p[0],p[1]-20,n,'big');handle(n,p)});
+   if(s.kind==='parca'){const m=[(A[0]+B[0])/2,(A[1]+B[1])/2];txt(m[0],m[1]+20,f1(F.len)+' cm','')}
+   if(F.col)txt(320,426,'A, B ve C aynı doğru üzerinde','big')},
+ read(F){const name={dogru:'doğru',isin:'ışın',parca:'doğru parçası',yay:'yay (doğru parçası değil)'}[F.kind];
+   return[['Şekil',name],['Uç noktası',{dogru:'yok',isin:'1 (A)',parca:'2 (A ve B)',yay:'2 (A ve B)'}[F.kind]],
+     ['Uzunluk',F.kind==='parca'?f1(F.len)+' cm':F.kind==='yay'?'doğru değil':'ölçülemez (uzar gider)'],['A, B, C aynı doğru üzerinde',F.col?'evet':'hayır']]},
+ stmts:[
+  {code:'A1',p:'A ve B farklı iki nokta',q:'A ile B den geçen yalnız bir doğru çizilebilir',P:f=>true,Q:f=>true,
+   rev:{p:'bir doğru çizilmiş',q:'bu doğrunun üzerinde yalnız iki nokta vardır',P:f=>f.kind==='dogru',Q:f=>false}},
+  {code:'A2',p:'bir A noktası verilmiş',q:'A dan geçen yalnız bir doğru çizilebilir',P:f=>true,Q:f=>!f.ac||f.col},
+  {code:'A3',p:'bir şekil doğru',q:'uzunluğu ölçülebilir',P:f=>f.kind==='dogru',Q:f=>f.kind==='parca'},
+  {code:'A4',p:'bir şekil doğru parçası',q:'iki uç noktası vardır',P:f=>f.kind==='parca',Q:f=>f.kind==='parca',
+   rev:{p:'bir şeklin iki uç noktası var',q:'bu şekil doğru parçasıdır',P:f=>f.kind==='parca'||f.kind==='yay',Q:f=>f.kind==='parca'}},
+  {code:'A5',p:'A, B ve C aynı doğru üzerinde',q:'A, B ve C den geçen bir doğru çizilebilir',P:f=>f.col,Q:f=>f.col,
+   rev:{p:'A, B ve C den geçen bir doğru çizilebiliyor',q:'bu üç nokta aynı doğru üzerindedir',P:f=>f.col,Q:f=>f.col}},
+  {code:'A6',p:'bir doğru üzerinde bir C noktası alınmış',q:'C noktası doğruyu iki ışına ayırır',P:f=>f.kind==='dogru'&&f.col,Q:f=>f.kind==='dogru'&&f.col,
+   rev:{p:'başlangıç noktaları ortak iki ışın var',q:'bu iki ışın bir doğru oluşturur',P:f=>f.kind==='isin'&&f.ac,Q:f=>f.col&&f.opp}}
+ ]});
+
+/* ---- 0b. Çember (B) */
+LABS.push({id:'cemb',title:'Çember',
+ lead:'<b>O</b> merkezli çemberin yarıçapını kaydırıcıyla değiştir. <b>P</b> noktasını çembere yaklaştır (çembere yapışır). İkinci çemberin merkezini de sürükleyebilirsin.',
+ O1:[200,220],
+ state:{r1:2.5,r2:1.5,O2:[460,220],P:[340,120]},
+ reset(){this.state={r1:2.5,r2:1.5,O2:[460,220],P:[340,120]}},
+ controls(box){
+   slider(box,'r1','1. çemberin yarıçapı',0.5,5,0.5,this.state.r1,v=>{this.state.r1=v},null,'cm');
+   slider(box,'r2','2. çemberin yarıçapı',0.5,4,0.5,this.state.r2,v=>{this.state.r2=v},null,'cm');
+   chips(box,[['P yi çembere koy',()=>{const s=this.state;s.P=[this.O1[0]+s.r1*40*Math.cos(rad(45)),this.O1[1]-s.r1*40*Math.sin(rad(45))]}],
+     ['2. çember: aynı yarıçap, başka merkez',()=>{this.state.r2=Math.min(4,this.state.r1);this.state.O2=[460,220]}],
+     ['İki çemberi üst üste getir',()=>{this.state.r2=Math.min(4,this.state.r1);this.state.r1=this.state.r2;this.state.O2=[...this.O1]}]])},
+ drag(id,p){const s=this.state;
+   if(id==='P'){const O=this.O1,R=s.r1*40,d=Math.hypot(p[0]-O[0],p[1]-O[1]);
+     let q;if(Math.abs(d-R)<16&&d>0)q=[O[0]+(p[0]-O[0])*R/d,O[1]+(p[1]-O[1])*R/d];else q=[snap20(p[0]),snap20(p[1])];
+     s.P=clampPx(q)}
+   else if(id==='O2'){s.O2=clampPx([snap20(p[0]),snap20(p[1])])}},
+ facts(){const s=this.state,O=this.O1;const d1=Math.hypot(s.P[0]-O[0],s.P[1]-O[1])/40;
+   const F={r1:s.r1,r2:s.r2,d1};F.onC=Math.abs(d1-s.r1)<0.02;F.eqr=s.r1===s.r2;F.coin=F.eqr&&Math.hypot(s.O2[0]-O[0],s.O2[1]-O[1])<1;
+   F.fp=[s.r1,s.r2,s.P,s.O2].join('|');return F},
+ draw(F){const s=this.state,O=this.O1,O2=s.O2;
+   el('circle',{cx:O[0],cy:O[1],r:s.r1*40,class:'circ'},G);el('circle',{cx:O2[0],cy:O2[1],r:s.r2*40,class:'circ r'},G);
+   line(O,s.P,F.onC?'b':'dash');
+   const m=[(O[0]+s.P[0])/2,(O[1]+s.P[1])/2];txt(m[0],m[1]-14,'|OP| = '+f1(F.d1)+' cm','');
+   pdot(O,5);txt(O[0],O[1]+26,'O','big');pdot(O2,5);txt(O2[0],O2[1]+28,'O′','big');handle('O2',O2);
+   pdot(s.P,5);txt(s.P[0]+14,s.P[1]-14,'P','big');handle('P',s.P)},
+ read(F){return[['1. çember: yarıçap / çap',f1(F.r1)+' cm / '+f1(2*F.r1)+' cm'],['2. çember: yarıçap / çap',f1(F.r2)+' cm / '+f1(2*F.r2)+' cm'],
+   ['P noktası',F.onC?'çemberin üzerinde':F.d1<F.r1?'çemberin içinde':'çemberin dışında'],['Çemberler',F.coin?'çakışık':'çakışık değil']]},
+ stmts:[
+  {code:'B1',p:'P noktası O merkezli çemberin üzerinde',q:'|OP| yarıçapa eşittir',P:f=>f.onC,Q:f=>f.onC,
+   rev:{p:'|OP| yarıçapa eşit',q:'P noktası çemberin üzerindedir',P:f=>f.onC,Q:f=>f.onC}},
+  {code:'B2',p:'bir çemberin yarıçapı 5 cm',q:'çapı 10 cm dir',P:f=>f.r1===5,Q:f=>2*f.r1===10,
+   rev:{p:'bir çemberin çapı 10 cm',q:'yarıçapı 5 cm dir',P:f=>2*f.r1===10,Q:f=>f.r1===5}},
+  {code:'B3',p:'bir çemberin çapı 8 cm',q:'yarıçapı 16 cm dir',P:f=>2*f.r1===8,Q:f=>f.r1===16},
+  {code:'B4',p:'iki çemberin yarıçapları eşit',q:'bu çemberler çakışıktır',P:f=>f.eqr,Q:f=>f.coin},
+  {code:'B5',p:'iki çemberin çapları eşit',q:'yarıçapları da eşittir',P:f=>f.eqr,Q:f=>f.eqr,
+   rev:{p:'iki çemberin yarıçapları eşit',q:'çapları da eşittir',P:f=>f.eqr,Q:f=>f.eqr}},
+  {code:'B6',p:'bir nokta çemberin üzerinde',q:'bu noktanın merkeze uzaklığı yarıçaptan küçüktür',P:f=>f.onC,Q:f=>f.d1<f.r1-0.02}
+ ]});
+
+/* ---- 0c. Açılar (C) */
+LABS.push({id:'aci',title:'Açılar',
+ lead:'<b>1. açının</b> ucundaki mavi noktayı sürükle, <b>2. açıyı</b> kaydırıcıyla ayarla. Açı türleri, tümler ve bütünler açılar burada.',
+ V1:[185,340],V2:[495,340],
+ state:{th:50,ph:40,ext:false},
+ reset(){this.state={th:50,ph:40,ext:false}},
+ controls(box){
+   chips(box,[['Dar açı',()=>{this.state.th=40}],['Dik açı',()=>{this.state.th=90}],['Geniş açı',()=>{this.state.th=130}],['Doğru açı',()=>{this.state.th=180}],['Kolları uzat / kısalt',()=>{this.state.ext=!this.state.ext}]]);
+   chips(box,[['2. açıyı 1. açının tümleri yap',()=>{const s=this.state;if(s.th>85)s.th=45;s.ph=90-s.th}],['2. açıyı 1. açının bütünleri yap',()=>{const s=this.state;s.ph=Math.max(5,Math.min(175,180-s.th))}]]);
+   slider(box,'ph','2. açı',5,175,5,this.state.ph,v=>{this.state.ph=v},null,'°')},
+ L(){return this.state.ext?160:130},Lb(){return this.state.ext?125:100},
+ drag(id,p){const V=this.V1;let a=deg(Math.atan2(-(p[1]-V[1]),p[0]-V[0]));if(a<0)a=a<-90?180:0;
+   a=Math.round(a/5)*5;if(near(a,90,4))a=90;a=Math.max(5,Math.min(180,a));this.state.th=a},
+ facts(){const {th,ph,ext}=this.state;const F={th,ph,ext,sum:th+ph};
+   F.dar=th<90;F.dik=th===90;F.genis=th>90&&th<180;F.dogru=th===180;F.tumler=th+ph===90;F.butun=th+ph===180;F.fp=[th,ph,ext].join('|');return F},
+ draw(F){const {th,ph}=this.state,V=this.V1,W=this.V2,L=this.L(),Lb=this.Lb();
+   line(V,[V[0]+L,V[1]],'');line(V,polar(V,L,th),'b');
+   if(th===90)rmark(V,[1,0],[0,-1],16);else el('path',{d:arcPath(V,34,0,th),class:'arc'},G);
+   if(th<90){el('line',{x1:V[0],y1:V[1],x2:V[0],y2:V[1]-L,class:'ln dash'},G);el('path',{d:arcPath(V,50,th,90),class:'arc bad','stroke-dasharray':'4 3'},G);
+     const tp=polar(V,70,(th+90)/2);txt(tp[0],tp[1],(90-th)+'°','w')}
+   pdot(V,5);handle('h',polar(V,L,th));txt(V[0],V[1]+32,'1. açı = '+th+'°','big');
+   line(W,[W[0]+Lb,W[1]],'');line(W,polar(W,Lb,ph),'hot');
+   if(ph===90)rmark(W,[1,0],[0,-1],14);else el('path',{d:arcPath(W,26,0,ph),class:'arc'},G);
+   pdot(W,5);txt(W[0],W[1]+32,'2. açı = '+ph+'°','big');
+   if(th<90)txt(V[0]+8,V[1]+60,'kesikli: tümler = '+(90-th)+'°','')},
+ read(F){const kind=a=>a<90?'dar':a===90?'dik':a<180?'geniş':'doğru açı';
+   return[['1. açı',F.th+'° ('+kind(F.th)+')'],['2. açı',F.ph+'° ('+kind(F.ph)+')'],['Toplam',F.sum+'°'+(F.tumler?'  → tümler':F.butun?'  → bütünler':'')]]},
+ stmts:[
+  {code:'C1',p:'bir açının kolları uzatılıyor',q:'açının ölçüsü büyür',P:f=>f.ext,Q:f=>false},
+  {code:'C2',p:'bir açının ölçüsü 90° den büyük',q:'bu açı geniş açıdır',P:f=>f.th>90,Q:f=>f.genis},
+  {code:'C3',p:'bir açı dar açı',q:'tümler açısı da dar açıdır',P:f=>f.dar,Q:f=>f.dar,
+   rev:{p:'bir açının tümler açısı dar açı',q:'bu açı da dar açıdır',P:f=>f.dar,Q:f=>f.dar}},
+  {code:'C4',p:'bir açı geniş açı',q:'bu açının tümler açısı yoktur',P:f=>f.genis,Q:f=>f.th>=90,
+   rev:{p:'bir açının tümler açısı yok',q:'bu açı geniş açıdır',P:f=>f.th>=90,Q:f=>f.genis}},
+  {code:'C5',p:'iki açı tümler',q:'ikisi de dar açıdır',P:f=>f.tumler,Q:f=>f.th<90&&f.ph<90,
+   rev:{p:'iki açı da dar açı',q:'bu açılar tümlerdir',P:f=>f.th<90&&f.ph<90,Q:f=>f.tumler}},
+  {code:'C6',p:'iki açı bütünler',q:'biri dar açı, diğeri geniş açıdır',P:f=>f.butun,Q:f=>(f.th<90&&f.ph>90)||(f.th>90&&f.ph<90)},
+  {code:'C7',p:'iki açı bütünler',q:'ikisi birden dar açı olamaz',P:f=>f.butun,Q:f=>!(f.th<90&&f.ph<90),
+   rev:{p:'iki açı birden dar açı olamıyor',q:'bu açılar bütünlerdir',P:f=>!(f.th<90&&f.ph<90),Q:f=>f.butun}},
+  {code:'C8',p:'bir açının ölçüsü 65°',q:'bütünler açısı 115° dir',P:f=>f.th===65,Q:f=>180-f.th===115,
+   rev:{p:'bir açının bütünler açısı 115°',q:'açının ölçüsü 65° dir',P:f=>180-f.th===115,Q:f=>f.th===65}}
+ ]});
+
+const ORDER=['nokta','cemb','aci','iki','uc','dortgen','kosegen','ucgen','cember'];
+LABS.sort((a,b)=>ORDER.indexOf(a.id)-ORDER.indexOf(b.id));
+
+/* ================================================== UI KURULUMU */
+const state={lab:0,sel:0,rev:false,progress:{},hard:false};
+try{state.hard=localStorage.getItem('ifade-atolyesi-hard')==='1'}catch(e){}
+const store={get(){try{return JSON.parse(localStorage.getItem('ifade-atolyesi-v1')||'{}')}catch(e){return{}}},set(o){try{localStorage.setItem('ifade-atolyesi-v1',JSON.stringify(o))}catch(e){}}};
+state.progress=store.get();
+const key=(code,rev)=>code+(rev?'r':'f');
+const prog=(code,rev)=>state.progress[key(code,rev)]||(state.progress[key(code,rev)]={guess:null,tries:0,found:false,read:false});
+function save(){store.set(state.progress)}
+const tabsEl=document.getElementById('tabs'),leadEl=document.getElementById('lead'),ctrlEl=document.getElementById('controls'),readEl=document.getElementById('read'),listEl=document.getElementById('list'),detEl=document.getElementById('detail');
+
+function slider(box,id,label,min,max,step,val,set,disabledFn,unit){
+  const w=document.createElement('div');w.className='ctl';
+  const l=document.createElement('label');l.htmlFor='sl-'+id;const o=document.createElement('output');o.id='out-'+id;
+  const fmt=v=>unit==='°'?v+'°':unit==='cm'?f1(+v)+' cm':v;o.textContent=fmt(val);l.append(label,o);
+  const i=document.createElement('input');i.type='range';i.id='sl-'+id;i.min=min;i.max=max;i.step=step;i.value=val;
+  i.addEventListener('input',()=>{set(+i.value);o.textContent=fmt(+i.value);update(false)});
+  i.addEventListener('change',()=>update(true));
+  w.append(l,i);box.appendChild(w);
+  w._sync=()=>{const lab=LABS[state.lab];const v=lab.state[id];if(v!==undefined){i.value=v;o.textContent=fmt(v)}i.disabled=disabledFn?disabledFn():false};
+  (box._syncs=box._syncs||[]).push(w._sync);}
+function chips(box,items){const w=document.createElement('div');w.className='chips';items.forEach(([t,fn])=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=t;b.onclick=()=>{fn();update(true)};w.appendChild(b)});box.appendChild(w)}
+
+function setLab(i){state.lab=i;state.sel=0;state.rev=false;
+  [...tabsEl.children].forEach((b,k)=>b.setAttribute('aria-selected',k===i));
+  const lab=LABS[i];lab.reset();leadEl.innerHTML=lab.lead;
+  ctrlEl.innerHTML='';ctrlEl._syncs=[];lab.controls(ctrlEl);
+  buildList();update(false)}
+LABS.forEach((l,i)=>{const b=document.createElement('button');b.className='tab';b.role='tab';b.type='button';b.textContent=(i+1)+' · '+l.title;b.onclick=()=>setLab(i);tabsEl.appendChild(b)});
+
+function stText(s,rev){const r=rev&&s.rev?s.rev:rev?{p:s.q,q:s.p}:s;return{p:r.p,q:r.q}}
+const cap=s=>s.charAt(0).toLocaleUpperCase('tr')+s.slice(1);
+function buildList(){
+  listEl.innerHTML='';const lab=LABS[state.lab];
+  visStmts(lab).forEach((s,i)=>{const li=document.createElement('li');const b=document.createElement('button');b.type='button';b.className='item';b.id='item-'+i;
+    b.innerHTML=`<span class="st" id="st-${i}"></span><span><small>${s.code}${s.star?' ★':''}</small>${cap(s.p)} ise ${s.q}.</span>`;
+    b.onclick=()=>{state.sel=i;state.rev=false;buildList();update(false)};
+    if(i===state.sel)b.setAttribute('aria-current','true');li.appendChild(b);listEl.appendChild(li)});
+  refreshDots()}
+function status(code,rev){const p=state.progress[key(code,rev)];if(!p)return'';if(p.read)return'read';if(p.found)return'found';if(p.tries>0||p.guess)return'try';return''}
+function refreshDots(){const lab=LABS[state.lab];visStmts(lab).forEach((s,i)=>{const e=document.getElementById('st-'+i);if(!e)return;
+  const a=status(s.code,false),b=DATA[s.code].ctype==='ters'?status(s.code,true):'';const best=[a,b].includes('read')?'read':[a,b].includes('found')?'found':[a,b].includes('try')?'try':'';e.className='st '+best})}
+function scoreboard(){let y=0,found=0,read=0;LABS.forEach(l=>visStmts(l).forEach(s=>{const d=DATA[s.code];
+  [false,true].forEach(rev=>{if(rev&&d.ctype!=='ters')return;const t=rev?d.ct:d.t;if(t==='Y'){y++;if(state.progress[key(s.code,rev)]?.found)found++}
+    if(state.progress[key(s.code,rev)]?.read)read++})}));
+  document.getElementById('sc-found').textContent=found;document.getElementById('sc-y').textContent=y;document.getElementById('sc-read').textContent=read}
+
+const visStmts=lab=>lab.stmts.filter(s=>state.hard||!s.star);
+const seen={};let F=null;
+function current(){const lab=LABS[state.lab],s=visStmts(lab)[state.sel];const r=state.rev&&s.rev?{...s.rev}:state.rev?{p:s.q,q:s.p,P:s.Q,Q:s.P}:s;return{lab,s,r,d:DATA[s.code]}}
+function update(commit){
+  const lab=LABS[state.lab];F=lab.facts();
+  svg.textContent='';drawGrid();G=el('g',{},svg);lab.draw(F);
+  readEl.innerHTML=lab.read(F).map(([k,v])=>`<span>${k}: <b>${v}</b></span>`).join('');
+  [...ctrlEl.children].forEach(w=>w._sync&&w._sync());(ctrlEl._syncs||[]).forEach(f=>f());
+  const {s,r,d}=current();const pv=!!r.P(F),qv=!!r.Q(F);const p=prog(s.code,state.rev&&d.ctype==='ters');
+  if(commit&&pv){const k=key(s.code,state.rev)+state.lab;seen[k]=seen[k]||new Set();if(!seen[k].has(F.fp)){seen[k].add(F.fp);p.tries++}}
+  if(pv&&!qv&&!p.found){p.found=true;}
+  save();renderDetail(pv,qv);refreshDots();scoreboard()}
+
+function renderDetail(pv,qv){
+  const {s,r,d}=current();const rev=state.rev;const canRev=d.ctype==='ters';
+  const p=prog(s.code,rev);
+  const truth=rev?d.ct:d.t,why=rev?d.cwhy:d.why;
+  let verdict,cls;
+  if(!pv){verdict='Şu an "ise" öncesindeki koşul sağlanmıyor. Şekli, koşul sağlanacak biçimde değiştir; sonra sonuca bak.';cls='wait'}
+  else if(qv){verdict=`Koşul da sonuç da sağlanıyor. Bu bir örnek, kanıt değil. ${p.found?'Daha önce bu ifadeyi bozan bir durum buldun.':'Şekli değiştirip ifadeyi bozmaya çalış.'}`;cls='ex'}
+  else{verdict='Karşıt örnek bulundu: koşul sağlanıyor ama sonuç bozuluyor. Bu tek durum ifadenin yanlış olduğunu gösterir.';cls='cx'}
+  const gtxt=p.guess?`Tahminin: <b>${p.guess==='D'?'Doğru':'Yanlış'}</b>`:'Önce tahmin et';
+  let html=`<p class="stmt"><span class="p">${cap(r.p)}</span> <b>ise</b> <span class="q">${r.q}</span>.</p>
+  <div class="pills"><span class="pill ${pv?'on':'off'}" id="pP"><span class="k">Koşul:</span> ${pv?'sağlanıyor':'sağlanmıyor'}</span><span class="pill ${qv?'on':'off'}" id="pQ"><span class="k">Sonuç:</span> ${qv?'sağlanıyor':'sağlanmıyor'}</span><span class="pill">Denenen durum: ${p.tries}</span></div>
+  <div class="verdict ${cls}" role="status">${verdict}</div>
+  <div class="row"><span>${gtxt}</span><button class="btn ghost" type="button" data-g="D" aria-pressed="${p.guess==='D'}">Doğru</button><button class="btn ghost" type="button" data-g="Y" aria-pressed="${p.guess==='Y'}">Yanlış</button>
+  ${canRev?`<button class="btn ghost" id="revbtn" type="button" aria-pressed="${rev}">↔ Tersine çevir</button>`:''}</div>
+  <div class="row"><button class="btn" id="showwhy" type="button" ${p.guess||p.found?'':'disabled'}>${p.read?'Gerekçeyi gizle':'Gerekçeyi göster'}</button>${p.guess||p.found?'':'<span class="note">Gerekçe, tahmin ettikten sonra açılır.</span>'}</div>`;
+  if(p.read){const ok=p.guess?(p.guess===truth):null;
+    html+=`<div class="why"><p style="margin:0 0 4px"><span class="t ${truth}">${truth==='D'?'DOĞRU':'YANLIŞ'}</span>${ok===null?'':ok?' — tahminin tuttu.':' — tahmininden farklı çıktı.'}</p><p style="margin:0">${why}</p>
+    ${!rev&&d.ctype==='duzeltme'&&d.cp?`<p style="margin:6px 0 0"><b>Doğru hali:</b> ${d.cp}</p>`:''}
+    ${!rev&&d.ctype==='ters'?`<p class="note" style="margin-top:6px">Tersini de dene: "↔ Tersine çevir".</p>`:''}</div>`}
+  detEl.innerHTML=html;
+  detEl.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{p.guess=b.dataset.g;save();update(false)});
+  const rb=document.getElementById('revbtn');if(rb)rb.onclick=()=>{state.rev=!state.rev;update(false)};
+  document.getElementById('showwhy').onclick=()=>{p.read=!p.read;save();update(false)}}
+
+/* sürükleme */
+let drag=null;
+function ptr(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(svg.getScreenCTM().inverse());return[q.x,q.y]}
+svg.addEventListener('pointerdown',e=>{const h=e.target.closest&&e.target.closest('.handle');if(!h)return;drag=h.getAttribute('data-id');svg.setPointerCapture(e.pointerId);e.preventDefault()});
+svg.addEventListener('pointermove',e=>{if(!drag)return;LABS[state.lab].drag(drag,ptr(e));update(false)});
+const endDrag=e=>{if(!drag)return;drag=null;update(true)};
+svg.addEventListener('pointerup',endDrag);svg.addEventListener('pointercancel',endDrag);
+document.getElementById('resetbtn').onclick=()=>{state.progress={};save();for(const k in seen)delete seen[k];update(false)};
+
+const hardEl=document.getElementById('hard');hardEl.checked=state.hard;
+hardEl.onchange=()=>{state.hard=hardEl.checked;try{localStorage.setItem('ifade-atolyesi-hard',state.hard?'1':'0')}catch(e){}state.sel=0;state.rev=false;buildList();update(false)};
+setLab(0);
+</script>
+
+</body>
+</html>
