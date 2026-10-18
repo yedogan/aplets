@@ -735,6 +735,8 @@ const SKEY='ia10-tam-v1';
 let prog={};try{prog=JSON.parse(localStorage.getItem(SKEY)||'{}')}catch(e){prog={}}
 if(!prog.__seen){try{const old=JSON.parse(localStorage.getItem('ia10-ken-v1')||'{}');for(const k in old)if(/^A/.test(k))prog[k]=old[k]}catch(e){}prog.__seen=1}
 const save=()=>{try{localStorage.setItem(SKEY,JSON.stringify(prog))}catch(e){}};
+/* anonim kullanım sayacı (GoatCounter; kişisel veri yok) */
+const GC=ev=>{try{const g=window.goatcounter;if(g&&g.count)g.count({path:(document.documentElement.lang||'tr')+'/'+ev,title:ev,event:true})}catch(e){}};
 const CUR=()=>S[st.idx];
 const hasRev=s=>!!s.r&&!!DATA[s.code]&&DATA[s.code].ctype!=null;
 const DIR=()=>st.rev&&CUR().r?CUR().r:CUR().f;
@@ -924,7 +926,7 @@ function render(){
   const k=inTopic().findIndex(([x])=>x===s)+1;
   $('tags').innerHTML=`<span class="tag">${esc(TOPICS.find(t=>t[0]===s.code[0])[1])} · ${k}</span>`+(st.rev?` <span class="tag rev">${revKind(s)}</span>`:'')+(s.star?' <span class="tag">★ zorlayıcı</span>':'');
   const F=draw();const pv=d.P?!!d.P(F):(d.gate?!!d.gate(F):true),qv=!!d.Q(F);
-  if(pv&&!qv&&!p.cx){p.cx=true;save()}
+  if(pv&&!qv&&!p.cx){p.cx=true;save();GC('karsit-ornek/'+key())}
   $('task').textContent=d.task;
   $('pK').className='pill k '+(pv?'yes':'no');$('pK').innerHTML='<b>Koşul</b>'+(pv?'sağlanıyor ✓':'sağlanmıyor ✗');
   $('pS').className='pill s '+(qv?'yes':'no');$('pS').innerHTML='<b>Sonuç</b>'+(qv?'tutuyor ✓':'bozuldu ✗');
@@ -997,19 +999,21 @@ svg.addEventListener('keydown',e=>{const h=e.target.closest&&e.target.closest('.
   else{const cur=sg==='len'?[40+st.len[+id[1]]*40,0]:id==='P'?st.P:id[0]==='w'?st.w[+id[1]]:st.v[+id[1]];const stp=sg==='len'?20:id==='P'?(d.kind==='pin'||d.kind==='pout'?4:20):20;move(id,add(cur,mul(dd,stp)))}
   commit();render();const nh=svg.querySelector(`[data-id="${id}"]`);if(nh)nh.focus()});
 document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{pr().guess=b.dataset.g;save();render()});
-document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{pr().dec=b.dataset.d;save();render()});
+document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{const p0=pr(),ilk=!p0.dec;p0.dec=b.dataset.d;save();if(ilk){const dt=DATA[CUR().code],tv=st.rev?dt.ct:dt.t;GC('karar/'+key()+'/'+(p0.dec===tv?'dogru':'yanlis'))}render()});
 $('setup').onclick=()=>{setup();commit();render()};
 $('shuffle').onclick=()=>{shuffle();commit();render()};
 $('prev').onclick=()=>{const T=inTopic();const k=T.findIndex(([s,i])=>i===st.idx);go(T[(k-1+T.length)%T.length][1],false)};
 $('next').onclick=()=>{const T=inTopic();const k=T.findIndex(([s,i])=>i===st.idx);go(T[(k+1)%T.length][1],false)};
-$('resetOne').onclick=()=>{delete prog[key()];save();setup();render()};
+$('resetOne').onclick=()=>{delete prog[key()];save();GC('bastan/ifade');setup();render()};
 $('resetAll').onclick=()=>{const c=$('confirmBox');c.hidden=!c.hidden;if(!c.hidden)$('cNo').focus()};
 $('cNo').onclick=()=>{$('confirmBox').hidden=true};
-$('cYes').onclick=()=>{prog={__seen:1};save();try{localStorage.removeItem(SKEY+'-pos')}catch(e){}$('confirmBox').hidden=true;st.topic='A';go(0,false);window.scrollTo(0,0)};
+$('cYes').onclick=()=>{prog={__seen:1};save();GC('bastan/tum');try{localStorage.removeItem(SKEY+'-pos')}catch(e){}$('confirmBox').hidden=true;st.topic='A';go(0,false);window.scrollTo(0,0)};
 let start=[0,false];try{const s0=JSON.parse(localStorage.getItem(SKEY+'-pos')||'null');if(Array.isArray(s0)&&S[s0[0]])start=s0}catch(e){}
 go(start[0],start[1]&&hasRev(S[start[0]]));commit();render();
 window.__T={S,st,DATA,triF,curFacts,enforce,setup,shuffle,DIR,go,move,render,validState,ucSet,twoW,prog,pr};
 })();
 </script>
 
+<script data-goatcounter="https://yedogan-aplets.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body></html>
