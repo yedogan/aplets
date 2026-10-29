@@ -1,40 +1,53 @@
 <!doctype html>
 <html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Matematik Apletleri</title>
+<title>Appletler</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;700&display=swap">
 <script>
 /* ================================================================
-   APLET LİSTESİ — yeni aplet eklemek için buraya bir satır ekle.
+   APPLET LİSTESİ — yeni applet eklemek için buraya bir satır ekle.
    dosya    : depodaki HTML dosyasının adı
    ad       : görünen ad
    sinif    : 5, 6, 7, 8, 9, 10, 11, 12
-   alan     : Geometri / Sayılar ve İşlemler / Cebir / Trigonometri / Veri ve Olasılık / Fonksiyonlar ...
+   ders     : Matematik / Fen Bilimleri / Fizik / Kimya / Biyoloji / Türkçe ...
+   alan     : dersin içindeki alan ya da tür (Geometri, Sayılar ve İşlemler, Sınav hazırlığı ...)
    dil      : "tr" veya "en"
    konular  : etiketler (arama ve filtrelemede kullanılır)
    kazanim  : MEB öğrenme çıktısı kodu (yoksa "")
    eklendi  : YYYY-AA-GG (son 30 gün içindekiler "Yeni" etiketi alır)
    anahtar  : (isteğe bağlı) görünmeyen ek arama kelimeleri
    ================================================================ */
-const APLETLER = [
-  { dosya:"ifade-atolyesi-10.html", ad:"İfade Atölyesi 10", sinif:10, alan:"Geometri", dil:"tr",
+const APPLETLER = [
+  { dosya:"fen-genel-tekrar-7.html", ad:"7. Sınıf Fen Bilimleri, 1. Dönem 1. Yazılı Sınav - Genel Tekrar", sinif:7, ders:"Fen Bilimleri", alan:"Sınav hazırlığı", dil:"tr",
+    konular:["uzay teknolojileri","uzay kirliliği","yıldızların yaşamı","iş","kinetik enerji","potansiyel enerji"],
+    aciklama:"Uzay araçları, uzay kirliliği, yıldızların yaşamı, iş ve enerji: simülasyonlu istasyonlar, görevler ve karışık bir tekrar turu.",
+    kazanim:"FB.7.1.1 · 7.1.3 · 7.1.4 · 7.2.1 · 7.2.2", eklendi:"2026-10-29",
+    anahtar:"ortak yazılı oyss senaryo 3 teleskop uydu sonda mekik süpernova beyaz cüce joule" },
+  { dosya:"fen-genel-tekrar-8.html", ad:"8. Sınıf Fen Bilimleri, 1. Dönem 1. Yazılı Sınav - Genel Tekrar", sinif:8, ders:"Fen Bilimleri", alan:"Sınav hazırlığı", dil:"tr",
+    konular:["mevsimlerin oluşumu","DNA","gen","kromozom","nükleotid","DNA eşlenmesi","değişkenler"],
+    aciklama:"Mevsim laboratuvarı, DNA modeli kurma, hata avı, eşlenme simülasyonu, değişken dedektifi ve karışık bir tekrar turu.",
+    kazanim:"F.8.1.1.1 · F.8.2.1.1–F.8.2.1.3", eklendi:"2026-10-29",
+    anahtar:"ortak yazılı oyss senaryo 1 eksen eğikliği gölge hidrojen bağı adenin timin guanin sitozin" },
+  { dosya:"ifade-atolyesi-10.html", ad:"İfade Atölyesi 10", sinif:10, ders:"Matematik", alan:"Geometri", dil:"tr",
     konular:["kenarortay","iç açıortay","dış açıortay","yükseklik","kenar orta dikme","özel noktalar","üçgen eşitsizliği","birim çember"],
     aciklama:"Üçgenin yardımcı elemanları ve birim çemberle ilgili 79 ifade: tahmin et, şekli sürükleyerek dene, karar ver, gerekçelendir.",
     kazanim:"MAT.10.1.2", eklendi:"2026-10-13" },
-  { dosya:"conjecture-lab.html", ad:"Conjecture Lab", sinif:10, alan:"Geometri", dil:"en",
+  { dosya:"conjecture-lab.html", ad:"Conjecture Lab", sinif:10, ders:"Matematik", alan:"Geometri", dil:"en",
     konular:["medians","angle bisectors","external bisectors","altitudes","perpendicular bisectors","special points","unit circle"],
     aciklama:"English version of İfade Atölyesi 10: predict, test by dragging, decide and justify 79 statements about triangles and the unit circle.",
     kazanim:"MAT.10.1.2", eklendi:"2026-10-13",
     anahtar:"kenarortay iç açıortay dış açıortay yükseklik orta dikme özel noktalar birim çember ingilizce" },
-  { dosya:"ifade-atolyesi-5.html", ad:"İfade Atölyesi 5", sinif:5, alan:"Geometri", dil:"tr",
+  { dosya:"ifade-atolyesi-5.html", ad:"İfade Atölyesi 5", sinif:5, ders:"Matematik", alan:"Geometri", dil:"tr",
     konular:["nokta ve doğru","çember","açılar","paralel ve dik doğrular","dörtgenler","köşegenler","üçgen"],
     aciklama:"“… ise …” biçimindeki geometri ifadelerini şekli sürükleyerek sına; ifadeyi bozan bir karşıt örnek bulabilecek misin?",
     kazanim:"", eklendi:"2026-10-05" },
-  { dosya:"sayi-dogrusu-7.html", ad:"Sayı Doğrusu Atölyesi", sinif:7, alan:"Sayılar ve İşlemler", dil:"tr",
+  { dosya:"sayi-dogrusu-7.html", ad:"Sayı Doğrusu Atölyesi", sinif:7, ders:"Matematik", alan:"Sayılar ve İşlemler", dil:"tr",
     konular:["rasyonel sayılar","sayı doğrusu","mutlak değer","ondalık açılım","toplama ve çıkarma"],
     aciklama:"Rasyonel sayıları sayı doğrusuna yerleştir, mutlak değeri mesafe olarak gör, ondalık açılımı ve toplama–çıkarmayı modelle.",
     kazanim:"MAT.7.1.1–7.1.4", eklendi:"2026-10-06" },
 ];
+/* Derslerin gösterim sırası; listede olmayan dersler alfabetik olarak sona eklenir. */
+const DERS_SIRASI=["Matematik","Fen Bilimleri","Fizik","Kimya","Biyoloji","Türkçe","Sosyal Bilgiler","İngilizce"];
 </script>
 <style>
 :root{--bg:#f5f3ed;--card:#fffefb;--fg:#1c2230;--mute:#5d6576;--line:#dcd6c8;--soft:#ebe6da;--acc:#1f4e8c;--acc-bg:#e3ebf7;--new:#a3470f;--new-bg:#fbe8d9;--ok:#2f6b3a}
@@ -52,21 +65,28 @@ h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:clamp(1.6rem
 .search svg{flex:none;color:var(--mute)}
 .search input{flex:1;min-width:0;border:0;background:none;color:var(--fg);font:inherit;padding:11px 0;outline:none}
 .search button{border:0;background:none;color:var(--mute);font:inherit;cursor:pointer;padding:4px}
-.filters{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.frow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.flabel{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);width:52px;flex:none}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-size:.88rem;padding:3px 11px;border-radius:99px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--bg)}
-.chip .n{opacity:.6;font-size:.8em;margin-left:3px;font-variant-numeric:tabular-nums}
+.crumbs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:.95rem}
+.crumbs button{border:0;background:none;color:var(--acc);font:inherit;font-weight:700;cursor:pointer;padding:2px 0}
+.crumbs .sep{color:var(--mute)}
+.crumbs .here{font-weight:700}
 .status{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:.88rem;color:var(--mute)}
 .linkbtn{border:0;background:none;color:var(--acc);font:inherit;font-weight:700;cursor:pointer;padding:0}
-main{padding-block:8px 48px}
-section{margin-top:22px}
-h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.15rem;margin:0 0 8px;display:flex;align-items:baseline;gap:8px}
+main{padding-block:16px 48px}
+h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.15rem;margin:0 0 10px;display:flex;align-items:baseline;gap:8px}
 h2 small{font:400 .85rem "Atkinson Hyperlegible",system-ui,sans-serif;color:var(--mute)}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;padding:16px;border-radius:12px;cursor:pointer;min-height:96px}
+.tile:hover:not(:disabled){border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.tile:focus-visible,.crumbs button:focus-visible,.btn:focus-visible,.tag:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.tile b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.5rem;line-height:1.1}
+.tile .sub{color:var(--mute);font-size:.88rem}
+.tile .badge{margin-top:auto}
+.tile:disabled{opacity:.45;cursor:default}
+.tile.ders b{font-size:1.2rem}
 ul{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
 li{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:14px 16px;border-top:1px solid var(--line)}
 li:first-child{border-top:0}
+section+section{margin-top:22px}
 .main{min-width:0}
 .t{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .t a{font-weight:700;font-size:1.05rem;color:var(--fg);text-decoration:none}
@@ -75,6 +95,7 @@ li:first-child{border-top:0}
 .badge.new{background:var(--new-bg);color:var(--new)}
 .badge.lang{background:var(--acc-bg);color:var(--acc)}
 .d{color:var(--mute);font-size:.93rem;margin:3px 0 6px;max-width:68ch}
+.where{font-size:.8rem;color:var(--mute);margin:0 0 4px}
 .tags{display:flex;flex-wrap:wrap;gap:4px 6px}
 .tag{border:0;background:var(--soft);color:var(--fg);font:inherit;font-size:.78rem;padding:1px 8px;border-radius:6px;cursor:pointer}
 .tag:hover{background:var(--acc-bg);color:var(--acc)}
@@ -84,71 +105,51 @@ li:first-child{border-top:0}
 .btn.ghost{background:transparent;color:var(--acc)}
 .btn.done{border-color:var(--ok);color:var(--ok)}
 mark{background:var(--new-bg);color:inherit;border-radius:3px;padding:0 1px}
-.empty{padding:28px 16px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px;margin-top:22px}
+.empty{padding:28px 16px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px}
 footer{color:var(--mute);font-size:.85rem;padding-block:0 32px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (min-width:700px) and (min-height:640px){.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5}}
-@media (max-width:560px){li{grid-template-columns:1fr}.act{flex-direction:row}.act .btn{flex:1}.flabel{width:auto;flex-basis:100%}}
+@media (max-width:560px){li{grid-template-columns:1fr}.act{flex-direction:row}.act .btn{flex:1}.pick{grid-template-columns:repeat(2,1fr)}}
 </style></head><body>
 <div class="wrap">
 <header>
-  <h1>Matematik Apletleri</h1>
+  <h1>Appletler</h1>
   <p class="lead" id="lead"></p>
 </header>
 <div class="bar">
   <label class="search">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <span class="sr">Ara</span>
-    <input id="q" type="search" placeholder="Ara: açıortay, birim çember, rasyonel, MAT.10…" autocomplete="off">
+    <input id="q" type="search" placeholder="Ara: açıortay, rasyonel, DNA, uzay kirliliği…" autocomplete="off">
     <button id="clr" type="button" hidden aria-label="Aramayı temizle">✕</button>
   </label>
-  <div class="filters" id="filters"></div>
-  <div class="status"><span id="count" aria-live="polite"></span><button class="linkbtn" id="share" type="button" hidden>Bu listenin linkini kopyala</button></div>
+  <nav class="crumbs" id="crumbs" aria-label="Konum"></nav>
+  <div class="status"><span id="count" aria-live="polite"></span><button class="linkbtn" id="share" type="button" hidden>Bu sayfanın linkini kopyala</button></div>
 </div>
 <main id="list"></main>
-<footer>Hazırlayan: Yunus Emre Doğan · Apletler tarayıcıda çalışır; ilerleme her öğrencinin kendi tarayıcısında saklanır.</footer>
+<footer>Hazırlayan: Yunus Emre Doğan · Appletler tarayıcıda çalışır; ilerleme her öğrencinin kendi tarayıcısında saklanır.</footer>
 </div>
 <script>
 (function(){
 const LANG={tr:"Türkçe",en:"English"};
 const norm=s=>String(s).toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ı/g,'i');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const slug=s=>norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const days=d=>(Date.now()-new Date(d+'T00:00:00').getTime())/864e5;
 const base=location.href.replace(/[?#].*$/,'').replace(/index\.html$/,'');
-const items=APLETLER.map((a,i)=>({...a,i,hay:norm([a.ad,a.aciklama,a.alan,a.kazanim,a.sinif+'. sinif',LANG[a.dil],a.anahtar||'',...a.konular].join(' '))}));
+const items=APPLETLER.map((a,i)=>({...a,i,hay:norm([a.ad,a.aciklama,a.ders,a.alan,a.kazanim,a.sinif+'. sinif',LANG[a.dil],a.anahtar||'',...a.konular].join(' '))}));
+const dersSira=d=>{const k=DERS_SIRASI.indexOf(d);return k<0?99:k};
+const sortDers=(x,y)=>dersSira(x)-dersSira(y)||x.localeCompare(y,'tr');
+const ALL_GRADES=[5,6,7,8,9,10,11,12];
 
-const st={q:'',sinif:null,alan:null,dil:null};
-try{const u=new URLSearchParams(location.search);st.q=u.get('q')||'';st.sinif=u.get('sinif');st.alan=u.get('alan');st.dil=u.get('dil')}catch(e){}
+const st={q:'',sinif:null,ders:null};
+try{const u=new URLSearchParams(location.search);st.q=u.get('q')||'';const s=u.get('sinif');st.sinif=s?+s:null;const d=u.get('ders');if(d){const m=items.find(a=>slug(a.ders)===d);st.ders=m?m.ders:null}}catch(e){}
 
-const dims=[
-  {key:'sinif',label:'Sınıf',val:a=>String(a.sinif),txt:v=>v+'. sınıf',sort:(x,y)=>x-y},
-  {key:'alan',label:'Alan',val:a=>a.alan,txt:v=>v,sort:(x,y)=>x.localeCompare(y,'tr')},
-  {key:'dil',label:'Dil',val:a=>a.dil,txt:v=>LANG[v]||v,sort:(x,y)=>x.localeCompare(y)},
-];
 const $=id=>document.getElementById(id);
 const qEl=$('q');qEl.value=st.q;
-$('lead').textContent=`${items.length} aplet · ${new Set(items.map(a=>a.sinif)).size} sınıf düzeyi. Ara ya da filtrele; her apletin linkini kopyalayıp Classroom'a ekleyebilirsin.`;
+$('lead').textContent=`${items.length} applet · ${new Set(items.map(a=>a.ders)).size} ders · ${new Set(items.map(a=>a.sinif)).size} sınıf düzeyi. Önce sınıfını, sonra dersini seç; her appletin linkini kopyalayıp Classroom'a ekleyebilirsin.`;
 
-function matches(a,skip){
-  if(st.q){const terms=norm(st.q).split(/\s+/).filter(Boolean);if(!terms.every(t=>a.hay.includes(t)))return false}
-  for(const d of dims){if(d.key!==skip&&st[d.key]&&d.val(a)!==st[d.key])return false}
-  return true;
-}
-function renderFilters(){
-  const box=$('filters');box.innerHTML='';
-  for(const d of dims){
-    const vals=[...new Set(items.map(d.val))].sort(d.sort);
-    if(vals.length<2)continue;
-    const row=document.createElement('div');row.className='frow';row.setAttribute('role','group');row.setAttribute('aria-label',d.label);
-    row.innerHTML=`<span class="flabel">${d.label}</span>`;
-    const mk=(v,t,n)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed',String(st[d.key]===v));
-      if(d.key==='dil'&&v)b.lang=v;b.innerHTML=esc(t)+(n!=null?`<span class="n">${n}</span>`:'');b.onclick=()=>{st[d.key]=v;update()};row.appendChild(b)};
-    mk(null,'Tümü');
-    const pool=items.filter(a=>matches(a,d.key));
-    for(const v of vals)mk(v,d.txt(v),pool.filter(a=>d.val(a)===v).length);
-    box.appendChild(row);
-  }
-}
+const matchQ=a=>{if(!st.q)return true;const terms=norm(st.q).split(/\s+/).filter(Boolean);return terms.every(t=>a.hay.includes(t))};
 function hl(text){
   if(!st.q)return esc(text);
   const terms=norm(st.q).split(/\s+/).filter(t=>t.length>1);if(!terms.length)return esc(text);
@@ -158,37 +159,77 @@ function hl(text){
   let out='',on=false;for(let k=0;k<text.length;k++){if(marks[k]!==on){out+=on?'</mark>':'<mark>';on=marks[k]}out+=esc(text[k])}
   return out+(on?'</mark>':'');
 }
-function renderList(){
-  const res=items.filter(a=>matches(a));
-  const L=$('list');L.innerHTML='';
-  $('count').textContent=res.length===items.length?`${res.length} aplet`:`${res.length} / ${items.length} aplet gösteriliyor`;
-  if(!res.length){L.innerHTML=`<div class="empty">Bu aramaya uyan aplet yok. <button class="linkbtn" type="button" id="reset">Filtreleri temizle</button></div>`;$('reset').onclick=()=>{st.q='';qEl.value='';st.sinif=st.alan=st.dil=null;update()};return}
-  const groups=[...new Set(res.map(a=>a.sinif))].sort((x,y)=>x-y);
-  for(const g of groups){
-    const sec=document.createElement('section');
-    const arr=res.filter(a=>a.sinif===g).sort((x,y)=>y.eklendi.localeCompare(x.eklendi)||(x.dil==='tr'?0:1)-(y.dil==='tr'?0:1)||x.ad.localeCompare(y.ad,'tr'));
-    sec.innerHTML=`<h2>${g}. sınıf <small>${arr.length} aplet</small></h2>`;
-    const ul=document.createElement('ul');
-    for(const a of arr){
-      const li=document.createElement('li');
-      const isNew=days(a.eklendi)<=30;
-      li.innerHTML=`<div class="main"><div class="t"><a href="${esc(a.dosya)}">${hl(a.ad)}</a>${isNew?'<span class="badge new">Yeni</span>':''}<span class="badge">${esc(a.alan)}</span>${a.dil!=='tr'?`<span class="badge lang" lang="${esc(a.dil)}">${esc(LANG[a.dil]||a.dil)}</span>`:''}</div>
-        <p class="d" ${a.dil==='en'?'lang="en"':''}>${hl(a.aciklama)}</p>
-        <div class="tags">${a.konular.map(k=>`<button type="button" class="tag" ${a.dil==='en'?'lang="en"':''}>${hl(k)}</button>`).join('')}${a.kazanim?`<span class="code">${esc(a.kazanim)}</span>`:''}</div></div>
-        <div class="act"><a class="btn" href="${esc(a.dosya)}">Aç</a><button type="button" class="btn ghost copy">Linki kopyala</button></div>`;
-      li.querySelectorAll('.tag').forEach(b=>b.onclick=()=>{qEl.value=b.textContent;st.q=b.textContent;update();qEl.focus()});
-      li.querySelector('.copy').onclick=e=>copy(base+a.dosya,e.currentTarget);
-      ul.appendChild(li);
-    }
-    sec.appendChild(ul);L.appendChild(sec);
-  }
+const hasNew=arr=>arr.some(a=>days(a.eklendi)<=30);
+function go(sinif,ders){st.sinif=sinif;st.ders=ders;update();window.scrollTo({top:0})}
+
+function renderCrumbs(){
+  const c=$('crumbs');c.innerHTML='';
+  if(st.q){c.innerHTML=`<span class="here">Arama sonuçları</span>`;return}
+  const mk=(t,fn)=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=fn;c.appendChild(b)};
+  const sep=()=>{const s=document.createElement('span');s.className='sep';s.textContent='›';c.appendChild(s)};
+  const here=t=>{const s=document.createElement('span');s.className='here';s.textContent=t;s.setAttribute('aria-current','page');c.appendChild(s)};
+  if(!st.sinif){here('Sınıflar');return}
+  mk('Sınıflar',()=>go(null,null));sep();
+  if(!st.ders){here(st.sinif+'. sınıf');return}
+  mk(st.sinif+'. sınıf',()=>go(st.sinif,null));sep();here(st.ders);
 }
-function viewUrl(){const u=new URLSearchParams();if(st.q)u.set('q',st.q);for(const d of dims)if(st[d.key])u.set(d.key,st[d.key]);const s=u.toString();return base+(s?'?'+s:'')}
+function itemLi(a,showWhere){
+  const li=document.createElement('li');
+  const isNew=days(a.eklendi)<=30;
+  li.innerHTML=`<div class="main">${showWhere?`<p class="where">${a.sinif}. sınıf · ${esc(a.ders)}</p>`:''}<div class="t"><a href="${esc(a.dosya)}">${hl(a.ad)}</a>${isNew?'<span class="badge new">Yeni</span>':''}<span class="badge">${esc(a.alan)}</span>${a.dil!=='tr'?`<span class="badge lang" lang="${esc(a.dil)}">${esc(LANG[a.dil]||a.dil)}</span>`:''}</div>
+    <p class="d" ${a.dil==='en'?'lang="en"':''}>${hl(a.aciklama)}</p>
+    <div class="tags">${a.konular.map(k=>`<button type="button" class="tag" ${a.dil==='en'?'lang="en"':''}>${hl(k)}</button>`).join('')}${a.kazanim?`<span class="code">${esc(a.kazanim)}</span>`:''}</div></div>
+    <div class="act"><a class="btn" href="${esc(a.dosya)}">Aç</a><button type="button" class="btn ghost copy">Linki kopyala</button></div>`;
+  li.querySelectorAll('.tag').forEach(b=>b.onclick=()=>{qEl.value=b.textContent;st.q=b.textContent;update();qEl.focus()});
+  li.querySelector('.copy').onclick=e=>copy(base+a.dosya,e.currentTarget);
+  return li;
+}
+function render(){
+  const L=$('list');L.innerHTML='';
+  renderCrumbs();
+  // arama: bütün appletlerde düz liste
+  if(st.q){
+    const res=items.filter(matchQ).sort((x,y)=>x.sinif-y.sinif||sortDers(x.ders,y.ders)||y.eklendi.localeCompare(x.eklendi));
+    $('count').textContent=`${res.length} applet bulundu`;
+    if(!res.length){L.innerHTML=`<div class="empty">Bu aramaya uyan applet yok. <button class="linkbtn" type="button" id="reset">Aramayı temizle</button></div>`;$('reset').onclick=()=>{st.q='';qEl.value='';update()};return}
+    const ul=document.createElement('ul');res.forEach(a=>ul.appendChild(itemLi(a,true)));L.appendChild(ul);return;
+  }
+  // 1. adım: sınıf
+  if(!st.sinif){
+    $('count').textContent='1. adım: sınıfını seç';
+    const sec=document.createElement('section');sec.innerHTML='<h2>Sınıfını seç</h2>';
+    const g=document.createElement('div');g.className='pick';
+    for(const s of ALL_GRADES){const arr=items.filter(a=>a.sinif===s);const b=document.createElement('button');b.type='button';b.className='tile';b.disabled=!arr.length;
+      const dersler=[...new Set(arr.map(a=>a.ders))].sort(sortDers);
+      b.innerHTML=`<b>${s}. sınıf</b><span class="sub">${arr.length?arr.length+' applet · '+dersler.map(esc).join(', '):'Henüz applet yok'}</span>${hasNew(arr)?'<span class="badge new">Yeni</span>':''}`;
+      if(arr.length)b.onclick=()=>go(s,null);g.appendChild(b)}
+    sec.appendChild(g);L.appendChild(sec);return;
+  }
+  const inGrade=items.filter(a=>a.sinif===st.sinif);
+  // 2. adım: ders
+  if(!st.ders){
+    const dersler=[...new Set(inGrade.map(a=>a.ders))].sort(sortDers);
+    $('count').textContent='2. adım: dersini seç';
+    const sec=document.createElement('section');sec.innerHTML=`<h2>${st.sinif}. sınıf <small>dersini seç</small></h2>`;
+    const g=document.createElement('div');g.className='pick';
+    if(!dersler.length){L.innerHTML='<div class="empty">Bu sınıf için henüz applet yok.</div>';return}
+    for(const d of dersler){const arr=inGrade.filter(a=>a.ders===d);const b=document.createElement('button');b.type='button';b.className='tile ders';
+      b.innerHTML=`<b>${esc(d)}</b><span class="sub">${arr.length} applet</span>${hasNew(arr)?'<span class="badge new">Yeni</span>':''}`;b.onclick=()=>go(st.sinif,d);g.appendChild(b)}
+    sec.appendChild(g);L.appendChild(sec);return;
+  }
+  // 3. adım: appletler
+  const arr=inGrade.filter(a=>a.ders===st.ders).sort((x,y)=>y.eklendi.localeCompare(x.eklendi)||(x.dil==='tr'?0:1)-(y.dil==='tr'?0:1)||x.ad.localeCompare(y.ad,'tr'));
+  $('count').textContent=`${arr.length} applet`;
+  if(!arr.length){L.innerHTML='<div class="empty">Bu sınıf ve ders için henüz applet yok.</div>';return}
+  const sec=document.createElement('section');sec.innerHTML=`<h2>${st.sinif}. sınıf · ${esc(st.ders)} <small>${arr.length} applet</small></h2>`;
+  const ul=document.createElement('ul');arr.forEach(a=>ul.appendChild(itemLi(a,false)));sec.appendChild(ul);L.appendChild(sec);
+}
+function viewUrl(){const u=new URLSearchParams();if(st.q)u.set('q',st.q);else{if(st.sinif)u.set('sinif',st.sinif);if(st.ders)u.set('ders',slug(st.ders))}const s=u.toString();return base+(s?'?'+s:'')}
 function update(){
   $('clr').hidden=!st.q;
-  const filtered=st.q||dims.some(d=>st[d.key]);$('share').hidden=!filtered;
+  $('share').hidden=!(st.q||st.sinif);
   try{history.replaceState(null,'',viewUrl())}catch(e){}
-  renderFilters();renderList();
+  render();
 }
 function copy(text,btn){
   const old=btn.textContent;

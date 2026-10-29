@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7. Sınıf Fen Bilimleri, 1. Dönem 1. Yazılı Sınav - Genel Tekrar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Fen 8 Genel Tekrar — istasyonlu bireysel çalışma appleti.
+   Renkler: gece mavisi mürekkep, gündüz kâğıdı, Güneş turuncusu; DNA bazları: A kırmızı, T sarı, G yeşil, S camgöbeği. */
+:root{
+  --bg:#eef3f8; --panel:#ffffff; --paper:#fbfdff; --ink:#16223d; --ink2:#4a5878; --line:#d3dceb; --soft:#e7eef8;
+  --accent:#22346a; --accent2:#2f7fc0; --accent-ink:#ffffff; --sun:#f08a1c; --sunsoft:#ffe4c2;
+  --ok:#12715a; --okbg:#dff3ec; --bad:#c0301d; --badbg:#fde6e1; --warn:#9a5d00; --warnbg:#fff1d6;
+  --night:#2a3554; --day:#dbe9ff; --earth:#cfe3ff;
+  --bA:#f4a3a3; --bT:#f6dd6a; --bG:#9fdc9a; --bS:#93d7ee; --old:#c6cbd6; --new:#9fe3c3;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a; --soft:#1a2640;
+  --accent:#9db8ff; --accent2:#7cc0f0; --accent-ink:#0b1120; --sun:#ffab4a; --sunsoft:#3a2a12;
+  --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d;
+  --night:#060a14; --day:#22345c; --earth:#1d3157;
+  --bA:#b85a5a; --bT:#a8902a; --bG:#4f8f4a; --bS:#3a8aa6; --old:#4a5470; --new:#2f8f68; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a; --soft:#1a2640;
+  --accent:#9db8ff; --accent2:#7cc0f0; --accent-ink:#0b1120; --sun:#ffab4a; --sunsoft:#3a2a12;
+  --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d;
+  --night:#060a14; --day:#22345c; --earth:#1d3157;
+  --bA:#b85a5a; --bT:#a8902a; --bG:#4f8f4a; --bS:#3a8aa6; --old:#4a5470; --new:#2f8f68; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45;padding-inline:16px;padding-block:16px 48px}
+.wrap{max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{background:#fff;border-radius:10px;padding:6px 10px;display:flex;align-items:center}
+.logo img{height:40px;width:auto;display:block}
+h1 .h1b{display:block;font-size:.55em;font-weight:600;color:var(--ink2);margin-top:4px;letter-spacing:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,3.6vw,2.2rem);letter-spacing:-.02em;margin:0;line-height:1.05;text-wrap:balance}
+.sub{margin:4px 0 0;color:var(--ink2);max-width:62ch;font-size:.95rem}
+.total{font-family:var(--f-mono);font-size:.85rem;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.total .bar{width:140px;height:10px;border-radius:99px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.total .bar i{display:block;height:100%;background:var(--ok);width:0}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;padding:9px 14px;border-radius:10px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.tab small{font-family:var(--f-mono);font-weight:500;font-size:.75rem;color:var(--ink2)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.8}
+button:focus-visible,input:focus-visible,select:focus-visible,.tab:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+h2{font-family:var(--f-display);font-size:1.2rem;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-family:var(--f-display);font-size:1.02rem;margin:0 0 6px}
+.lead{margin:0 0 10px;color:var(--ink2);font-size:.95rem}
+.kod{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);background:var(--soft);padding:2px 7px;border-radius:6px}
+.btn{border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.sm{padding:5px 10px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:.86rem;padding:5px 10px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent2)}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.seg{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.ctl{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+.ctl label{font-size:.85rem;color:var(--ink2);display:flex;justify-content:space-between;gap:8px}
+.ctl label output{font-family:var(--f-mono);color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent2);height:28px}
+input[type=number],input[type=text],select{font:inherit;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:6px 8px}
+input[type=number]{width:90px;font-family:var(--f-mono)}
+svg{display:block;max-width:100%;height:auto}
+.stage{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;width:100%}
+.read{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem;margin:8px 0 0}
+.read dt{color:var(--ink2)}
+.read dd{margin:0;font-family:var(--f-mono);font-size:.88rem}
+.meter{height:12px;border-radius:99px;background:var(--soft);border:1px solid var(--line);overflow:hidden;margin-top:3px}
+.meter i{display:block;height:100%;background:var(--sun)}
+.daybar{display:flex;height:22px;border-radius:6px;overflow:hidden;border:1px solid var(--line);font-family:var(--f-mono);font-size:.75rem}
+.daybar span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden}
+.daybar .d{background:var(--sunsoft);color:var(--ink)}
+.daybar .n{background:var(--night);color:#e7eefc}
+.tasks{display:flex;flex-direction:column;gap:8px}
+.task{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel)}
+.task.done{border-color:var(--ok);background:var(--okbg)}
+.task .head{display:flex;gap:8px;align-items:flex-start}
+.task .num{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:.78rem;background:var(--soft);color:var(--ink2)}
+.task.done .num{background:var(--ok);color:var(--panel)}
+.task p{margin:0}
+.task .body{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:.92rem;padding:7px 10px;border-radius:9px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent2)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt:disabled{cursor:default}
+.fb{font-size:.9rem;padding:8px 10px;border-radius:9px}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.bad{background:var(--badbg);color:var(--bad)}
+.fb.info{background:var(--warnbg);color:var(--warn)}
+.fb b{color:inherit}
+.status{font-size:.85rem;color:var(--ink2);font-style:italic}
+.hint{font-size:.85rem;color:var(--ink2)}
+.stations{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.st{display:flex;flex-direction:column;gap:6px}
+.st .ring{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.82rem;color:var(--ink2)}
+.st .ring .bar{flex:1;height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
+.st .ring .bar i{display:block;height:100%;background:var(--ok)}
+.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.palette{display:flex;gap:6px;flex-wrap:wrap}
+.base{width:44px;height:38px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;color:var(--ink)}
+.base.A{background:var(--bA)}.base.T{background:var(--bT)}.base.G{background:var(--bG)}.base.S{background:var(--bS)}
+.counts{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.counts label{display:flex;flex-direction:column;gap:3px;font-size:.85rem;color:var(--ink2)}
+.tbl{border-collapse:collapse;width:100%;font-size:.92rem}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:middle}
+.tbl th{background:var(--soft)}
+.sentence{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.gen{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:8px 0}
+.dnab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.72rem;color:var(--ink2);font-family:var(--f-mono)}
+.dnab .pair{display:flex;gap:3px}
+.dnab .pair span{width:18px;height:70px;border-radius:4px;border:1px solid var(--line)}
+.dnab .o{background:var(--old)}.dnab .n{background:var(--new)}
+.qcard{display:flex;flex-direction:column;gap:8px}
+.conf{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--ink2)}
+.kbar{display:grid;grid-template-columns:minmax(120px,220px) 1fr auto;gap:8px;align-items:center;font-size:.9rem;margin:4px 0}
+.kbar .bar{height:12px;border-radius:99px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.kbar .bar i{display:block;height:100%}
+footer{color:var(--ink2);font-size:.82rem;text-align:center;margin-top:8px}
+.hidden{display:none !important}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.svgtext{font-family:var(--f-body);fill:var(--ink)}
+.mono{font-family:var(--f-mono)}
+@media (max-width:560px){.read{grid-template-columns:1fr}.kbar{grid-template-columns:1fr}}
+
+details summary{margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo"><img alt="Özel Sevil Ünal Doğan Sosyal Etkinlik ve Gelişim Merkezi" src="data:image/png;base64,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"></div>
+    <div>
+      <h1>7. Sınıf Fen Bilimleri<span class="h1b">1. Dönem 1. Yazılı Sınav - Genel Tekrar</span></h1>
+      <p class="sub">Uzay araştırmaları, yıldızlar, iş ve enerji: sınav öncesi bireysel çalışma. Her istasyonda önce tahmin et, sonra dene, karar ver ve gerekçeni seç.</p>
+    </div>
+  </div>
+  <div class="total"><span id="totTxt">0 / 0 görev</span><span class="bar"><i id="totBar"></i></span></div>
+</header>
+<nav class="tabs" role="tablist" aria-label="İstasyonlar" id="tabs"></nav>
+<main id="views"></main>
+<footer>Hazırlayan: Yunus Emre Doğan · Özel Sevil Ünal Doğan Sosyal Etkinlik ve Gelişim Merkezi · İlerleme yalnızca bu tarayıcıda saklanır. Kazanımlar: MEB 7. Sınıf Fen Bilimleri Senaryo 3 · Kaynak: MEB Fen Bilimleri 7 ders kitabı.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+/* ---------------- yardımcılar ---------------- */
+const $=s=>document.querySelector(s);
+const el=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k==='html')e.innerHTML=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(v!==false&&v!=null)e.setAttribute(k,v===true?'':v)}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(c))}return e};
+const NS='http://www.w3.org/2000/svg';
+const sv=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);if(txt!=null)e.textContent=txt;return e};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const fmt=(x,d=1)=>(Math.round(x*10**d)/10**d).toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:d});
+const RAD=Math.PI/180;
+
+/* ---------------- kayıt ---------------- */
+const KEY='fen7-genel-tekrar-v1';
+let S={done:{},karma:null,check:{}};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}updateProgress()};
+/* anonim kullanım sayacı (GoatCounter; kişisel veri yok) */
+const GC=ev=>{try{const g=window.goatcounter;if(g&&g.count)g.count({path:'fen7/'+ev,title:ev,event:true})}catch(e){}};
+const markDone=id=>{if(!S.done[id]){S.done[id]=true;save();GC('gorev/'+id)}};
+
+/* ---------------- istasyonlar ---------------- */
+const STATIONS=[
+  {id:'harita',ad:'Harita',kod:''},
+  {id:'uzay',ad:'Uzay Teknolojileri',kod:'FB.7.1.1'},
+  {id:'kir',ad:'Uzay Kirliliği',kod:'FB.7.1.3'},
+  {id:'yil',ad:'Yıldızların Yaşamı',kod:'FB.7.1.4'},
+  {id:'is',ad:'İş Atölyesi',kod:'FB.7.2.1'},
+  {id:'enj',ad:'Enerji Laboratuvarı',kod:'FB.7.2.2'},
+  {id:'karma',ad:'Karma Tur',kod:'Hepsi'},
+];
+const TASKS={}; // istasyon -> görev id listesi (her modül kendi görevlerini kaydeder)
+const regTask=(st,id)=>{(TASKS[st]=TASKS[st]||[]);if(!TASKS[st].includes(id))TASKS[st].push(id)};
+
+const tabsEl=$('#tabs'),viewsEl=$('#views');
+const views={};
+STATIONS.forEach((s,i)=>{
+  const b=el('button',{class:'tab',role:'tab','aria-selected':i===0?'true':'false','aria-controls':'v-'+s.id,id:'t-'+s.id,onclick:()=>show(s.id)},s.ad,el('small',{id:'tc-'+s.id},''));
+  tabsEl.append(b);
+  const v=el('section',{id:'v-'+s.id,role:'tabpanel','aria-labelledby':'t-'+s.id,class:i===0?'':'hidden'});
+  viewsEl.append(v);views[s.id]=v;
+});
+function show(id){
+  STATIONS.forEach(s=>{$('#t-'+s.id).setAttribute('aria-selected',String(s.id===id));views[s.id].classList.toggle('hidden',s.id!==id)});
+  try{sessionStorage.setItem(KEY+'-tab',id)}catch(e){}
+  if(id==='harita')renderHarita();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------------- genel görev bileşeni ----------------
+   g = {id, text, hint?, check?:()=>bool, status?:()=>string, options?:[], correct?, expl?, why?:{q,options,correct,expl}} */
+function makeTask(st,g,n){
+  regTask(st,g.id);
+  const box=el('div',{class:'task'+(S.done[g.id]?' done':'')});
+  const head=el('div',{class:'head'},el('span',{class:'num'},String(n)),el('p',{html:g.text}));
+  const body=el('div',{class:'body'});
+  box.append(head,body);
+  const finish=()=>{box.classList.add('done');markDone(g.id)};
+  const mc=(q,opts,correct,expl,onRight)=>{
+    const wrap=el('div',{class:'body'});
+    if(q)wrap.append(el('p',{html:'<b>'+q+'</b>'}));
+    const order=g.fixed?opts.map((o,i)=>i):shuffle(opts.map((o,i)=>i));
+    const fb=el('div',{class:'fb hidden'});
+    const btns=order.map(i=>el('button',{class:'opt',type:'button',onclick:()=>{
+      if(i===correct){btns.forEach(b=>b.disabled=true);btn(i).classList.add('right');fb.className='fb ok';fb.innerHTML='<b>Doğru.</b> '+(expl||'');onRight&&onRight()}
+      else{btn(i).classList.add('wrong');btn(i).disabled=true;fb.className='fb bad';fb.innerHTML='<b>Tekrar düşün.</b> '+(g.hint||'Simülasyona dönüp dene.')}
+    }},opts[i]));
+    const btn=i=>btns[order.indexOf(i)];
+    wrap.append(...btns,fb);
+    return wrap;
+  };
+  if(g.check){
+    const stt=el('p',{class:'status'},S.done[g.id]?'Tamamlandı.':'Simülasyonda dene; koşul sağlanınca burada görünecek.');
+    body.append(stt);
+    let unlocked=false;
+    const why=()=>{if(unlocked)return;unlocked=true;stt.textContent='Buldun! '+(g.status?g.status():'');stt.style.fontStyle='normal';stt.style.color='var(--ok)';
+      body.append(mc(g.why.q,g.why.options,g.why.correct,g.why.expl,finish))};
+    g._tick=()=>{if(!unlocked&&g.check())why()};
+    if(S.done[g.id]){unlocked=true;body.append(el('p',{class:'hint',html:'Gerekçe: '+g.why.expl}))}
+  }else{
+    body.append(mc(null,g.options,g.correct,g.expl,finish));
+  }
+  return box;
+}
+
+
+/* =====================================================================
+   1) UZAY TEKNOLOJİLERİ — FB.7.1.1
+   ===================================================================== */
+(function(){
+  const v=views.uzay;
+  v.append(el('div',{class:'card'},el('h2',{},'Uzay Teknolojileri ',el('span',{class:'kod'},'FB.7.1.1')),
+    el('p',{class:'lead'},'Uzay araçlarını görevlerine göre tanı, uzay ve yer tabanlı teleskopları karşılaştır, bir gözlemevi için yer seç, uyduları sınıflandır.')));
+  const seg=el('div',{class:'seg'});v.append(seg);
+  const parts=[['arac','1. Hangi araç?'],['tele','2. Teleskop ve gözlemevi'],['uydu','3. Uydular ve günlük hayat']];
+  const box={};parts.forEach(([k,t],i)=>{seg.append(el('button',{class:'chip',type:'button','aria-pressed':i===0?'true':'false',onclick:e=>{seg.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');parts.forEach(([kk])=>box[kk].classList.toggle('hidden',kk!==k))}},t));box[k]=el('div',{class:i===0?'':'hidden'});v.append(box[k])});
+
+  /* --- Hangi araç? --- */
+  (function(){
+    const b=box.arac;regTask('uzay','u-arac');
+    const ARAC=['Yapay uydu','Uzay sondası','Uzay istasyonu','Uzay mekiği','Uzay roketi','Uzay teleskobu'];
+    const ICON={'Yapay uydu':'🛰️','Uzay sondası':'🔭','Uzay istasyonu':'🏠','Uzay mekiği':'✈️','Uzay roketi':'🚀','Uzay teleskobu':'🔭'};
+    const CL=[
+      ['Dünya’nın çevresinde yörüngede dolanır; televizyon yayınlarının ve iletişimin her yere ulaşmasını sağlar.','Yapay uydu','İletişim ve haberleşme yapay uydularla sağlanır.'],
+      ['İnsansızdır; bir gezegeni ya da başka bir gök cismini yakından incelemek için gönderilir ve Dünya’dan kontrol edilir.','Uzay sondası','Sondalar robotik, insansız araçlardır.'],
+      ['Astronotların aylarca yaşayıp düşük yer çekimli ortamda deney yaptığı, yörüngedeki büyük yapıdır.','Uzay istasyonu','İstasyonda yaşam alanı ve araştırma donanımı vardır.'],
+      ['Astronotları ve malzemeleri istasyona taşır, Dünya’ya geri döner ve yeniden kullanılabilir.','Uzay mekiği','Mekiğin en önemli özelliği yeniden kullanılabilmesidir.'],
+      ['Güçlü motorlarıyla yer çekimini yenerek uyduları ve araçları uzaya fırlatır.','Uzay roketi','Uydular ve uzay araçları uzaya roketlerle fırlatılır.'],
+      ['Atmosferin dışında bulunduğu için gök cisimlerinin net görüntülerini elde eder.','Uzay teleskobu','Atmosfer, hava olayları ve ışık kirliliği uzay teleskobunu etkilemez.'],
+      ['Bulutların görüntüsünü çekerek hava tahminine yardımcı olur.','Yapay uydu','Meteoroloji uyduları da yapay uydudur.'],
+      ['Hubble ve James Webb bu teknolojiye örnektir.','Uzay teleskobu','Hubble 1990’da, James Webb 2021’de uzaya gönderildi.'],
+    ];
+    let order,qi,wrong;
+    const area=el('div'),info=el('p',{class:'mono'});
+    const start=()=>{order=shuffle(CL);qi=0;wrong=0;ask()};
+    const ask=()=>{area.innerHTML='';info.textContent=`İpucu ${qi+1} / ${order.length} · yanlış: ${wrong}`;const[c,a,ex]=order[qi];const fb=el('div',{class:'fb hidden'});
+      const btns=ARAC.map(x=>el('button',{class:'opt',type:'button',onclick:()=>{if(x===a){btns.forEach(bb=>bb.disabled=true);btns[ARAC.indexOf(x)].classList.add('right');fb.className='fb ok';fb.innerHTML='<b>Doğru.</b> '+ex;nx.classList.remove('hidden')}else{wrong++;info.textContent=`İpucu ${qi+1} / ${order.length} · yanlış: ${wrong}`;btns[ARAC.indexOf(x)].classList.add('wrong');btns[ARAC.indexOf(x)].disabled=true;fb.className='fb bad';fb.innerHTML='<b>Değil.</b> İpucundaki anahtar kelimeye bak: insanlı mı, yörüngede mi, geri dönüyor mu?'}}},x));
+      const nx=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;if(qi<order.length)ask();else{area.innerHTML='';area.append(el('div',{class:'fb ok',html:`<b>Bitti!</b> ${order.length} ipucunu ${wrong} yanlışla tamamladın.`+(wrong===0?' Kusursuz!':' Bir tur daha dene; yanlışsız bitirince görev tamamlanır.')}),el('button',{class:'btn',type:'button',onclick:start},'Yeni tur'));if(wrong===0)markDone('u-arac')}}},'Sonraki ipucu');
+      area.append(el('div',{class:'card',style:'background:var(--soft)'},el('p',{style:'font-size:1.08rem;margin:0'},el('b',{},c))),el('div',{style:'height:8px'}),el('div',{style:'display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px'},...btns),fb,nx)};
+    const tb=el('table',{class:'tbl'},el('tr',{},el('th',{},'Araç'),el('th',{},'Akılda kalsın')));
+    [['Yapay uydu','Yörüngede dolanır; haberleşme, gözlem, hava tahmini'],['Uzay sondası','İnsansız; gök cismine gönderilir, Dünya’dan kontrol edilir'],['Uzay istasyonu','İnsanlı; astronotlar yaşar ve deney yapar'],['Uzay mekiği','İnsanlı; istasyona gidip gelir, yeniden kullanılır'],['Uzay roketi','Uydu ve araçları uzaya fırlatır'],['Uzay teleskobu','Atmosfer dışında; net görüntü']].forEach(([a,t])=>tb.append(el('tr',{},el('td',{},el('b',{},a)),el('td',{},t))));
+    const tableCard=el('div',{class:'card'},el('h3',{},'Özet tablo'),el('p',{class:'hint'},'Önce ipuçlarıyla kendini dene; takılırsan bu tabloya göz at.'),el('details',{},el('summary',{style:'cursor:pointer;font-weight:700'},'Tabloyu göster'),tb));
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('h3',{},'İpucundan aracı bul'),el('p',{class:'hint'},'Sekiz ipucunun hepsini yanlışsız bulunca görev tamamlanır.'),info,area),tableCard));
+    start();
+  })();
+
+  /* --- Teleskop ve gözlemevi --- */
+  (function(){
+    const b=box.tele;regTask('uzay','u-tele');regTask('uzay','u-gozlem');
+    const ST=[['Atmosferin bulanıklaştırıcı etkisi yoktur.','U'],['Bulut, yağış gibi hava olayları gözlemi engellemez.','U'],['Şehir ışıklarından (ışık kirliliğinden) etkilenmez.','U'],['Maliyeti daha düşüktür.','Y'],['Bakımı ve onarımı daha kolaydır.','Y'],['Yeni parçalarla kolayca yenilenebilir.','Y']];
+    const c1=el('div',{class:'card'},el('h3',{},'Hangisinin avantajı?'),el('p',{class:'hint'},'Her ifadenin uzay teleskobunun mu, yer tabanlı teleskobun mu avantajı olduğunu seç.'));
+    const tb=el('table',{class:'tbl'});const sels=[];
+    shuffle(ST).forEach(([t,a])=>{const s=el('select',{},el('option',{value:''},'— seç —'),el('option',{value:'U'},'Uzay teleskobu'),el('option',{value:'Y'},'Yer tabanlı teleskop'));s._a=a;sels.push(s);tb.append(el('tr',{},el('td',{},t),el('td',{},s)))});
+    const f1=el('div',{class:'fb hidden'});
+    c1.append(tb,el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;sels.forEach(s=>{const ok=s.value===s._a;s.style.borderColor=ok?'var(--ok)':'var(--bad)';if(ok)k++});const all=k===sels.length;f1.className='fb '+(all?'ok':'bad');f1.innerHTML=all?'<b>Hepsi doğru.</b> Uzay teleskobu atmosferin dışında olduğu için daha net görür; yer tabanlı teleskop ise daha ucuzdur ve bakımı kolaydır. Bu yüzden ikisi de kullanılır.':`<b>${k} / ${sels.length} doğru.</b>`;if(all)markDone('u-tele')}},'Kontrol et'),f1);
+    // gözlemevi yeri
+    const SITES=[
+      {ad:'A — Şehir merkezi',r:50,isik:'Çok yüksek',acik:120,not:'Büyük şehrin ortasında, ulaşımı kolay.'},
+      {ad:'B — Deniz kıyısı',r:10,isik:'Orta',acik:150,not:'Nemli, sık sisli bir sahil kasabası.'},
+      {ad:'C — Dağ tepesi',r:2500,isik:'Çok düşük',acik:260,not:'En yakın şehre 50 km uzaklıkta.'},
+      {ad:'D — Vadi tabanı',r:800,isik:'Düşük',acik:140,not:'Sabahları sisle kaplanan bir vadi.'}];
+    const c2=el('div',{class:'card'},el('h3',{},'Gözlemevi için yer seç'),el('p',{class:'hint'},'Ülkemizin en büyük gözlemevi TÜBİTAK Ulusal Gözlemevi, Antalya’da Bakırlıtepe’dedir. Sen de aşağıdaki adaylardan birini seç.'));
+    const st=el('table',{class:'tbl'},el('tr',{},el('th',{},'Aday'),el('th',{},'Yükseklik'),el('th',{},'Işık kirliliği'),el('th',{},'Yılda açık gece'),el('th',{},'')));
+    const f2=el('div',{class:'fb hidden'});const why=el('div');
+    SITES.forEach((s,i)=>st.append(el('tr',{},el('td',{},el('b',{},s.ad),el('br'),el('span',{class:'hint'},s.not)),el('td',{class:'mono'},s.r+' m'),el('td',{},s.isik),el('td',{class:'mono'},String(s.acik)),el('td',{},el('button',{class:'btn sm ghost',type:'button',onclick:()=>{if(i===2){f2.className='fb ok';f2.innerHTML='<b>İyi seçim.</b> Şimdi nedenini seç.';why.innerHTML='';why.append(makeTask('uzay',{id:'u-gozlem',text:'C neden en uygun yer?',options:['Yüksekte atmosfer incedir ve hava olaylarının etkisi azdır; şehirden uzak olduğu için ışık kirliliği yoktur.','Yıldızlara daha yakın olduğu için onları daha büyük görür.','Dağda hava soğuk olduğu için teleskop daha iyi çalışır.'],correct:0,expl:'Gözlemevleri yüksek, açık gecesi çok ve ışık kirliliğinden uzak yerlere kurulur.'},1))}else{f2.className='fb bad';f2.innerHTML='<b>Tekrar düşün.</b> Yükseklik, ışık kirliliği ve açık gece sayısını birlikte değerlendir.';why.innerHTML=''}}},'Seç')))));
+    c2.append(st,f2,why);
+    b.append(el('div',{class:'grid2'},c1,c2));
+  })();
+
+  /* --- Uydular ve günlük hayat --- */
+  (function(){
+    const b=box.uydu;regTask('uzay','u-uydu');regTask('uzay','u-gunluk');
+    const U=[['TÜRKSAT 5B','19 Aralık 2021’de uzaya gönderildi.','H'],['GÖKTÜRK 2','18 Aralık 2012’de uzaya gönderildi; yüksek çözünürlüklü görüntü alır.','G'],['İMECE','15 Nisan 2023’te uzaya gönderildi; afet ve tarım alanlarında görüntü elde eder.','G'],['TÜRKSAT 6A','9 Temmuz 2024’te uzaya gönderildi; ilk yerli ve millî haberleşme uydumuzdur.','H']];
+    const c1=el('div',{class:'card'},el('h3',{},'Uydularımızı sınıflandır'));const tb=el('table',{class:'tbl'});const sels=[];
+    U.forEach(([n,t,a])=>{const s=el('select',{},el('option',{value:''},'— seç —'),el('option',{value:'H'},'Haberleşme uydusu'),el('option',{value:'G'},'Yer gözlem ve keşif uydusu'));s._a=a;sels.push(s);tb.append(el('tr',{},el('td',{},el('b',{},n),el('br'),el('span',{class:'hint'},t)),el('td',{},s)))});
+    const f1=el('div',{class:'fb hidden'});
+    c1.append(tb,el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;sels.forEach(s=>{const ok=s.value===s._a;s.style.borderColor=ok?'var(--ok)':'var(--bad)';if(ok)k++});const all=k===sels.length;f1.className='fb '+(all?'ok':'bad');f1.innerHTML=all?'<b>Doğru.</b> Türksat uyduları haberleşme, Göktürk ve İMECE yer gözlem uydularıdır.':`<b>${k} / ${sels.length} doğru.</b> Kartlardaki görev bilgisine bak.`;if(all)markDone('u-uydu')}},'Kontrol et'),f1);
+    const G=[['Hafızalı köpük yatak ve yastıklar',true],['Kablosuz elektrikli süpürge ve matkaplar',true],['Kulaktan ateş ölçen termometre',true],['Telefon kameralarındaki görüntü sensörü',true],['Su arıtma sistemleri',true],['Pusula',false],['Tekerlek',false],['Matbaa',false]];
+    const c2=el('div',{class:'card'},el('h3',{},'Uzaydan günlük hayata'),el('p',{class:'hint'},'Uzay araştırmaları için geliştirilip günlük hayatımıza giren teknolojileri işaretle.'));
+    const cbs=[];shuffle(G).forEach(([t,a],i)=>{const cb=el('input',{type:'checkbox',id:'gh'+i,style:'width:18px;height:18px;flex:none'});cb._a=a;cbs.push(cb);c2.append(el('label',{class:'row',for:'gh'+i,style:'margin:4px 0;cursor:pointer;flex-wrap:nowrap'},cb,el('span',{},t)))});
+    const f2=el('div',{class:'fb hidden'});
+    c2.append(el('div',{style:'height:6px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;cbs.forEach(c=>{const ok=c.checked===c._a;c.parentElement.style.color=ok?'':'var(--bad)';if(ok)k++});const all=k===cbs.length;f2.className='fb '+(all?'ok':'bad');f2.innerHTML=all?'<b>Doğru.</b> Pusula, tekerlek ve matbaa uzay çağından çok önce icat edildi.':`<b>${k} / ${cbs.length} doğru.</b> Kırmızı olanları yeniden düşün.`;if(all)markDone('u-gunluk')}},'Kontrol et'),f2);
+    b.append(el('div',{class:'grid2'},c1,c2));
+  })();
+})();
+
+/* =====================================================================
+   2) UZAY KİRLİLİĞİ — FB.7.1.3
+   ===================================================================== */
+(function(){
+  const v=views.kir;
+  v.append(el('div',{class:'card'},el('h2',{},'Uzay Kirliliği ',el('span',{class:'kod'},'FB.7.1.3')),
+    el('p',{class:'lead',html:'Görevini tamamlamış uydular, roket parçaları ve boş yakıt tankları Dünya’nın çevresinde birikiyor. Önce <b>hiç önlem almadan</b> yılları ilerlet, sonra önlemleri açıp karşılaştır. <i>Basitleştirilmiş bir modeldir: noktalar temsilîdir, eğilimi gösterir.</i>'})));
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const st={year:0,N:220,lost:0,m:{cik:false,top:false,izle:false},everMeasure:false,maxRiskNoMeasure:0};
+  const SAT=10;
+  const svg=sv('svg',{viewBox:'0 0 360 300',class:'stage',role:'img','aria-label':'Dünya çevresindeki uzay çöpleri'});
+  const g=sv('g');svg.append(g);
+  let parts=[];
+  const mkPart=()=>({r:78+Math.random()*62,a:Math.random()*Math.PI*2,w:(0.004+Math.random()*0.006)*(Math.random()<.5?1:1)});
+  const sats=Array.from({length:SAT},(_,i)=>({r:95+i*4,a:i*0.63,w:0.005}));
+  const syncParts=()=>{const want=Math.min(700,Math.round(st.N/1.5));while(parts.length<want)parts.push(mkPart());parts.length=want};
+  function frame(){g.innerHTML='';
+    g.append(sv('circle',{cx:180,cy:150,r:150,fill:'var(--night)',opacity:.85}));
+    g.append(sv('circle',{cx:180,cy:150,r:52,fill:'#3f7fd0'}));g.append(sv('path',{d:'M150,130 q15,-20 35,-8 q10,12 -5,22 q-18,6 -30,-14z M185,165 q20,-5 25,10 q-8,15 -25,6z',fill:'#5bb36a'}));
+    let pd='';for(const p of parts){if(!reduce)p.a+=p.w;pd+=`M${(180+p.r*Math.cos(p.a)-1.5).toFixed(1)},${(150+p.r*0.8*Math.sin(p.a)-1.5).toFixed(1)}h3v3h-3z`}g.append(sv('path',{d:pd,fill:'#c9cfdb'}));
+    sats.forEach((s,i)=>{if(!reduce)s.a+=s.w;const dead=i<st.lost;const x=180+s.r*Math.cos(s.a),y=150+s.r*0.8*Math.sin(s.a);g.append(sv('rect',{x:x-5,y:y-3,width:10,height:6,fill:dead?'var(--bad)':'#ffd25a',stroke:'#16223d','stroke-width':.8}))});
+    g.append(sv('text',{x:180,y:288,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#e7eefc'},`Yıl: ${st.year}`));
+    if(!reduce)requestAnimationFrame(frame)}
+  const risk=()=>Math.min(1,st.N/1600);
+  const riskTxt=r=>r<0.35?'Düşük':r<0.65?'Orta':'Yüksek';
+  const SERV=[['Uzay araştırmaları',0.3],['Hava tahmini',0.45],['Haberleşme',0.6],['GPS ile yol bulma',0.75]];
+  const panel=el('div');
+  function step(n){for(let k=0;k<n;k++){st.year++;
+    const launch=st.m.cik?12:45;const coll=Math.min(400,Math.floor(st.N*st.N/(st.m.izle?60000:30000)));const removed=st.m.top?Math.floor(st.N*0.1):0;
+    st.N=Math.min(4000,Math.max(60,st.N+launch+coll-removed));
+    const hitChance=risk()*(st.m.izle?0.08:0.25);if(Math.random()<hitChance&&st.lost<SAT)st.lost++;
+    if(!st.m.cik&&!st.m.top&&!st.m.izle)st.maxRiskNoMeasure=Math.max(st.maxRiskNoMeasure,risk())}
+    syncParts();render();if(reduce)frame()}
+  const reset=()=>{st.year=0;st.N=220;st.lost=0;st.maxRiskNoMeasure=0;syncParts();render();if(reduce)frame()};
+  const tog=(k,t,d)=>{const cb=el('input',{type:'checkbox',id:'m-'+k,style:'width:18px;height:18px;flex:none'});cb.addEventListener('change',()=>{st.m[k]=cb.checked;if(cb.checked)st.everMeasure=true;render()});return el('label',{class:'row',for:'m-'+k,style:'margin:4px 0;cursor:pointer;flex-wrap:nowrap;align-items:flex-start'},cb,el('span',{},el('b',{},t),el('br'),el('span',{class:'hint'},d)))};
+  const ctl=el('div',{},el('h3',{},'Önlemler'),tog('cik','Görev sonunda kontrollü çıkarma','Görevi biten uydular yörüngeden çıkarılıp atmosferde yakılır; yeni çöp azalır.'),tog('top','Çöp toplayıcı uydular','Yörüngedeki çöplerin bir kısmı her yıl yakalanıp temizlenir.'),tog('izle','İzleme ve kaçınma','Parçalar radar ve teleskopla izlenir; uydular çarpışmadan kaçmak için rota değiştirir.'),
+    el('div',{class:'row',style:'margin-top:8px'},el('button',{class:'btn sm',type:'button',onclick:()=>step(1)},'+1 yıl'),el('button',{class:'btn sm',type:'button',onclick:()=>step(10)},'+10 yıl'),el('button',{class:'btn ghost sm',type:'button',onclick:reset},'Baştan')));
+  function render(){panel.innerHTML='';const r=risk();
+    const dl=el('dl',{class:'read'});const row=(k,vv)=>dl.append(el('dt',{},k),vv.nodeType?el('dd',{},vv):el('dd',{html:vv}));
+    row('Yıl',String(st.year));row('Çöp miktarı (temsilî)',String(st.N));
+    row('Çarpışma riski',el('div',{},el('span',{},riskTxt(r)),el('div',{class:'meter'},el('i',{style:`width:${r*100}%;background:${r<.35?'var(--ok)':r<.65?'var(--warn)':'var(--bad)'}`}))));
+    row('Hasar gören uydu',`${st.lost} / ${SAT}`);
+    panel.append(dl,el('h3',{style:'margin-top:10px'},'Aksayan hizmetler'),el('div',{class:'chips'},...SERV.map(([t,th])=>el('span',{class:'chip',style:r>=th?'background:var(--badbg);color:var(--bad);border-color:var(--bad)':'background:var(--okbg);color:var(--ok);border-color:var(--ok)'},(r>=th?'✕ ':'✓ ')+t))));
+    TL.forEach(x=>x._tick&&x._tick())}
+  v.append(el('div',{class:'grid2'},el('div',{class:'card'},svg),el('div',{class:'card'},ctl,panel)));
+  const noM=()=>!st.m.cik&&!st.m.top&&!st.m.izle;
+  const TL=[
+    {id:'k1',text:'<b>Önce tahmin et:</b> Hiç önlem almadan yıllar geçerse çöp miktarı nasıl değişir? Sonra simülasyonda dene.',options:['Giderek daha hızlı artar.','Hep aynı kalır.','Kendiliğinden azalır.'],correct:0,expl:'Parçalar birbirine ve uydulara çarptıkça daha çok parça oluşur; çöp miktarı her yıl daha hızlı artar.'},
+    {id:'k2',text:'Hiç önlem almadan, en az <b>iki hizmetin</b> aksadığı yıla kadar ilerlet.',check:()=>noM()&&risk()>=0.45,status:()=>`Yıl ${st.year}`,why:{q:'Bu hizmetler neden aksıyor?',options:['Çöpler uydulara çarpıp onlara zarar veriyor; hasar gören uydular görevini yapamıyor.','Çöpler Güneş ışığını engelleyip Dünya’yı soğutuyor.','Çöpler atmosfere girip havayı kirletiyor.'],correct:0,expl:'Haberleşme, GPS ve hava tahmini uydulara bağlıdır; uydular zarar görünce bu hizmetler aksar.'}},
+    {id:'k3',text:'Şimdi “Baştan”a bas, önlemleri aç ve <b>30 yıl sonunda riski “Düşük”</b> seviyede tut.',check:()=>st.year>=30&&risk()<0.35&&!noM(),status:()=>`Yıl ${st.year}, risk düşük`,why:{q:'Hangi önlemler tehlikeyi azaltmaya yöneliktir?',options:['Yeni çöp oluşmasını azaltmak, var olan çöpleri toplamak ve çarpışmalardan kaçınmak.','Daha çok uydu fırlatmak.','Görevi biten uyduları yörüngede bırakmak.'],correct:0,expl:'Hem yeni çöp oluşumunu azaltmak hem de var olanları temizlemek gerekir.'}},
+    {id:'k4',text:'Bir boya parçası kadar küçük bir uzay çöpü bile uzay aracına neden büyük zarar verebilir?',options:['Çok yüksek hızla hareket ettiği için','Çok ağır olduğu için','Radyasyon yaydığı için','Manyetik olduğu için'],correct:0,expl:'Uzay çöpleri Dünya’nın çevresinde çok yüksek hızlarla dolaşır; küçük bir parça bile çarptığında büyük hasar verir.'},
+    {id:'k5',text:'Aşağıdakilerden hangisi uzay kirliliğinin kaynaklarından <b>değildir</b>?',options:['Doğal gök cisimleri olan asteroitler','Görev süresi dolmuş uydular','Roket parçaları','Boş yakıt tankları'],correct:0,expl:'Uzay kirliliği, işlevini yitirmiş insan yapımı cisimlerden oluşur.'},
+  ];
+  const tc=el('div',{class:'card'},el('h2',{},'Görevler'));const tl=el('div',{class:'tasks'});TL.forEach((t,i)=>tl.append(makeTask('kir',t,i+1)));tc.append(tl);v.append(tc);
+  // altı ayakkabı
+  regTask('kir','k-ayakkabi');
+  const SH=[['Lacivert resmî ayakkabı','kurallar, resmî rutinler'],['Gri spor ayakkabı','araştırma, bilgi toplama'],['Kahverengi yürüyüş ayakkabısı','pratik ve faydalı çözüm'],['Turuncu lastik çizme','tehlike ve acil durum'],['Pembe ev terliği','insanların duyguları ve ihtiyaçları'],['Mor binici çizmesi','liderlik ve karar verme']];
+  const PR=[['Ülkelerin görevi biten uyduları yörüngeden çıkarmasını zorunlu kılan kurallar yapmak.',0],['Uzay çöplerinin sayısını ve yerini öğrenmek için verileri toplayıp incelemek.',1],['Var olan imkânlarla uydulara koruyucu kalkan eklemek.',2],['Çarpışma tehlikesi olan bir parçayı hemen izleyip uydunun rotasını değiştirmek.',3],['GPS’e bağlı çalışan ambulans hizmetlerinden yararlanan insanların ihtiyaçlarını düşünmek.',4],['Projeyi yöneten kişi olarak ekipte görev dağılımı yapıp karar almak.',5]];
+  const ac=el('div',{class:'card'},el('h2',{},'Altı ayakkabı tekniği'),el('p',{class:'lead'},'Her ayakkabı farklı bir bakış açısını temsil eder. Önerileri uygun ayakkabıyla eşleştir.'));
+  ac.append(el('div',{class:'chips',style:'margin-bottom:10px'},...SH.map(([n,d])=>el('span',{class:'chip',style:'cursor:default'},el('b',{},n),' — '+d))));
+  const tb=el('table',{class:'tbl'});const sels=[];
+  shuffle(PR).forEach(([t,a])=>{const s=el('select',{},el('option',{value:''},'— seç —'),...SH.map(([n],i)=>el('option',{value:String(i)},n)));s._a=String(a);sels.push(s);tb.append(el('tr',{},el('td',{},t),el('td',{},s)))});
+  const af=el('div',{class:'fb hidden'});
+  ac.append(tb,el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;sels.forEach(s=>{const ok=s.value===s._a;s.style.borderColor=ok?'var(--ok)':'var(--bad)';if(ok)k++});const all=k===sels.length;af.className='fb '+(all?'ok':'bad');af.innerHTML=all?'<b>Hepsi doğru.</b> Sınavda bir ayakkabının bakış açısı istenirse, o ayakkabının neyi temsil ettiğini düşünerek öneri yaz.':`<b>${k} / ${sels.length} doğru.</b>`;if(all)markDone('k-ayakkabi')}},'Kontrol et'),af);
+  v.append(ac);
+  syncParts();render();frame();
+})();
+
+/* =====================================================================
+   3) YILDIZLARIN YAŞAMI — FB.7.1.4
+   ===================================================================== */
+(function(){
+  const v=views.yil;
+  v.append(el('div',{class:'card'},el('h2',{},'Yıldızların Yaşamı ',el('span',{class:'kod'},'FB.7.1.4')),
+    el('p',{class:'lead'},'Bir yıldızın başlangıç kütlesini seç. Rengini, yaklaşık yaşam süresini ve yaşamının nasıl sona ereceğini izle. Sınır yaklaşık 8 Güneş kütlesi.')));
+  const st={k:1,stage:-1};
+  const kOf=x=>Math.pow(10,x/100*2.1-0.6); // 0..100 -> ~0.25..32
+  const xOf=k=>Math.round((Math.log10(k)+0.6)/2.1*100);
+  const color=k=>k<0.6?['Kırmızı','#e0584a']:k<0.9?['Turuncu','#f08a3c']:k<1.4?['Sarı','#f5d04a']:k<3?['Beyaz','#f4f6ff']:['Mavi','#7fb2ff'];
+  const life=k=>10*Math.pow(k,-2.5);
+  const end=k=>k<8?'Beyaz cüce':k<20?'Nötron yıldızı':'Kara delik';
+  const path=k=>k<8?['Bulutsu','Yıldız','Kırmızı dev','Gezegenimsi bulutsu','Beyaz cüce']:['Bulutsu','Yıldız','Kırmızı süperdev','Süpernova',end(k)];
+  const svg=sv('svg',{viewBox:'0 0 600 232',class:'stage',role:'img','aria-label':'Yıldızın yaşam süreci'});
+  const lifeFmt=y=>y>=1?fmt(y,y<10?1:0)+' milyar yıl':fmt(y*1000,0)+' milyon yıl';
+  const draw=()=>{svg.innerHTML='';const k=st.k,small=k<8;
+    const N=[['Bulutsu',62,115],['Küçük kütleli yıldız',178,50],['Kırmızı dev',290,50],['Gezegenimsi bulutsu',402,50],['Beyaz cüce',514,50],['Büyük kütleli yıldız',178,180],['Kırmızı süperdev',290,180],['Süpernova',402,180],['Nötron yıldızı',530,150],['Kara delik',530,205]];
+    const onPath=n=>{if(n==='Bulutsu')return true;const p=path(k);if(n==='Küçük kütleli yıldız')return small;if(n==='Büyük kütleli yıldız')return !small;return p.includes(n)};
+    const stageName=st.stage>=0?path(k)[st.stage]:null;
+    const isNow=n=>stageName&&(n===stageName||(stageName==='Yıldız'&&n===(small?'Küçük kütleli yıldız':'Büyük kütleli yıldız')));
+    const E=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[7,9]];
+    E.forEach(([a,b2])=>{const A=N[a],B=N[b2];const on=onPath(A[0])&&onPath(B[0]);svg.append(sv('line',{x1:A[1]+48,y1:A[2],x2:B[1]-48,y2:B[2],stroke:on?'var(--accent2)':'var(--line)','stroke-width':on?3:1.5}))});
+    N.forEach(([n,x,y])=>{const on=onPath(n),now=isNow(n);svg.append(sv('rect',{x:x-48,y:y-17,width:96,height:34,rx:8,fill:now?'var(--sunsoft)':on?'var(--panel)':'var(--soft)',stroke:now?'var(--sun)':on?'var(--accent2)':'var(--line)','stroke-width':now?3:on?2:1}));
+      const words=n.split(' ');const l1=words.length>2?words.slice(0,2).join(' '):words[0],l2=words.length>2?words.slice(2).join(' '):words.slice(1).join(' ');
+      svg.append(sv('text',{x,y:l2?y-2:y+4,'text-anchor':'middle','font-size':10.5,'font-weight':on?700:400,fill:on?'var(--ink)':'var(--ink2)'},l1));if(l2)svg.append(sv('text',{x,y:y+11,'text-anchor':'middle','font-size':10.5,'font-weight':on?700:400,fill:on?'var(--ink)':'var(--ink2)'},l2))});
+    // yıldız görseli
+    const[cn,cc]=color(k);const r=Math.max(8,Math.min(26,8+Math.log10(k*4)*9));
+    svg.append(sv('circle',{cx:40,cy:192,r:r,fill:cc,stroke:'var(--ink2)'}));svg.append(sv('text',{x:40,y:228,'text-anchor':'middle','font-size':10,fill:'var(--ink2)'},'renk'));
+  };
+  const rng=el('input',{type:'range',min:0,max:100,step:1,value:xOf(1)});const out=el('output');
+  const read=el('dl',{class:'read'});
+  const capEl=el('p',{class:'lead',style:'margin:8px 0'});
+  const upd=()=>{out.textContent=fmt(st.k,st.k<10?1:0)+' Güneş kütlesi';rng.value=xOf(st.k);read.innerHTML='';
+    const row=(a,b2)=>read.append(el('dt',{},a),el('dd',{html:b2}));const[cn]=color(st.k);
+    row('Renk (yaşamının büyük bölümünde)',cn);row('Grup',st.k<8?'Küçük kütleli (8 Güneş kütlesinden küçük)':'Büyük kütleli (8 Güneş kütlesinden büyük)');row('Yaklaşık yaşam süresi',lifeFmt(life(st.k)));row('Yaşamının sonunda',end(st.k));
+    capEl.innerHTML=st.stage>=0?`<b>Aşama ${st.stage+1}: ${path(st.k)[st.stage]}</b> — ${DESC[path(st.k)[st.stage]]}`:'“Yaşamını oynat” ile aşamaları sırayla izle.';
+    draw();TL.forEach(x=>x._tick&&x._tick())};
+  const DESC={'Bulutsu':'Gaz ve toz bulutu; yıldızlar burada doğar.','Yıldız':'Yıldız yaşamının en uzun bölümünü burada geçirir.','Kırmızı dev':'Yakıtı azalan yıldız şişip büyür.','Gezegenimsi bulutsu':'Dış katmanlar uzaya saçılır.','Beyaz cüce':'Geriye küçük, sıcak ve sönükleşen bir çekirdek kalır.','Kırmızı süperdev':'Büyük kütleli yıldız çok büyük bir yıldıza dönüşür.','Süpernova':'Yıldız büyük bir patlamayla dış katmanlarını fırlatır.','Nötron yıldızı':'Çok küçük ama çok yoğun bir yıldız kalır.','Kara delik':'Işığın bile kaçamadığı bir yapı oluşur.'};
+  rng.addEventListener('input',()=>{st.k=kOf(+rng.value);st.stage=-1;upd()});
+  let timer=null;
+  const play=el('button',{class:'btn sm',type:'button',onclick:()=>{clearInterval(timer);st.stage=0;upd();timer=setInterval(()=>{st.stage++;if(st.stage>=path(st.k).length-1){st.stage=path(st.k).length-1;clearInterval(timer);st.played=true}upd()},1100)}},'▶ Yaşamını oynat');
+  const pres=el('div',{class:'chips'},...[[0.4,'Kırmızı cüce (0,4)'],[1,'Güneş (1)'],[3,'3 Güneş'],[12,'12 Güneş'],[30,'30 Güneş']].map(([k,t])=>el('button',{class:'chip',type:'button',onclick:()=>{st.k=k;st.stage=-1;upd()}},t)));
+  v.append(el('div',{class:'card'},svg,capEl,el('div',{class:'grid2',style:'margin-top:8px'},el('div',{},el('div',{class:'ctl'},el('label',{},'Başlangıç kütlesi',out),rng),pres,el('div',{style:'height:8px'}),play),read)));
+  const near=(a,b2,t)=>Math.abs(a-b2)<=t;
+  const TL=[
+    {id:'y1',text:'Kütleyi <b>Güneş</b> (1 Güneş kütlesi) yap ve yaşamını sonuna kadar oynat.',check:()=>near(st.k,1,0.15)&&st.played&&st.stage===4,status:()=>'Güneş beyaz cüce olarak yaşamını bitiriyor.',why:{q:'Güneş neden süpernova olarak patlamaz?',options:['Kütlesi yaklaşık 8 Güneş kütlesinden küçük olduğu için kırmızı dev → gezegenimsi bulutsu → beyaz cüce yolunu izler.','Dünya’ya çok yakın olduğu için.','Sarı renkli yıldızlar hiç ölmez.'],correct:0,expl:'Küçük kütleli yıldızlar beyaz cüce olarak yaşamlarını bitirir.'}},
+    {id:'y2',text:'Yaşamı <b>kara delik</b> ile sona eren bir yıldız bul.',check:()=>st.k>=20,status:()=>fmt(st.k,0)+' Güneş kütlesi',why:{q:'Bu yıldız kara delik olmadan önce hangi aşamalardan geçer?',options:['Kırmızı süperdev ve süpernova','Kırmızı dev ve gezegenimsi bulutsu','Beyaz cüce ve nötron yıldızı'],correct:0,expl:'Büyük kütleli yıldızlar kırmızı süperdev olur, süpernova patlamasıyla sona erer; geriye nötron yıldızı ya da kara delik kalır.'}},
+    {id:'y3',text:'Kütleyi değiştirip yaşam süresini izle: Kütle arttıkça yaşam süresi nasıl değişir?',options:['Kısalır','Uzar','Değişmez'],correct:0,expl:'Büyük kütleli yıldızlar yakıtlarını çok daha hızlı tüketir; bu yüzden yaşamları daha kısadır.'},
+    {id:'y4',text:'Renkleri karşılaştır: Yüzey sıcaklığı <b>en yüksek</b> yıldız hangi renkte görünür?',options:['Mavi','Sarı','Turuncu','Kırmızı'],correct:0,expl:'Sıcaklık sırası: mavi > beyaz > sarı > turuncu > kırmızı.'},
+    {id:'y5',text:'Geriye <b>nötron yıldızı</b> kalan bir yıldızın başlangıç kütlesi hakkında ne söylenebilir?',options:['8 Güneş kütlesinden büyüktür.','8 Güneş kütlesinden küçüktür.','Güneş’le tam olarak aynıdır.'],correct:0,expl:'Nötron yıldızı süpernova patlamasından sonra kalır; süpernova büyük kütleli yıldızlarda görülür.'},
+  ];
+  const tc=el('div',{class:'card'},el('h2',{},'Görevler'));const tl=el('div',{class:'tasks'});TL.forEach((t,i)=>tl.append(makeTask('yil',t,i+1)));tc.append(tl);v.append(tc);
+  // şema tamamla
+  regTask('yil','y-sema');
+  const OP=['—','Kırmızı dev','Beyaz cüce','Süpernova','Nötron yıldızı','Gezegenimsi bulutsu','Kırmızı süperdev'];
+  const blanks=[['(1)','Kırmızı dev'],['(2)','Beyaz cüce'],['(3)','Süpernova'],['(4)','Nötron yıldızı']];
+  const sc=el('div',{class:'card'},el('h2',{},'Şemayı tamamla'),el('p',{class:'mono',style:'line-height:1.9'},'Bulutsu → Küçük kütleli yıldız → (1) → Gezegenimsi bulutsu → (2)',el('br'),'Bulutsu → Büyük kütleli yıldız → Kırmızı süperdev → (3) → (4) veya kara delik'));
+  const sels=blanks.map(([l,a])=>{const s=el('select',{},...OP.map(o=>el('option',{},o)));s._a=a;sc.append(el('label',{class:'row',style:'margin:4px 0'},el('span',{style:'min-width:40px;font-weight:700'},l),s));return s});
+  const sf=el('div',{class:'fb hidden'});
+  sc.append(el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;sels.forEach(s=>{const ok=s.value===s._a;s.style.borderColor=ok?'var(--ok)':'var(--bad)';if(ok)k++});const all=k===4;sf.className='fb '+(all?'ok':'bad');sf.innerHTML=all?'<b>Doğru.</b>':`<b>${k} / 4 doğru.</b> Yukarıdaki simülasyonda iki yolu da oynatıp bak.`;if(all)markDone('y-sema')}},'Kontrol et'),sf);
+  v.append(sc);
+  upd();
+})();
+
+/* =====================================================================
+   4) İŞ ATÖLYESİ — FB.7.2.1
+   ===================================================================== */
+(function(){
+  const v=views.is;
+  v.append(el('div',{class:'card'},el('h2',{},'İş Atölyesi ',el('span',{class:'kod'},'FB.7.2.1')),
+    el('p',{class:'lead',html:'Fiziksel anlamda iş için iki koşul gerekir: <b>cisme kuvvet uygulanmalı</b> ve cisim <b>kuvvetin doğrultusunda yer değiştirmeli</b>. İş = kuvvet × kuvvet doğrultusunda alınan yol; birimi <b>joule (J)</b>.'})));
+  const seg=el('div',{class:'seg'});v.append(seg);
+  const parts=[['var','1. İş var mı?'],['alan','2. İş alanı'],['graf','3. Grafikten sırala']];
+  const box={};parts.forEach(([k,t],i)=>{seg.append(el('button',{class:'chip',type:'button','aria-pressed':i===0?'true':'false',onclick:e=>{seg.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');parts.forEach(([kk])=>box[kk].classList.toggle('hidden',kk!==k))}},t));box[k]=el('div',{class:i===0?'':'hidden'});v.append(box[k])});
+
+  /* --- İş var mı? --- */
+  (function(){
+    const b=box.var;regTask('is','i-var');
+    const R=['Kuvvet uygulanıyor ve cisim kuvvet doğrultusunda yer değiştiriyor.','Kuvvet uygulanıyor ama cisim yer değiştirmiyor.','Cisim hareket ediyor ama kuvvetin doğrultusunda değil.','Fiziksel anlamda kuvvet ve yer değiştirme yok; bu günlük hayattaki iş.'];
+    const SC=[['Ece, kitaplığı iterek odanın diğer ucuna götürüyor.',1,0],['Bir öğrenci okul çantasını sırtında taşıyarak düz yolda yürüyor.',0,2],['Sporcu halteri başının üstünde hareketsiz tutuyor.',0,1],['Bir çocuk bütün gücüyle sınıfın duvarını itiyor.',0,1],['İşçi yerdeki kutuyu kaldırıp masanın üstüne koyuyor.',1,0],['Öğrenci çantasıyla merdivenlerden üst kata çıkıyor.',1,0],['Bir öğrenci saatlerce masa başında sınava çalışıyor.',0,3],['Çocuk bisikletini iterek yokuş yukarı çıkarıyor.',1,0],['Garson tepsiyi elinde tutarak düz zeminde ilerliyor.',0,2]];
+    let order,qi,wrong;const area=el('div'),info=el('p',{class:'mono'});
+    const start=()=>{order=shuffle(SC);qi=0;wrong=0;ask()};
+    const ask=()=>{area.innerHTML='';info.textContent=`Durum ${qi+1} / ${order.length} · yanlış: ${wrong}`;const[t,yes,rs]=order[qi];let step=0;const fb=el('div',{class:'fb hidden'});
+      const yb=['Evet, iş yapılıyor','Hayır, iş yapılmıyor'].map((x,i)=>el('button',{class:'opt',type:'button',onclick:()=>{if(step)return;const ok=(i===0)===!!yes;if(ok){yb.forEach(q=>q.disabled=true);yb[i].classList.add('right');step=1;rb.forEach(q=>q.classList.remove('hidden'));rq.classList.remove('hidden');fb.className='fb hidden'}else{wrong++;info.textContent=`Durum ${qi+1} / ${order.length} · yanlış: ${wrong}`;yb[i].classList.add('wrong');yb[i].disabled=true;fb.className='fb bad';fb.innerHTML='<b>Tekrar düşün.</b> Kuvvet var mı? Cisim kuvvetin doğrultusunda yer değiştiriyor mu?'}}},x));
+      const rq=el('p',{class:'hidden'},el('b',{},'Nedeni hangisi?'));
+      const ro=shuffle(R.map((x,i)=>i));const rb=ro.map(i=>el('button',{class:'opt hidden',type:'button',onclick:()=>{if(i===rs){rb.forEach(q=>q.disabled=true);rb[ro.indexOf(i)].classList.add('right');fb.className='fb ok';fb.innerHTML='<b>Doğru.</b>';nx.classList.remove('hidden')}else{wrong++;info.textContent=`Durum ${qi+1} / ${order.length} · yanlış: ${wrong}`;rb[ro.indexOf(i)].classList.add('wrong');rb[ro.indexOf(i)].disabled=true;fb.className='fb bad';fb.innerHTML='<b>Değil.</b> Kuvvetin yönünü ve hareketin yönünü karşılaştır.'}}},R[i]));
+      const nx=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;if(qi<order.length)ask();else{area.innerHTML='';area.append(el('div',{class:'fb '+(wrong?'info':'ok'),html:`<b>Bitti!</b> ${wrong} yanlış.`+(wrong?' Yanlışsız bir tur görevi tamamlar.':' Kusursuz!')}),el('button',{class:'btn',type:'button',onclick:start},'Yeni tur'));if(!wrong)markDone('i-var')}}},'Sonraki durum');
+      area.append(el('div',{class:'card',style:'background:var(--soft)'},el('p',{style:'font-size:1.08rem;margin:0'},el('b',{},t))),el('div',{style:'height:8px'}),...yb,rq,...rb,fb,nx)};
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('h3',{},'Her durumda önce karar ver, sonra nedenini seç'),info,area),el('div',{class:'card'},el('h3',{},'Dikkat'),el('ul',{class:'rules'},el('li',{},'Çantayı düz yolda taşırken kuvvet yukarı, hareket yataydır: iş yok.'),el('li',{},'Duvarı itmek ya da halteri tutmak: kuvvet var ama yer değiştirme yok: iş yok.'),el('li',{},'Merdiven çıkmak: kuvvet yukarı, hareket yukarı: iş var.'),el('li',{},'Günlük hayattaki “çok iş yaptım” ile fiziksel iş aynı şey değildir.')))));
+    start();
+  })();
+
+  /* --- İş alanı --- */
+  (function(){
+    const b=box.alan;
+    const st={F:40,d:3,pairs:new Set()};
+    const svg=sv('svg',{viewBox:'0 0 360 260',class:'stage',role:'img','aria-label':'Kuvvet ve yol dikdörtgeni'});
+    const read=el('p',{style:'font-size:1.1rem'});
+    const draw=()=>{svg.innerHTML='';const ox=40,oy=225,sx=48,sy=2;
+      for(let i=1;i<=6;i++){svg.append(sv('line',{x1:ox+i*sx,y1:oy,x2:ox+i*sx,y2:oy-200,stroke:'var(--line)'}));svg.append(sv('text',{x:ox+i*sx,y:oy+15,'text-anchor':'middle','font-size':10,fill:'var(--ink2)'},String(i)))}
+      for(let j=20;j<=100;j+=20){svg.append(sv('line',{x1:ox,y1:oy-j*sy,x2:ox+6*sx,y2:oy-j*sy,stroke:'var(--line)'}));svg.append(sv('text',{x:ox-6,y:oy-j*sy+4,'text-anchor':'end','font-size':10,fill:'var(--ink2)'},String(j)))}
+      svg.append(sv('rect',{x:ox,y:oy-st.F*sy,width:st.d*sx,height:st.F*sy,fill:'var(--sunsoft)',stroke:'var(--sun)','stroke-width':2.5}));
+      svg.append(sv('text',{x:ox+st.d*sx/2,y:oy-st.F*sy/2+5,'text-anchor':'middle','font-size':15,'font-weight':700,fill:'var(--ink)'},`${fmt(st.F*st.d,1)} J`));
+      svg.append(sv('line',{x1:ox,y1:oy,x2:ox+6*sx+10,y2:oy,stroke:'var(--ink)','stroke-width':1.5}));svg.append(sv('line',{x1:ox,y1:oy,x2:ox,y2:oy-210,stroke:'var(--ink)','stroke-width':1.5}));
+      svg.append(sv('text',{x:ox+6*sx,y:oy+28,'text-anchor':'end','font-size':11,fill:'var(--ink)'},'Kuvvet doğrultusunda alınan yol (m)'));svg.append(sv('text',{x:ox+4,y:oy-205,'font-size':11,fill:'var(--ink)'},'Kuvvet (N)'));
+      read.innerHTML=`İş = <b>${st.F} N</b> × <b>${fmt(st.d,1)} m</b> = <b>${fmt(st.F*st.d,1)} J</b>`;
+      if(Math.abs(st.F*st.d-120)<1e-9)st.pairs.add(st.F+'x'+st.d);
+      TL.forEach(x=>x._tick&&x._tick())};
+    const mk=(lab,min,max,step,k,u)=>{const o=el('output');const r=el('input',{type:'range',min,max,step,value:st[k]});const sync=()=>o.textContent=fmt(st[k],1)+' '+u;r.addEventListener('input',()=>{st[k]=+r.value;sync();draw()});sync();return el('div',{class:'ctl'},el('label',{},lab,o),r)};
+    const TL=[
+      {id:'i-120',text:'<b>120 J</b> iş yapan <b>iki farklı</b> kuvvet–yol ikilisi bul.',check:()=>st.pairs.size>=2,status:()=>'Bulduğun ikililer: '+[...st.pairs].map(p=>p.replace('x',' N × ')+' m').join(', '),why:{q:'Buradan ne sonuç çıkar?',options:['Aynı işi küçük kuvvetle uzun yolda ya da büyük kuvvetle kısa yolda yapabiliriz.','İş yalnızca kuvvete bağlıdır.','İş yalnızca yola bağlıdır.'],correct:0,expl:'İş hem kuvvete hem de kuvvet doğrultusunda alınan yola bağlıdır.'}},
+      {id:'i-iki',text:'Yolu sabit tut, kuvveti <b>iki katına</b> çıkar. İş nasıl değişir?',options:['İki katına çıkar.','Yarıya iner.','Değişmez.','Dört katına çıkar.'],correct:0,expl:'İş kuvvetle doğru orantılıdır: dikdörtgenin yüksekliği iki katına çıkınca alanı da iki katına çıkar.'},
+      {id:'i-sifir',text:'Yolu <b>0</b> yapabilseydin (cisim hiç hareket etmeseydi) kuvvet ne kadar büyük olursa olsun iş kaç J olurdu?',options:['0 J','Kuvvet kadar','100 J'],correct:0,expl:'Yer değiştirme yoksa iş yapılmaz; duvarı itmek buna örnektir.'},
+    ];
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},svg,read),el('div',{class:'card'},mk('Kuvvet',10,100,10,'F','N'),mk('Kuvvet doğrultusunda alınan yol',0.5,6,0.5,'d','m'),el('p',{class:'hint'},'Dikdörtgenin alanı yapılan işi gösterir.'),el('div',{class:'tasks'},...TL.map((t,i)=>makeTask('is',t,i+1))))));
+    draw();
+  })();
+
+  /* --- Grafikten sırala --- */
+  (function(){
+    const b=box.graf;regTask('is','i-graf');let streak=0,cur;
+    const svg=sv('svg',{viewBox:'0 0 520 200',class:'stage',role:'img','aria-label':'Kuvvet ve yol grafikleri'});
+    const ans=el('div'),fb=el('div',{class:'fb hidden'}),sk=el('p',{class:'mono'});
+    const gen=()=>{const L=['K','L','M','N'];let F,D,W;do{F=L.map(()=>pick([20,30,40,50,60,80]));D=L.map(()=>pick([1,1.5,2,3,4,5]));W=F.map((f,i)=>f*D[i])}while(new Set(W).size<4);return{L,F,D,W}};
+    const bars=(ox,vals,max,title,unit)=>{svg.append(sv('text',{x:ox,y:16,'font-size':11,'font-weight':700,fill:'var(--ink)'},title));const H=140,base=180;svg.append(sv('line',{x1:ox,y1:base,x2:ox+210,y2:base,stroke:'var(--ink)'}));
+      vals.forEach((vv,i)=>{const h=vv/max*H;const x=ox+15+i*50;svg.append(sv('rect',{x,y:base-h,width:30,height:h,fill:i%2?'var(--accent2)':'var(--accent)',opacity:.8}));svg.append(sv('text',{x:x+15,y:base-h-4,'text-anchor':'middle','font-size':10,fill:'var(--ink)'},fmt(vv,1)+' '+unit));svg.append(sv('text',{x:x+15,y:base+14,'text-anchor':'middle','font-size':11,fill:'var(--ink)'},cur.L[i]))})};
+    const load=()=>{cur=gen();svg.innerHTML='';bars(10,cur.F,80,'Uygulanan kuvvet','N');bars(280,cur.D,5,'Kuvvet doğrultusunda alınan yol','m');
+      ans.innerHTML='';fb.className='fb hidden';const picked=[];const out=el('p',{class:'mono'},'Sıran: —');
+      const btns=cur.L.map(l=>el('button',{class:'chip',type:'button',onclick:e=>{picked.push(l);e.currentTarget.disabled=true;e.currentTarget.setAttribute('aria-pressed','true');out.textContent='Sıran: '+picked.join(' > ');if(picked.length===4){const right=cur.L.slice().sort((a,b2)=>cur.W[cur.L.indexOf(b2)]-cur.W[cur.L.indexOf(a)]);const ok=picked.join()===right.join();streak=ok?streak+1:0;fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Tekrar bak.</b> ')+cur.L.map((l2,i)=>`${l2}: ${cur.F[i]} × ${fmt(cur.D[i],1)} = ${fmt(cur.W[i],1)} J`).join(' · ')+'. Sıralama: '+right.join(' > ');sk.textContent=`Art arda doğru: ${streak} / 2`;if(streak>=2)markDone('i-graf')}}},l));
+      ans.append(el('p',{},el('b',{},'İşleri büyükten küçüğe sıralamak için harflere sırayla dokun.')),el('div',{class:'chips'},...btns),out,el('button',{class:'btn ghost sm',type:'button',onclick:load},'Yeni grafik'));sk.textContent=`Art arda doğru: ${streak} / 2`};
+    b.append(el('div',{class:'card'},el('h3',{},'Grafikten işleri hesapla ve sırala'),el('p',{class:'hint'},'İki grafiği art arda doğru sıralayınca görev tamamlanır. Dikkat: en büyük kuvvet her zaman en büyük iş demek değildir.'),svg,sk,ans,fb));
+    load();
+  })();
+})();
+
+/* =====================================================================
+   5) ENERJİ LABORATUVARI — FB.7.2.2
+   ===================================================================== */
+(function(){
+  const v=views.enj;
+  v.append(el('div',{class:'card'},el('h2',{},'Enerji Laboratuvarı ',el('span',{class:'kod'},'FB.7.2.2')),
+    el('p',{class:'lead',html:'<b>Kinetik enerji</b>: hareket enerjisi; kütleye ve hıza bağlı. <b>Çekim potansiyel enerjisi</b>: ağırlığa (kütleye) ve yüksekliğe bağlı. <b>Esneklik potansiyel enerjisi</b>: esnek cisimlerin sıkıştırılması ya da gerilmesiyle depolanır.'})));
+  const st={pm:2,ph:3,km:2,kv:3,es:4,sert:false,flag:{pm:false,ph:false},base:{pm:2,ph:3}};
+  const meter=(lab,val,max,col)=>el('div',{},el('span',{class:'hint'},lab),el('div',{class:'meter',style:'height:16px'},el('i',{style:`width:${Math.min(100,val/max*100)}%;background:${col}`})));
+  const pSvg=sv('svg',{viewBox:'0 0 220 170',class:'stage'}),kSvg=sv('svg',{viewBox:'0 0 220 170',class:'stage'}),eSvg=sv('svg',{viewBox:'0 0 220 170',class:'stage'});
+  const pM=el('div'),kM=el('div'),eM=el('div');
+  const draw=()=>{
+    pSvg.innerHTML='';pSvg.append(sv('line',{x1:10,y1:160,x2:210,y2:160,stroke:'var(--ink)','stroke-width':2}));const y=160-st.ph*14;pSvg.append(sv('rect',{x:100,y:y,width:90,height:6,fill:'var(--ink2)'}));pSvg.append(sv('line',{x1:185,y1:y+6,x2:185,y2:160,stroke:'var(--ink2)','stroke-width':3}));const s=8+st.pm*3;pSvg.append(sv('rect',{x:140-s/2,y:y-s,width:s,height:s,fill:'#c98a4b',stroke:'var(--ink)'}));pSvg.append(sv('text',{x:20,y:20,'font-size':11,fill:'var(--ink)'},`${st.pm} kg · ${st.ph} m`));
+    pM.innerHTML='';pM.append(meter('Çekim potansiyel enerjisi',st.pm*st.ph,100,'var(--accent2)'));
+    kSvg.innerHTML='';kSvg.append(sv('line',{x1:10,y1:140,x2:210,y2:140,stroke:'var(--ink)','stroke-width':2}));const w=30+st.km*5;kSvg.append(sv('rect',{x:110-w/2,y:140-28,width:w,height:22,rx:5,fill:'#d14b4b'}));kSvg.append(sv('circle',{cx:110-w/3,cy:140-4,r:6,fill:'var(--ink)'}));kSvg.append(sv('circle',{cx:110+w/3,cy:140-4,r:6,fill:'var(--ink)'}));for(let i=0;i<Math.round(st.kv);i++)kSvg.append(sv('line',{x1:110-w/2-8-i*7,y1:118+i%3*6,x2:110-w/2-22-i*7,y2:118+i%3*6,stroke:'var(--ink2)','stroke-width':2}));kSvg.append(sv('text',{x:20,y:20,'font-size':11,fill:'var(--ink)'},`${st.km} kg · ${st.kv} m/s`));
+    kM.innerHTML='';kM.append(meter('Kinetik enerji',st.km*st.kv*st.kv,1000,'var(--sun)'));
+    eSvg.innerHTML='';eSvg.append(sv('line',{x1:20,y1:40,x2:20,y2:140,stroke:'var(--ink)','stroke-width':3}));const len=150-st.es*9;let d='M20,90';const n=10;for(let i=1;i<=n;i++){d+=` L${20+len*i/n},${90+(i%2?-14:14)*(i===n?0:1)}`}eSvg.append(sv('path',{d,fill:'none',stroke:st.sert?'#6a4fa3':'var(--accent2)','stroke-width':st.sert?4:2.5}));eSvg.append(sv('rect',{x:20+len,y:75,width:20,height:30,fill:'#c98a4b',stroke:'var(--ink)'}));eSvg.append(sv('text',{x:30,y:20,'font-size':11,fill:'var(--ink)'},`sıkışma: ${st.es} cm · ${st.sert?'sert':'yumuşak'} yay`));
+    eM.innerHTML='';eM.append(meter('Esneklik potansiyel enerjisi',(st.sert?2:1)*st.es*st.es,200,'#8a5cd1'));
+    TL.forEach(x=>x._tick&&x._tick())};
+  const mk=(lab,min,max,step,k,u)=>{const o=el('output');const r=el('input',{type:'range',min,max,step,value:st[k]});const sync=()=>o.textContent=st[k]+' '+u;r.addEventListener('input',()=>{st[k]=+r.value;if(k in st.flag&&st[k]>st.base[k])st.flag[k]=true;sync();draw()});sync();return el('div',{class:'ctl'},el('label',{},lab,o),r)};
+  const sert=el('label',{class:'row',style:'cursor:pointer'},el('input',{type:'checkbox',onchange:e=>{st.sert=e.target.checked;draw()}}),'Daha sert yay kullan');
+  v.append(el('div',{style:'display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px'},
+    el('div',{class:'card'},el('h3',{},'Raftaki kutu'),pSvg,mk('Kütle',1,10,1,'pm','kg'),mk('Yükseklik',0,10,1,'ph','m'),pM),
+    el('div',{class:'card'},el('h3',{},'Hareket eden araba'),kSvg,mk('Kütle',1,10,1,'km','kg'),mk('Hız',0,10,1,'kv','m/s'),kM),
+    el('div',{class:'card'},el('h3',{},'Sıkışan yay'),eSvg,mk('Sıkışma miktarı',0,10,1,'es','cm'),sert,eM)));
+  const TL=[
+    {id:'e1',text:'Raftaki kutunun çekim potansiyel enerjisini <b>iki farklı yolla</b> artır (önce birini, sonra diğerini dene).',check:()=>st.flag.pm&&st.flag.ph,status:()=>'Kütleyi de yüksekliği de artırdın.',why:{q:'Buna göre çekim potansiyel enerjisi nelere bağlıdır?',options:['Cismin ağırlığına (kütlesine) ve yerden yüksekliğine','Cismin hızına ve kütlesine','Yalnızca yüksekliğe'],correct:0,expl:'Ağırlığı ya da yüksekliği artan cismin çekim potansiyel enerjisi artar.'}},
+    {id:'e2',text:'Arabanın <b>kinetik enerjisini sıfır</b> yap.',check:()=>st.kv===0,status:()=>'Hız 0 m/s.',why:{q:'Kütle hâlâ olduğu hâlde kinetik enerji neden sıfır?',options:['Hareket etmeyen cismin kinetik enerjisi yoktur.','Kütle sıfır olduğu için.','Yükseklik sıfır olduğu için.'],correct:0,expl:'Kinetik enerji hareket enerjisidir; duran cismin kinetik enerjisi yoktur.'}},
+    {id:'e3',text:'Aynı hızla giden <b>dolu bir kamyon</b> ile bir <b>otomobilden</b> hangisinin kinetik enerjisi daha büyüktür?',options:['Kamyonun; kütlesi daha büyük.','Otomobilin; daha küçük.','İkisi eşittir; hızları aynı.'],correct:0,expl:'Hız aynıysa kütlesi büyük olanın kinetik enerjisi büyüktür.'},
+    {id:'e4',text:'Kütleleri eşit iki çarpışan araçtan <b>daha hızlı</b> olanı frene basınca daha uzun mesafede duruyor. Nedeni nedir?',options:['Hızı büyük olduğu için kinetik enerjisi daha fazladır.','Kütlesi büyük olduğu için.','Çekim potansiyel enerjisi daha fazladır.'],correct:0,expl:'Kütle aynıysa hızı büyük olanın kinetik enerjisi büyüktür; durması için daha uzun yol gerekir.'},
+  ];
+  const tc=el('div',{class:'card'},el('h2',{},'Görevler'));const tl=el('div',{class:'tasks'});TL.forEach((t,i)=>tl.append(makeTask('enj',t,i+1)));tc.append(tl);v.append(tc);
+  // sınıflandırma
+  regTask('enj','e-sinif');
+  const EX=[['Gökyüzünde uçan kuş',[1,1,0]],['Raf üzerinde duran saksı',[0,1,0]],['Gerilmiş paket lastiği',[0,0,1]],['Yerde yuvarlanan top',[1,0,0]],['Karlı tepeden aşağı kayan kızak',[1,1,0]],['Barajda biriken su',[0,1,0]],['Okçunun gerdiği yay',[0,0,1]],['Denizde ilerleyen tekne',[1,0,0]],['Tükenmez kalemde sıkışmış yay',[0,0,1]],['Ağaç dalında duran elma',[0,1,0]]];
+  const cc=el('div',{class:'card'},el('h2',{},'Enerji türünü işaretle'),el('p',{class:'hint'},'Bir örnek için birden fazla kutu işaretlenebilir. Yükseklikler yere göre düşünülecek.'));
+  const tb=el('table',{class:'tbl'},el('tr',{},el('th',{},'Örnek'),el('th',{},'Kinetik'),el('th',{},'Çekim potansiyel'),el('th',{},'Esneklik potansiyel')));const rows=[];
+  shuffle(EX).forEach(([t,a])=>{const cbs=a.map(()=>el('input',{type:'checkbox',style:'width:20px;height:20px'}));const tr=el('tr',{},el('td',{},t),...cbs.map(c=>el('td',{style:'text-align:center'},c)));rows.push({tr,cbs,a,t});tb.append(tr)});
+  const cf=el('div',{class:'fb hidden'});
+  cc.append(tb,el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;rows.forEach(r=>{const ok=r.cbs.every((c,i)=>c.checked===!!r.a[i]);r.tr.style.background=ok?'var(--okbg)':'var(--badbg)';if(ok)k++});const all=k===rows.length;cf.className='fb '+(all?'ok':'bad');cf.innerHTML=all?'<b>Hepsi doğru.</b> Hem hareket eden hem yüksekte olan cisimlerde (uçan kuş, kayan kızak) iki enerji birlikte vardır.':`<b>${k} / ${rows.length} satır doğru.</b> Kırmızı satırlarda: hareket var mı? Yerden yüksekte mi? Esnek bir cisim sıkışmış ya da gerilmiş mi?`;if(all)markDone('e-sinif')}},'Kontrol et'),cf);
+  v.append(cc);
+  // deney tasarla
+  regTask('enj','e-deney');
+  const dc=el('div',{class:'card'},el('h2',{},'Deneyi tasarla'),el('p',{},'Öğrenciler yedikule oyununda taşları toplarla deviriyor. Devrilen taş sayısı, topun kinetik enerjisi hakkında bilgi veriyor.'));
+  const GO=[{q:'kütleye',chg:'kutle'},{q:'hıza',chg:'hiz'}];let gi=0;
+  const V=[['kutle','Topun kütlesi (basketbol topu / plastik top)'],['hiz','Topun atılma hızı'],['uzak','Atış uzaklığı'],['tas','Taşların sayısı ve dizilişi']];
+  const dArea=el('div');let doneGo={};
+  const loadD=()=>{dArea.innerHTML='';const G=GO[gi];const fb=el('div',{class:'fb hidden'});
+    dArea.append(el('p',{style:'font-size:1.05rem'},el('b',{},`Amaç: Kinetik enerjinin ${G.q} bağlı olduğunu göstermek.`)));
+    const sel=el('select',{},el('option',{value:''},'— seç —'),...V.map(([k,t])=>el('option',{value:k},t)));
+    dArea.append(el('label',{class:'row'},el('span',{style:'min-width:220px'},'Değiştireceğim değişken:'),sel),el('p',{class:'hint',style:'margin:8px 0 2px'},'Sabit tutacağım değişkenler:'));
+    const cbs=V.map(([k,t])=>{const c=el('input',{type:'checkbox',style:'width:18px;height:18px;flex:none'});c._k=k;dArea.append(el('label',{class:'row',style:'margin:2px 0;cursor:pointer;flex-wrap:nowrap'},c,el('span',{},t)));return c});
+    dArea.append(el('div',{style:'height:6px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{const okSel=sel.value===G.chg;const okC=cbs.every(c=>c.checked===(c._k!==G.chg));fb.className='fb '+(okSel&&okC?'ok':'bad');
+      fb.innerHTML=okSel&&okC?`<b>Doğru tasarım.</b> Yalnızca ${G.chg==='kutle'?'topun kütlesini':'topun hızını'} değiştirip diğerlerini sabit tutarsan devrilen taş farkının nedenini bilirsin. Beklenen sonuç: ${G.chg==='kutle'?'kütlesi büyük top':'hızlı atılan top'} daha çok taş devirir.`:'<b>Tekrar düşün.</b> Yalnızca bir değişken değişmeli; diğer bütün etkenler sabit kalmalı.';
+      if(okSel&&okC){doneGo[gi]=true;if(doneGo[0]&&doneGo[1])markDone('e-deney');else{gi=1-gi;fb.innerHTML+=' Şimdi diğer amaç için dene.';setTimeout(loadD,2400)}}}},'Kontrol et'),fb)};
+  dc.append(dArea);v.append(dc);loadD();
+  draw();
+})();
+
+/* =====================================================================
+   6) KARMA TUR
+   ===================================================================== */
+(function(){
+  const v=views.karma;regTask('karma','k-tur');
+  const K={U:'Uzay teknolojileri (FB.7.1.1)',P:'Uzay kirliliği (FB.7.1.3)',Y:'Yıldızların yaşamı (FB.7.1.4)',I:'İş (FB.7.2.1)',E:'Kinetik ve potansiyel enerji (FB.7.2.2)'};
+  const KST={U:'uzay',P:'kir',Y:'yil',I:'is',E:'enj'};
+  const BANK=[
+    ['U','Astronotları ve malzemeleri istasyona taşıyıp Dünya’ya dönen, yeniden kullanılabilen araç hangisidir?',['Uzay mekiği','Uzay roketi','Uzay sondası','Yapay uydu'],'Mekiğin ayırt edici özelliği yeniden kullanılabilmesidir.'],
+    ['U','Bir gök cismini incelemek için gönderilen, Dünya’dan kontrol edilen insansız araç hangisidir?',['Uzay sondası','Uzay istasyonu','Uzay mekiği','Uzay teleskobu'],'Sondalar insansız, robotik araçlardır.'],
+    ['U','Uzay teleskopları yer tabanlı teleskoplara göre neden daha net görüntü elde eder?',['Atmosferin ve hava olaylarının etkisinden uzak oldukları için','Gök cisimlerine çok daha yakın oldukları için','Daha ucuz oldukları için','Gece ve gündüz farkı olmadığı için'],'Atmosfer, hava olayları ve ışık kirliliği uzay teleskobunu etkilemez.'],
+    ['U','Gözlemevleri neden yüksek ve şehirden uzak yerlere kurulur?',['Atmosfer incedir ve ışık kirliliği yoktur.','Yıldızlara daha yakın olunur.','Hava soğuk olduğu için teleskop iyi çalışır.','Ulaşım kolay olduğu için.'],'Yükseklik ve ışık kirliliğinden uzaklık gözlemi kolaylaştırır.'],
+    ['U','Göktürk 2 hangi amaçla kullanılan bir uydudur?',['Yer gözlem ve keşif','Haberleşme','İnsan taşıma','Uzay araçlarını fırlatma'],'Göktürk 2 yüksek çözünürlüklü keşif ve gözlem uydusudur.'],
+    ['U','Hangisi uzay araştırmaları için geliştirilip günlük hayata geçen bir teknolojidir?',['Hafızalı köpük yatak','Pusula','Tekerlek','Matbaa'],'Diğerleri uzay çağından çok önce icat edildi.'],
+    ['P','Uzay kirliliği nedir?',['İşlevini yitirmiş insan yapımı cisimlerin uzayda birikmesi','Asteroitlerin Dünya’ya çarpması','Güneş patlamaları','Atmosferdeki hava kirliliği'],'Uydular, roket parçaları ve yakıt tankları uzay kirliliğini oluşturur.'],
+    ['P','Çok küçük bir uzay çöpü bile neden tehlikelidir?',['Çok yüksek hızla hareket ettiği için','Çok ağır olduğu için','Radyasyon yaydığı için','Manyetik olduğu için'],'Yüksek hız, küçük parçaya bile büyük yıkım gücü verir.'],
+    ['P','Uzay kirliliği arttıkça hangisinin aksaması beklenir?',['GPS ile yol bulma','Bisiklet sürme','Kitap okuma','Yürüyüş yapma'],'GPS uydulara bağlıdır.'],
+    ['P','Altı ayakkabı tekniğinde turuncu lastik çizme hangi bakış açısını temsil eder?',['Tehlike ve acil durum','Kurallar ve resmî rutinler','İnsanların duyguları','Liderlik'],'Turuncu lastik çizme tehlikeyi ortadan kaldırmaya odaklanır.'],
+    ['P','Hangisi uzay kirliliği tehlikesini azaltmaya yönelik bir çözümdür?',['Görevi biten uyduları kontrollü olarak yörüngeden çıkarmak','Daha çok uydu fırlatmak','Roket parçalarını yörüngede bırakmak','Uyduları kendi hâline bırakmak'],'Yeni çöp oluşumunu azaltmak tehlikeyi azaltır.'],
+    ['Y','Güneş’in yaşamı nasıl sona erecek?',['Beyaz cüce olarak','Kara delik olarak','Nötron yıldızı olarak','Süpernova olarak'],'Güneş 8 Güneş kütlesinden küçüktür.'],
+    ['Y','Yıldızların kütlesi ile yaşam süresi arasındaki ilişki hangisidir?',['Kütle büyüdükçe yaşam süresi kısalır.','Kütle büyüdükçe yaşam süresi uzar.','Yaşam süresi kütleye bağlı değildir.','Bütün yıldızlar aynı süre yaşar.'],'Büyük kütleli yıldızlar yakıtlarını hızlı tüketir.'],
+    ['Y','Hangi renkte görünen yıldızın yüzey sıcaklığı en yüksektir?',['Mavi','Sarı','Turuncu','Kırmızı'],'Mavi > beyaz > sarı > turuncu > kırmızı.'],
+    ['Y','Süpernova patlamasından sonra geriye ne kalabilir?',['Nötron yıldızı ya da kara delik','Beyaz cüce','Gezegenimsi bulutsu','Kırmızı dev'],'Süpernova büyük kütleli yıldızların sonudur.'],
+    ['Y','Yıldızlar nerede doğar?',['Bulutsularda','Kara deliklerde','Beyaz cücelerde','Süpernovalarda'],'Bulutsu, gaz ve toz bulutudur.'],
+    ['I','40 N kuvvet uygulanan bir koli, kuvvet doğrultusunda 3 m hareket ediyor. Yapılan iş kaç J’dür?',120,'40 × 3 = 120 J.'],
+    ['I','50 N kuvvetle 200 J iş yapmak için cisim kuvvet doğrultusunda kaç m hareket ettirilmelidir?',4,'200 ÷ 50 = 4 m.'],
+    ['I','Okul çantasını sırtında taşıyarak düz yolda yürüyen öğrenci çantaya iş yapar mı?',['Hayır; kuvvet yukarı, hareket yatay doğrultuda.','Evet; çanta hareket ediyor.','Evet; öğrenci yoruluyor.','Hayır; kuvvet uygulanmıyor.'],'Kuvvet doğrultusunda yer değiştirme yok.'],
+    ['I','Fiziksel anlamda işin birimi hangisidir?',['Joule','Newton','Metre','Kilogram'],'İş joule (J) ile ölçülür.'],
+    ['I','Bütün gücüyle duvarı iten öğrenci iş yapar mı?',['Hayır; duvar yer değiştirmiyor.','Evet; kuvvet uyguluyor.','Evet; yoruluyor.','Hayır; kuvvet uygulamıyor.'],'Kuvvet var ama yer değiştirme yok.'],
+    ['E','Kinetik enerji hangi etkenlere bağlıdır?',['Kütle ve hız','Kütle ve yükseklik','Yalnızca hız','Yalnızca kütle'],'Hareket eden cismin kütlesi ve hızı arttıkça kinetik enerjisi artar.'],
+    ['E','Çekim potansiyel enerjisi hangi etkenlere bağlıdır?',['Ağırlık (kütle) ve yükseklik','Hız ve kütle','Yalnızca yükseklik','Sıcaklık'],'Yükseklik ve ağırlık arttıkça artar.'],
+    ['E','Okçunun gerdiği yayda hangi enerji depolanır?',['Esneklik potansiyel enerjisi','Kinetik enerji','Çekim potansiyel enerjisi','Hiçbiri'],'Gerilen esnek cisimde esneklik potansiyel enerjisi depolanır.'],
+    ['E','Gökyüzünde uçan bir kuşun hangi enerjileri vardır?',['Kinetik ve çekim potansiyel enerjisi','Yalnızca kinetik enerji','Yalnızca çekim potansiyel enerjisi','Esneklik potansiyel enerjisi'],'Hem hareket ediyor hem de yerden yüksekte.'],
+    ['E','Aynı hızla giden dolu bir kamyon ve bir otomobilden hangisinin kinetik enerjisi büyüktür?',['Kamyonun','Otomobilin','İkisi eşittir','Karar verilemez'],'Hız aynıyken kütlesi büyük olanın kinetik enerjisi büyüktür.'],
+    ['E','Kinetik ve potansiyel enerjinin ortak etkeni hangisidir?',['Kütle','Hız','Yükseklik','Renk'],'Kinetik: kütle ve hız; çekim potansiyel: kütle (ağırlık) ve yükseklik.'],
+  ];
+  const PLAN={U:3,P:2,Y:2,I:2,E:3};
+  let Q=[],qi=0,res=[];const area=el('div');
+  v.append(el('div',{class:'card'},el('h2',{},'Karma Tur'),el('p',{class:'lead'},'Bütün istasyonlardan karışık 12 soru. Her sorudan önce ne kadar emin olduğunu seç: en çok, emin olup yanlış yaptığın konuları çalışman gerekir.'),area));
+  const start=()=>{Q=[];for(const[k,n]of Object.entries(PLAN))Q.push(...shuffle(BANK.filter(b=>b[0]===k)).slice(0,n));Q=shuffle(Q);qi=0;res=[];ask()};
+  const intro=()=>{area.innerHTML='';if(S.karma)area.append(el('p',{class:'hint'},`Son turun: ${S.karma.score} / ${S.karma.total}.`));area.append(el('button',{class:'btn',type:'button',onclick:start},S.karma?'Yeni tur başlat':'Turu başlat'))};
+  const ask=()=>{area.innerHTML='';const q=Q[qi];let conf=null;
+    const ansBox=el('div',{class:'body hidden'});const fb=el('div',{class:'fb hidden'});
+    const confRow=el('div',{class:'conf'},'Ne kadar eminsin?',...[['e','Eminim'],['b','Biraz'],['t','Tahmin']].map(([k,t])=>el('button',{class:'chip',type:'button','aria-pressed':'false',onclick:e=>{conf=k;confRow.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');ansBox.classList.remove('hidden')}},t)));
+    const next=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;qi<Q.length?ask():finish()}},qi<Q.length-1?'Sonraki soru':'Sonucu gör');
+    const answer=ok=>{res.push({k:q[0],ok,conf,q:q[1]});fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Yanlış.</b> ')+q[3];next.classList.remove('hidden');confRow.querySelectorAll('button').forEach(b=>b.disabled=true)};
+    if(Array.isArray(q[2])){const order=shuffle(q[2].map((o,i)=>i));const bs=order.map(i=>el('button',{class:'opt',type:'button',onclick:()=>{bs.forEach(b=>b.disabled=true);const ok=i===0;bs[order.indexOf(i)].classList.add(ok?'right':'wrong');if(!ok)bs[order.indexOf(0)].classList.add('right');answer(ok)}},q[2][i]));ansBox.append(...bs)}
+    else{const inp=el('input',{type:'number',inputmode:'numeric'});const b=el('button',{class:'btn sm',type:'button',onclick:()=>{if(inp.value==='')return;b.disabled=true;inp.disabled=true;const ok=+inp.value===q[2];inp.style.borderColor=ok?'var(--ok)':'var(--bad)';answer(ok)}},'Yanıtla');ansBox.append(el('div',{class:'row'},inp,b))}
+    area.append(el('div',{class:'qcard'},el('p',{class:'mono'},`Soru ${qi+1} / ${Q.length} · ${K[q[0]]}`),el('p',{style:'font-size:1.05rem'},el('b',{},q[1])),confRow,ansBox,fb,next))};
+  const finish=()=>{area.innerHTML='';const score=res.filter(r=>r.ok).length;S.karma={score,total:res.length,at:Date.now()};markDone('k-tur');save();GC('karma/'+score+'-'+res.length);
+    area.append(el('p',{style:'font-size:1.1rem'},el('b',{},`Sonuç: ${score} / ${res.length}`)));
+    for(const k of Object.keys(PLAN)){const rs=res.filter(r=>r.k===k);if(!rs.length)continue;const p=rs.filter(r=>r.ok).length/rs.length;area.append(el('div',{class:'kbar'},el('span',{},K[k]),el('span',{class:'bar'},el('i',{style:`width:${p*100}%;background:${p>=.99?'var(--ok)':p>=.5?'var(--warn)':'var(--bad)'}`})),el('span',{class:'mono'},`${rs.filter(r=>r.ok).length}/${rs.length}`)))}
+    const conf=res.filter(r=>!r.ok&&r.conf==='e');
+    if(conf.length)area.append(el('div',{class:'fb bad',html:'<b>Emin olup yanlış yaptıkların</b> (önce bunları çalış):<br>'+conf.map(r=>'• '+r.q).join('<br>')}));
+    const weak=[...new Set(res.filter(r=>!r.ok).map(r=>KST[r.k]))];
+    if(weak.length)area.append(el('p',{},'Tekrar etmen önerilen istasyonlar: ',...weak.map(w=>el('button',{class:'chip',type:'button',onclick:()=>show(w)},STATIONS.find(s=>s.id===w).ad))));
+    else area.append(el('div',{class:'fb ok',html:'<b>Harika!</b> Bütün soruları doğru yaptın.'}));
+    area.append(el('div',{style:'height:8px'}),el('button',{class:'btn',type:'button',onclick:start},'Yeni tur'))};
+  intro();
+})();
+
+/* =====================================================================
+   0) HARİTA
+   ===================================================================== */
+const SINAV=['“Nedenini açıklayınız” gördüğünde: sonuç + çünkü.','Uydu: yörüngede, haberleşme/gözlem · Sonda: insansız, gök cismine · İstasyon: astronot yaşar · Mekik: yeniden kullanılır · Roket: fırlatır · Teleskop: atmosfer dışında, net görüntü.','Gözlemevi: yüksek (atmosfer ince) ve şehirden uzak (ışık kirliliği yok).','Uzay kirliliği: insan yapımı; küçük parça bile çok yüksek hızda büyük zarar verir; GPS, haberleşme, hava tahmini aksar.','Yıldız bulutsuda doğar. ~8 Güneş kütlesinden küçük: kırmızı dev → gezegenimsi bulutsu → beyaz cüce. Büyük: kırmızı süperdev → süpernova → nötron yıldızı / kara delik.','Kütle büyük → yaşam kısa. Mavi en sıcak, kırmızı en soğuk.','İş = kuvvet × kuvvet doğrultusunda alınan yol (J). Yer değiştirme yoksa ya da hareket kuvvetin doğrultusunda değilse iş yok.','Kinetik: kütle + hız · Çekim potansiyel: ağırlık + yükseklik · Esneklik potansiyel: sıkışma/gerilme.'];
+const CHECK=['Uzay araçlarını görevlerine ve özelliklerine göre karşılaştırabiliyorum.','Uzay ve yer tabanlı teleskopların avantajlarını, gözlemevi yer seçimini açıklayabiliyorum.','Uzay kirliliğinin kaynaklarını, tehlikesini ve çözümlerini yazabiliyorum.','Yıldızın yaşam şemasını tamamlayıp kütle–yaşam süresi ilişkisini açıklayabiliyorum.','Bir durumda fiziksel iş yapılıp yapılmadığını gerekçesiyle söyleyip işi hesaplayabiliyorum.','Örnekleri enerji türüne göre sınıflandırıp etkenlerini açıklayabiliyorum.'];
+function renderHarita(){
+  const v=views.harita;v.innerHTML='';
+  v.append(el('div',{class:'card'},el('h2',{},'Nereden başlamalı?'),el('p',{class:'lead'},'Önerilen sıra: Uzay Teknolojileri → Uzay Kirliliği → Yıldızların Yaşamı → İş Atölyesi → Enerji Laboratuvarı → Karma Tur. Kazanımlar MEB 7. sınıf Fen Bilimleri Senaryo 3’e göre seçildi.')));
+  const grid=el('div',{class:'stations'});
+  const DESC={uzay:'İpucundan aracı bul, teleskopları karşılaştır, gözlemevi yeri seç, uyduları sınıflandır.',kir:'Önlemsiz ve önlemli gelecekleri karşılaştır; altı ayakkabı tekniğiyle çözüm üret.',yil:'Kütleyi değiştir, yıldızın rengini, ömrünü ve sonunu izle; şemayı tamamla.',is:'İş var mı? Kuvvet–yol dikdörtgeniyle işi hesapla, grafikten sırala.',enj:'Kütle, hız, yükseklik ve sıkışmayla oyna; örnekleri sınıflandır, deney tasarla.',karma:'Karışık 12 soru ve güven işaretiyle zayıf noktalarını gör.'};
+  STATIONS.slice(1).forEach(s=>{const ts=TASKS[s.id]||[];const d=ts.filter(t=>S.done[t]).length;
+    grid.append(el('div',{class:'card st'},el('h3',{},s.ad),el('span',{class:'kod',style:'align-self:flex-start'},s.kod),el('p',{class:'hint'},DESC[s.id]),el('div',{class:'ring'},el('span',{class:'bar'},el('i',{style:`width:${ts.length?d/ts.length*100:0}%`})),`${d}/${ts.length}`),el('button',{class:'btn sm',type:'button',onclick:()=>show(s.id)},d?'Devam et':'Başla')))});
+  v.append(grid);
+  const two=el('div',{class:'grid2'});
+  two.append(el('div',{class:'card'},el('h3',{},'Cebimdeki 8 cümle'),el('ol',{class:'rules'},...SINAV.map(t=>el('li',{},t)))));
+  const ck=el('div',{class:'card'},el('h3',{},'Kendimi kontrol ediyorum'));
+  CHECK.forEach((t,i)=>{const cb=el('input',{type:'checkbox',id:'ck'+i,style:'width:18px;height:18px;accent-color:var(--ok);flex:none'});cb.checked=!!S.check[i];cb.addEventListener('change',()=>{S.check[i]=cb.checked;save()});ck.append(el('label',{class:'row',for:'ck'+i,style:'align-items:flex-start;margin:4px 0;cursor:pointer;flex-wrap:nowrap'},cb,el('span',{},t)))});
+  ck.append(el('div',{style:'height:8px'}),el('button',{class:'btn ghost sm',type:'button',onclick:()=>{if(confirm('Bütün ilerleme silinsin mi?')){S={done:{},karma:null,check:{}};save();location.reload()}}},'İlerlemeyi sıfırla'));
+  two.append(ck);v.append(two);
+}
+function updateProgress(){
+  let all=0,d=0;STATIONS.slice(1).forEach(s=>{const ts=TASKS[s.id]||[];const dd=ts.filter(t=>S.done[t]).length;all+=ts.length;d+=dd;const c=$('#tc-'+s.id);if(c)c.textContent=ts.length?`${dd}/${ts.length}`:''});
+  $('#totTxt').textContent=`${d} / ${all} görev`;$('#totBar').style.width=(all?d/all*100:0)+'%';
+}
+renderHarita();updateProgress();
+try{const t=sessionStorage.getItem(KEY+'-tab');if(t&&views[t])show(t)}catch(e){}
+
+})();
+</script>
+<script data-goatcounter="https://yedogan-aplets.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
