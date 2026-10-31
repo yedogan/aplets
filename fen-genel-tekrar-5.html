@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5. Sınıf Fen Bilimleri, 1. Dönem 1. Yazılı Sınav - Genel Tekrar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Fen 8 Genel Tekrar — istasyonlu bireysel çalışma appleti.
+   Renkler: gece mavisi mürekkep, gündüz kâğıdı, Güneş turuncusu; DNA bazları: A kırmızı, T sarı, G yeşil, S camgöbeği. */
+:root{
+  --bg:#eef3f8; --panel:#ffffff; --paper:#fbfdff; --ink:#16223d; --ink2:#4a5878; --line:#d3dceb; --soft:#e7eef8;
+  --accent:#22346a; --accent2:#2f7fc0; --accent-ink:#ffffff; --sun:#f08a1c; --sunsoft:#ffe4c2;
+  --ok:#12715a; --okbg:#dff3ec; --bad:#c0301d; --badbg:#fde6e1; --warn:#9a5d00; --warnbg:#fff1d6;
+  --night:#2a3554; --day:#dbe9ff; --earth:#cfe3ff;
+  --bA:#f4a3a3; --bT:#f6dd6a; --bG:#9fdc9a; --bS:#93d7ee; --old:#c6cbd6; --new:#9fe3c3;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a; --soft:#1a2640;
+  --accent:#9db8ff; --accent2:#7cc0f0; --accent-ink:#0b1120; --sun:#ffab4a; --sunsoft:#3a2a12;
+  --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d;
+  --night:#060a14; --day:#22345c; --earth:#1d3157;
+  --bA:#b85a5a; --bT:#a8902a; --bG:#4f8f4a; --bS:#3a8aa6; --old:#4a5470; --new:#2f8f68; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --panel:#131c30; --paper:#0e1628; --ink:#e7eefc; --ink2:#a3b3d4; --line:#27345a; --soft:#1a2640;
+  --accent:#9db8ff; --accent2:#7cc0f0; --accent-ink:#0b1120; --sun:#ffab4a; --sunsoft:#3a2a12;
+  --ok:#52d1a6; --okbg:#10332b; --bad:#ff8672; --badbg:#3b1b17; --warn:#f2b552; --warnbg:#3a2b0d;
+  --night:#060a14; --day:#22345c; --earth:#1d3157;
+  --bA:#b85a5a; --bT:#a8902a; --bG:#4f8f4a; --bS:#3a8aa6; --old:#4a5470; --new:#2f8f68; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.45;padding-inline:16px;padding-block:16px 48px}
+.wrap{max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{background:#fff;border-radius:10px;padding:6px 10px;display:flex;align-items:center}
+.logo img{height:40px;width:auto;display:block}
+h1 .h1b{display:block;font-size:.55em;font-weight:600;color:var(--ink2);margin-top:4px;letter-spacing:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,3.6vw,2.2rem);letter-spacing:-.02em;margin:0;line-height:1.05;text-wrap:balance}
+.sub{margin:4px 0 0;color:var(--ink2);max-width:62ch;font-size:.95rem}
+.total{font-family:var(--f-mono);font-size:.85rem;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.total .bar{width:140px;height:10px;border-radius:99px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.total .bar i{display:block;height:100%;background:var(--ok);width:0}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;padding:9px 14px;border-radius:10px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.tab small{font-family:var(--f-mono);font-weight:500;font-size:.75rem;color:var(--ink2)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.8}
+button:focus-visible,input:focus-visible,select:focus-visible,.tab:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+h2{font-family:var(--f-display);font-size:1.2rem;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-family:var(--f-display);font-size:1.02rem;margin:0 0 6px}
+.lead{margin:0 0 10px;color:var(--ink2);font-size:.95rem}
+.kod{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);background:var(--soft);padding:2px 7px;border-radius:6px}
+.btn{border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.sm{padding:5px 10px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-size:.86rem;padding:5px 10px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent2)}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.seg{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.ctl{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+.ctl label{font-size:.85rem;color:var(--ink2);display:flex;justify-content:space-between;gap:8px}
+.ctl label output{font-family:var(--f-mono);color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent2);height:28px}
+input[type=number],input[type=text],select{font:inherit;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:6px 8px}
+input[type=number]{width:90px;font-family:var(--f-mono)}
+svg{display:block;max-width:100%;height:auto}
+.stage{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;width:100%}
+.read{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem;margin:8px 0 0}
+.read dt{color:var(--ink2)}
+.read dd{margin:0;font-family:var(--f-mono);font-size:.88rem}
+.meter{height:12px;border-radius:99px;background:var(--soft);border:1px solid var(--line);overflow:hidden;margin-top:3px}
+.meter i{display:block;height:100%;background:var(--sun)}
+.daybar{display:flex;height:22px;border-radius:6px;overflow:hidden;border:1px solid var(--line);font-family:var(--f-mono);font-size:.75rem}
+.daybar span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden}
+.daybar .d{background:var(--sunsoft);color:var(--ink)}
+.daybar .n{background:var(--night);color:#e7eefc}
+.tasks{display:flex;flex-direction:column;gap:8px}
+.task{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel)}
+.task.done{border-color:var(--ok);background:var(--okbg)}
+.task .head{display:flex;gap:8px;align-items:flex-start}
+.task .num{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:.78rem;background:var(--soft);color:var(--ink2)}
+.task.done .num{background:var(--ok);color:var(--panel)}
+.task p{margin:0}
+.task .body{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-size:.92rem;padding:7px 10px;border-radius:9px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent2)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt:disabled{cursor:default}
+.fb{font-size:.9rem;padding:8px 10px;border-radius:9px}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.bad{background:var(--badbg);color:var(--bad)}
+.fb.info{background:var(--warnbg);color:var(--warn)}
+.fb b{color:inherit}
+.status{font-size:.85rem;color:var(--ink2);font-style:italic}
+.hint{font-size:.85rem;color:var(--ink2)}
+.stations{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.st{display:flex;flex-direction:column;gap:6px}
+.st .ring{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.82rem;color:var(--ink2)}
+.st .ring .bar{flex:1;height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
+.st .ring .bar i{display:block;height:100%;background:var(--ok)}
+.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.palette{display:flex;gap:6px;flex-wrap:wrap}
+.base{width:44px;height:38px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;color:var(--ink)}
+.base.A{background:var(--bA)}.base.T{background:var(--bT)}.base.G{background:var(--bG)}.base.S{background:var(--bS)}
+.counts{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.counts label{display:flex;flex-direction:column;gap:3px;font-size:.85rem;color:var(--ink2)}
+.tbl{border-collapse:collapse;width:100%;font-size:.92rem}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:middle}
+.tbl th{background:var(--soft)}
+.sentence{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.gen{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:8px 0}
+.dnab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.72rem;color:var(--ink2);font-family:var(--f-mono)}
+.dnab .pair{display:flex;gap:3px}
+.dnab .pair span{width:18px;height:70px;border-radius:4px;border:1px solid var(--line)}
+.dnab .o{background:var(--old)}.dnab .n{background:var(--new)}
+.qcard{display:flex;flex-direction:column;gap:8px}
+.conf{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--ink2)}
+.kbar{display:grid;grid-template-columns:minmax(120px,220px) 1fr auto;gap:8px;align-items:center;font-size:.9rem;margin:4px 0}
+.kbar .bar{height:12px;border-radius:99px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.kbar .bar i{display:block;height:100%}
+footer{color:var(--ink2);font-size:.82rem;text-align:center;margin-top:8px}
+.hidden{display:none !important}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.svgtext{font-family:var(--f-body);fill:var(--ink)}
+.mono{font-family:var(--f-mono)}
+@media (max-width:560px){.read{grid-template-columns:1fr}.kbar{grid-template-columns:1fr}}
+
+details summary{margin:4px 0}
+.pair{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:10px;align-items:start}
+@media (max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo"><img alt="Özel Sevil Ünal Doğan Sosyal Etkinlik ve Gelişim Merkezi" src="data:image/png;base64,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"></div>
+    <div>
+      <h1>5. Sınıf Fen Bilimleri<span class="h1b">1. Dönem 1. Yazılı Sınav - Genel Tekrar</span></h1>
+      <p class="sub">Ay’ın özellikleri, evreleri ve Güneş–Dünya–Ay modeli: sınav öncesi bireysel çalışma. Her istasyonda önce tahmin et, sonra dene, karar ver ve gerekçeni seç.</p>
+    </div>
+  </div>
+  <div class="total"><span id="totTxt">0 / 0 görev</span><span class="bar"><i id="totBar"></i></span></div>
+</header>
+<nav class="tabs" role="tablist" aria-label="İstasyonlar" id="tabs"></nav>
+<main id="views"></main>
+<footer>Hazırlayan: Yunus Emre Doğan · Özel Sevil Ünal Doğan Sosyal Etkinlik ve Gelişim Merkezi · İlerleme yalnızca bu tarayıcıda saklanır. Kazanımlar: MEB 5. Sınıf Fen Bilimleri Senaryo 2 · Kaynak: MEB Fen Bilimleri 5 ders kitabı.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+/* ---------------- yardımcılar ---------------- */
+const $=s=>document.querySelector(s);
+const el=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k==='html')e.innerHTML=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(v!==false&&v!=null)e.setAttribute(k,v===true?'':v)}for(const c of kids.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(c))}return e};
+const NS='http://www.w3.org/2000/svg';
+const sv=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);if(txt!=null)e.textContent=txt;return e};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const fmt=(x,d=1)=>(Math.round(x*10**d)/10**d).toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:d});
+const RAD=Math.PI/180;
+
+/* ---------------- kayıt ---------------- */
+const KEY='fen5-genel-tekrar-v1';
+let S={done:{},karma:null,check:{}};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}updateProgress()};
+/* anonim kullanım sayacı (GoatCounter; kişisel veri yok) */
+const GC=ev=>{try{const g=window.goatcounter;if(g&&g.count)g.count({path:'fen5/'+ev,title:ev,event:true})}catch(e){}};
+const markDone=id=>{if(!S.done[id]){S.done[id]=true;save();GC('gorev/'+id)}};
+
+/* ---------------- istasyonlar ---------------- */
+const STATIONS=[
+  {id:'harita',ad:'Harita',kod:''},
+  {id:'ay',ad:'Ay’ı Tanı',kod:'FB.5.1.2'},
+  {id:'evre',ad:'Evre Laboratuvarı',kod:'FB.5.1.3'},
+  {id:'gda',ad:'Güneş, Dünya ve Ay',kod:'FB.5.1.4'},
+  {id:'karma',ad:'Karma Tur',kod:'Hepsi'},
+];
+const TASKS={}; // istasyon -> görev id listesi (her modül kendi görevlerini kaydeder)
+const regTask=(st,id)=>{(TASKS[st]=TASKS[st]||[]);if(!TASKS[st].includes(id))TASKS[st].push(id)};
+
+const tabsEl=$('#tabs'),viewsEl=$('#views');
+const views={};
+STATIONS.forEach((s,i)=>{
+  const b=el('button',{class:'tab',role:'tab','aria-selected':i===0?'true':'false','aria-controls':'v-'+s.id,id:'t-'+s.id,onclick:()=>show(s.id)},s.ad,el('small',{id:'tc-'+s.id},''));
+  tabsEl.append(b);
+  const v=el('section',{id:'v-'+s.id,role:'tabpanel','aria-labelledby':'t-'+s.id,class:i===0?'':'hidden'});
+  viewsEl.append(v);views[s.id]=v;
+});
+function show(id){
+  STATIONS.forEach(s=>{$('#t-'+s.id).setAttribute('aria-selected',String(s.id===id));views[s.id].classList.toggle('hidden',s.id!==id)});
+  try{sessionStorage.setItem(KEY+'-tab',id)}catch(e){}
+  if(id==='harita')renderHarita();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------------- genel görev bileşeni ----------------
+   g = {id, text, hint?, check?:()=>bool, status?:()=>string, options?:[], correct?, expl?, why?:{q,options,correct,expl}} */
+function makeTask(st,g,n){
+  regTask(st,g.id);
+  const box=el('div',{class:'task'+(S.done[g.id]?' done':'')});
+  const head=el('div',{class:'head'},el('span',{class:'num'},String(n)),el('p',{html:g.text}));
+  const body=el('div',{class:'body'});
+  box.append(head,body);
+  const finish=()=>{box.classList.add('done');markDone(g.id)};
+  const mc=(q,opts,correct,expl,onRight)=>{
+    const wrap=el('div',{class:'body'});
+    if(q)wrap.append(el('p',{html:'<b>'+q+'</b>'}));
+    const order=g.fixed?opts.map((o,i)=>i):shuffle(opts.map((o,i)=>i));
+    const fb=el('div',{class:'fb hidden'});
+    const btns=order.map(i=>el('button',{class:'opt',type:'button',onclick:()=>{
+      if(i===correct){btns.forEach(b=>b.disabled=true);btn(i).classList.add('right');fb.className='fb ok';fb.innerHTML='<b>Doğru.</b> '+(expl||'');onRight&&onRight()}
+      else{btn(i).classList.add('wrong');btn(i).disabled=true;fb.className='fb bad';fb.innerHTML='<b>Tekrar düşün.</b> '+(g.hint||'Simülasyona dönüp dene.')}
+    }},opts[i]));
+    const btn=i=>btns[order.indexOf(i)];
+    wrap.append(...btns,fb);
+    return wrap;
+  };
+  if(g.check){
+    const stt=el('p',{class:'status'},S.done[g.id]?'Tamamlandı.':'Simülasyonda dene; koşul sağlanınca burada görünecek.');
+    body.append(stt);
+    let unlocked=false;
+    const why=()=>{if(unlocked)return;unlocked=true;stt.textContent='Buldun! '+(g.status?g.status():'');stt.style.fontStyle='normal';stt.style.color='var(--ok)';
+      body.append(mc(g.why.q,g.why.options,g.why.correct,g.why.expl,finish))};
+    g._tick=()=>{if(!unlocked&&g.check())why()};
+    if(S.done[g.id]){unlocked=true;body.append(el('p',{class:'hint',html:'Gerekçe: '+g.why.expl}))}
+  }else{
+    body.append(mc(null,g.options,g.correct,g.expl,finish));
+  }
+  return box;
+}
+
+
+/* ortak: Ay çizimleri */
+const LIT='#fff1a8',DARK='#3b4252',RIM='#8a93a8';
+const EVRE=['Yeni ay','Hilal','İlk dördün','Şişkin ay','Dolunay','Şişkin ay','Son dördün','Hilal'];
+const ANA=[0,2,4,6];
+const norm=a=>((a%360)+360)%360;
+const evreAdi=e=>EVRE[Math.round(norm(e)/45)%8];
+const gunOf=e=>norm(e)/360*29.5;
+/* Dünya’dan görünüş: e = Ay–Güneş açısı (0 yeni ay, 90 ilk dördün, 180 dolunay, 270 son dördün) */
+function phaseG(cx,cy,R,e){
+  const g=sv('g');e=norm(e);
+  g.append(sv('circle',{cx,cy,r:R,fill:DARK}));
+  if(e>1&&e<359){
+    const S=e>180?-1:1,Ee=e>180?360-e:e,A=R*Math.cos(Ee*RAD);
+    const outer=S>0?1:0,term=A>0?(S>0?0:1):(S>0?1:0);
+    g.append(sv('path',{d:`M${cx},${cy-R} A${R},${R} 0 0 ${outer} ${cx},${cy+R} A${Math.abs(A).toFixed(2)},${R} 0 0 ${term} ${cx},${cy-R}Z`,fill:LIT}));
+  }
+  g.append(sv('circle',{cx,cy,r:R,fill:'none',stroke:RIM,'stroke-width':1}));
+  return g;
+}
+const phaseSVG=(e,size=64)=>{const s=sv('svg',{viewBox:'0 0 64 64',width:size,height:size,role:'img','aria-label':'Ay evresi'});s.append(phaseG(32,32,28,e));return s};
+const phaseHTML=(e,size=40)=>phaseSVG(e,size).outerHTML;
+/* üstten görünüşte Ay: Güneş’e (sola) bakan yarısı aydınlık */
+function moonTop(cx,cy,r){const g=sv('g');g.append(sv('circle',{cx,cy,r,fill:DARK}));g.append(sv('path',{d:`M${cx},${cy-r} A${r},${r} 0 0 0 ${cx},${cy+r}Z`,fill:LIT}));g.append(sv('circle',{cx,cy,r,fill:'none',stroke:RIM}));return g}
+function sunRays(svg,x0,h){for(let i=0;i<6;i++){const y=30+i*(h-60)/5;svg.append(sv('line',{x1:x0,y1:y,x2:x0+46,y2:y,stroke:'var(--sun)','stroke-width':2.5,'marker-end':`url(#ok5${svg._u})`}))}svg.append(sv('text',{x:x0+4,y:h-8,'font-size':11,fill:'var(--sun)','font-weight':700},'Güneş ışınları'))}
+let _uid=0;
+function arrowDefs(svg){if(svg._u==null)svg._u=++_uid;const d=sv('defs');const m=sv('marker',{id:'ok5'+svg._u,viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'});m.append(sv('path',{d:'M0,0L10,5L0,10z',fill:'var(--sun)'}));const m2=sv('marker',{id:'okm'+svg._u,viewBox:'0 0 10 10',refX:8,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'});m2.append(sv('path',{d:'M0,0L10,5L0,10z',fill:'var(--accent2)'}));d.append(m,m2);svg.append(d)}
+const segParts=(v,parts)=>{const seg=el('div',{class:'seg'});v.append(seg);const box={};parts.forEach(([k,t],i)=>{seg.append(el('button',{class:'chip',type:'button','aria-pressed':i===0?'true':'false',onclick:e=>{seg.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');parts.forEach(([kk])=>box[kk].classList.toggle('hidden',kk!==k))}},t));box[k]=el('div',{class:i===0?'':'hidden'});v.append(box[k])});return box};
+const taskCard=(st,list,title='Görevler')=>{const tc=el('div',{class:'card'},el('h2',{},title));const tl=el('div',{class:'tasks'});list.forEach((t,i)=>tl.append(makeTask(st,t,i+1)));tc.append(tl);return tc};
+const reduce=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
+
+/* =====================================================================
+   1) AY’I TANI — FB.5.1.2
+   ===================================================================== */
+(function(){
+  const v=views.ay;
+  v.append(el('div',{class:'card'},el('h2',{},'Ay’ı Tanı ',el('span',{class:'kod'},'FB.5.1.2')),
+    el('p',{class:'lead'},'Ay’ın yüzeyini ve atmosferini Dünya ile karşılaştır; Ay’ın dönme ve dolanma hareketlerini modelde izle.')));
+  const box=segParts(v,[['yuzey','1. Yüzey ve atmosfer'],['hareket','2. Dönme ve dolanma']]);
+
+  /* --- Yüzey ve atmosfer --- */
+  (function(){
+    const b=box.yuzey;
+    const svg=sv('svg',{viewBox:'0 0 600 260',class:'stage',role:'img','aria-label':'Gök taşları Dünya’ya ve Ay’a düşüyor'});
+    const st={sent:0,craters:[],gece:false,anim:[]};
+    const draw=()=>{svg.innerHTML='';
+      // Dünya paneli
+      svg.append(sv('text',{x:150,y:20,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--ink)'},'Dünya'));
+      svg.append(sv('rect',{x:20,y:60,width:260,height:110,fill:'#bfe1ff',opacity:.55,rx:6}));
+      svg.append(sv('text',{x:30,y:78,'font-size':11,fill:'var(--ink2)'},'atmosfer'));
+      svg.append(sv('rect',{x:20,y:170,width:260,height:70,fill:'#7fb069',rx:6}));
+      svg.append(sv('text',{x:150,y:212,'text-anchor':'middle','font-size':11,fill:'#183018'},'rüzgâr ve yağış var'));
+      // Ay paneli
+      svg.append(sv('text',{x:450,y:20,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--ink)'},'Ay'));
+      svg.append(sv('rect',{x:320,y:170,width:260,height:70,fill:st.gece?'#5c6170':'#b9b6ad',rx:6}));
+      svg.append(sv('rect',{x:330,y:176,width:90,height:20,fill:st.gece?'#474b57':'#8f8c84',rx:8}));
+      svg.append(sv('text',{x:375,y:190,'text-anchor':'middle','font-size':10,fill:'#fff'},'koyu: düzlük'));
+      svg.append(sv('path',{d:'M470,170 l18,-22 l14,14 l12,-18 l22,26z',fill:st.gece?'#6b7080':'#d4d1c8'}));
+      svg.append(sv('text',{x:505,y:186,'text-anchor':'middle','font-size':10,fill:'#222'},'açık: engebeli'));
+      // ayak izi
+      for(let i=0;i<4;i++)svg.append(sv('ellipse',{cx:345+i*16,cy:224-(i%2)*6,rx:4,ry:7,fill:'#6e6b64'}));
+      svg.append(sv('text',{x:395,y:236,'font-size':10,fill:'#222'},'ayak izi'));
+      st.craters.forEach(c=>{svg.append(sv('ellipse',{cx:c,cy:205,rx:9,ry:4,fill:'#7a776f',stroke:'#5b5952'}))});
+      const t=st.gece?'-174 °C (gece)':'125 °C (gündüz)';
+      svg.append(sv('text',{x:575,y:40,'text-anchor':'end','font-size':12,'font-family':'var(--f-mono)',fill:st.gece?'#7cc0f0':'#f08a1c','font-weight':700},'Ay yüzeyi: '+t));
+      svg.append(sv('text',{x:330,y:78,'font-size':11,fill:'var(--ink2)'},'atmosfer yok denecek kadar ince'));
+      st.anim.forEach(a=>{
+        if(a.side==='D'){const y=a.y;if(y<150){svg.append(sv('line',{x1:a.x+10,y1:y-24,x2:a.x,y2:y,stroke:'#f08a1c','stroke-width':3,'stroke-linecap':'round'}));if(y>60)svg.append(sv('circle',{cx:a.x,cy:y,r:5+(y-60)/12,fill:'#ffcf6b',opacity:Math.max(0,1-(y-60)/90)}))}}
+        else{if(a.y<200)svg.append(sv('line',{x1:a.x+10,y1:a.y-24,x2:a.x,y2:a.y,stroke:'#8a93a8','stroke-width':3,'stroke-linecap':'round'}))}
+      });
+    };
+    let raf=null;
+    const loop=()=>{st.anim.forEach(a=>a.y+=reduce?40:4);st.anim=st.anim.filter(a=>{if(a.side==='A'&&a.y>=200){st.craters.push(a.x);return false}return a.y<200});draw();if(st.anim.length)raf=requestAnimationFrame(loop);else{raf=null;TL.forEach(x=>x._tick&&x._tick())}};
+    const send=()=>{const x=rnd(50,250),xa=rnd(335,565);st.anim.push({side:'D',x,y:0},{side:'A',x:xa,y:0});st.sent++;cnt.textContent=`Gönderilen gök taşı: ${st.sent} · Ay’daki krater: ${st.craters.length+st.anim.filter(a=>a.side==='A').length}`;if(!raf)raf=requestAnimationFrame(loop)};
+    const cnt=el('p',{class:'mono'},'Gönderilen gök taşı: 0 · Ay’daki krater: 0');
+    const gece=el('button',{class:'btn sm ghost',type:'button',onclick:()=>{st.gece=!st.gece;gece.textContent=st.gece?'☀ Gündüze geç':'☾ Geceye geç';draw();st.gun=true;TL.forEach(x=>x._tick&&x._tick())}},'☾ Geceye geç');
+    const TL=[
+      {id:'a-krater',text:'Dünya’ya ve Ay’a en az <b>5 gök taşı</b> gönder. Hangisinde iz kalıyor?',check:()=>st.craters.length>=5,status:()=>'Ay’da '+st.craters.length+' krater oluştu, Dünya’da hiç yok.',why:{q:'Ay’da kraterlerin çok olmasının nedeni nedir?',options:['Atmosferi yok denecek kadar ince olduğu için gök taşları sürtünüp yanmadan yüzeye çarpar.','Ay’da çok sayıda yanardağ vardır.','Ay, Dünya’dan daha büyük olduğu için daha çok gök taşı çeker.'],correct:0,expl:'Dünya’ya gelen gök taşlarının çoğu atmosferde sürtünüp yanar; Ay’da bu koruma yoktur.'}},
+      {id:'a-sicak',text:'Ay’da gündüz ile gece arasında geçiş yap ve sıcaklığı izle.',check:()=>st.gun,status:()=>'Gündüz yaklaşık 125 °C, gece yaklaşık −174 °C.',why:{q:'Bu büyük sıcaklık farkı Ay’ın yüzeyinde neye yol açar?',options:['Kayaların parçalanmasını hızlandırır.','Ay’da yağmur yağmasına neden olur.','Ay’ın ışık saçmasına neden olur.'],correct:0,expl:'Kayalar çok ısınıp çok soğudukça parçalanır; yüzeyde taş, kum ve toz oluşur.'}},
+      {id:'a-iz',text:'Astronotların 1969’da bıraktığı ayak izleri bugün de duruyor. Neden?',options:['Ay’da rüzgâr ve yağış olmadığı için izleri silecek bir etki yoktur.','Ay’ın yüzeyi çok sert olduğu için iz derin açılmıştır.','Ay’da yer çekimi olmadığı için toz hiç hareket etmez.'],correct:0,expl:'Atmosfer yok denecek kadar ince olduğu için rüzgâr ve yağış olmaz.'},
+      {id:'a-bolge',text:'Ay’a bakınca gördüğümüz <b>koyu</b> bölgeler neyi gösterir?',options:['Düzlükleri','Dağlık, engebeli alanları','Denizleri ve gölleri','Kraterlerin gölgesini'],correct:0,expl:'Koyu bölgeler düzlükler, açık renkli bölgeler engebeli alanlardır.'},
+      {id:'a-isik',text:'Ay’ı geceleri parlak görmemizin nedeni nedir?',options:['Güneş’ten aldığı ışığı yansıtır.','Kendi ışığını üretir.','Yüzeyindeki yanardağlar ışık saçar.','Dünya’nın ışığını üretir.'],correct:0,expl:'Ay bir ışık kaynağı değildir; Güneş’in ışığını yansıtır. Bu yüzden bazen gündüz de görülebilir.'},
+    ];
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},svg,el('div',{class:'row',style:'margin-top:8px'},el('button',{class:'btn sm',type:'button',onclick:send},'☄ Gök taşı gönder'),gece,el('button',{class:'btn sm ghost',type:'button',onclick:()=>{st.craters=[];st.sent=0;cnt.textContent='Gönderilen gök taşı: 0 · Ay’daki krater: 0';draw()}},'Temizle')),cnt,
+      el('p',{class:'hint'},'Ay, Dünya’nın tek doğal uydusudur; küre şeklindedir ve Dünya’ya ortalama 384.400 km uzaklıktadır. Yüzeyi kaya, taş, kum ve tozla kaplıdır.')),taskCard('ay',TL)));
+    draw();
+  })();
+
+  /* --- Dönme ve dolanma --- */
+  (function(){
+    const b=box.hareket;
+    const st={t:0,mode:'gercek',play:false,orbitDeg:0,seen:new Set(),modeOrbit:0};
+    const svg=sv('svg',{viewBox:'0 0 420 320',class:'stage',role:'img','aria-label':'Ay’ın Dünya etrafında dolanması, üstten görünüş'});
+    const view=sv('svg',{viewBox:'0 0 140 140',width:140,height:140,role:'img','aria-label':'Dünya’dan görünen yüz'});
+    const CX=240,CY=160,RO=110;
+    const rotOf=()=>st.mode==='yok'?0:st.mode==='gercek'?st.t:2*st.t; // Ay’ın kendi dönmesi (derece)
+    const draw=()=>{svg.innerHTML='';arrowDefs(svg);sunRays(svg,10,300);
+      svg.append(sv('circle',{cx:CX,cy:CY,r:RO,fill:'none',stroke:'var(--line)','stroke-dasharray':'5 5'}));
+      svg.append(sv('path',{d:`M${CX+RO+16},${CY+30} A${RO+16},${RO+16} 0 0 0 ${CX+RO+4},${CY-50}`,fill:'none',stroke:'var(--accent2)','stroke-width':2,'marker-end':`url(#okm${svg._u})`}));
+      svg.append(sv('circle',{cx:CX,cy:CY,r:24,fill:'#2f7fc0'}));svg.append(sv('text',{x:CX,y:CY+4,'text-anchor':'middle','font-size':10,fill:'#fff','font-weight':700},'Dünya'));
+      const th=(180+st.t)*RAD;const mx=CX+RO*Math.cos(th),my=CY-RO*Math.sin(th);
+      svg.append(moonTop(mx,my,18));
+      // işaretli yüz (bayrak): Ay’ın üzerindeki sabit nokta
+      const fdir=th+Math.PI+ (rotOf()-st.t)*RAD; // Dünya’ya doğru yön + dönme farkı
+      const fx=mx+18*Math.cos(fdir),fy=my-18*Math.sin(fdir);
+      svg.append(sv('circle',{cx:fx,cy:fy,r:5,fill:'#e0584a',stroke:'#fff','stroke-width':1.5}));
+      svg.append(sv('line',{x1:CX,y1:CY,x2:mx,y2:my,stroke:'var(--ink2)','stroke-dasharray':'2 4'}));
+      svg.append(sv('text',{x:410,y:310,'text-anchor':'end','font-size':11,fill:'var(--ink2)'},'Kırmızı nokta: Ay’ın yüzeyinde işaretli bir yer'));
+      // Dünya’dan görünüş: işaret Dünya’ya dönük mü?
+      view.innerHTML='';view.append(sv('circle',{cx:70,cy:70,r:56,fill:'#c9c6bd',stroke:RIM}));
+      const diff=norm((rotOf()-st.t));const vis=Math.cos(diff*RAD);
+      if(vis>0)view.append(sv('circle',{cx:70+56*Math.sin(diff*RAD)*-1,cy:70,r:9,fill:'#e0584a',stroke:'#fff','stroke-width':2}));
+      view.append(sv('text',{x:70,y:136,'text-anchor':'middle','font-size':11,fill:'var(--ink2)'},vis>0?'işaret görünüyor':'işaret arka yüzde'));
+      const bin=Math.round(diff/45)%8;st.seen.add(bin);
+      read.innerHTML='';const row=(a,c)=>read.append(el('dt',{},a),el('dd',{},c));
+      row('Geçen süre',fmt(st.t/360*27.3,1)+' gün');row('Ay’ın dolanması',fmt(st.t/360,2)+' tur');row('Ay’ın kendi etrafında dönmesi',fmt(rotOf()/360,2)+' tur');row('Dünya’ya dönük yüz',st.mode==='gercek'?'hep aynı':'değişiyor');
+    };
+    const read=el('dl',{class:'read'});
+    let last=0,raf=null;
+    const loop=ts=>{if(!st.play){raf=null;return}const dt=last?Math.min(50,ts-last):16;last=ts;const d=dt*0.06;st.t+=d;st.modeOrbit+=d;draw();TL.forEach(x=>x._tick&&x._tick());raf=requestAnimationFrame(loop)};
+    const playB=el('button',{class:'btn sm',type:'button',onclick:()=>{st.play=!st.play;playB.textContent=st.play?'❚❚ Durdur':'▶ Oynat';if(st.play&&!raf){last=0;raf=requestAnimationFrame(loop)}}},'▶ Oynat');
+    const MODES=[['yok','Ay hiç dönmüyor'],['gercek','Dönme süresi = dolanma süresi (gerçek)'],['hizli','Ay iki kat hızlı dönüyor']];
+    const modeChips=el('div',{class:'chips'},...MODES.map(([k,t])=>el('button',{class:'chip',type:'button','aria-pressed':k===st.mode?'true':'false',onclick:e=>{st.mode=k;st.t=0;st.modeOrbit=0;st.seen=new Set();modeChips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');draw()}},t)));
+    const TL=[
+      {id:'d-ayni',text:'<b>Gerçek</b> modeli seç ve Ay’ı Dünya’nın etrafında bir tur dolaştır. Kırmızı işaret Dünya’dan hep görünüyor mu?',check:()=>st.mode==='gercek'&&st.modeOrbit>=360,status:()=>'İşaret hep Dünya’ya dönük kaldı.',why:{q:'Dünya’dan Ay’ın hep aynı yüzünü görmemizin nedeni nedir?',options:['Ay’ın kendi ekseni etrafında dönme süresi ile Dünya etrafında dolanma süresi yaklaşık eşittir.','Ay kendi ekseni etrafında hiç dönmez.','Ay’ın arka yüzü hiç ışık almaz.'],correct:0,expl:'İkisi de yaklaşık 27 gün 8 saat sürer; Ay bir tur dolanırken kendi etrafında da bir tur döner.'}},
+      {id:'d-donmez',text:'<b>Ay hiç dönmüyor</b> modelini seç ve bir tur dolaştır. Ne değişti?',check:()=>st.mode==='yok'&&st.modeOrbit>=360,status:()=>'İşaret bir süre arka yüze geçti.',why:{q:'Ay kendi etrafında hiç dönmeseydi Dünya’dan ne görürdük?',options:['Bir tur boyunca Ay’ın bütün yüzlerini sırayla görürdük.','Ay’ı hiç göremezdik.','Yine hep aynı yüzü görürdük.'],correct:0,expl:'Hep aynı yüzü görmemiz, Ay’ın dönmesi ile dolanmasının eşit sürmesinden kaynaklanır.'}},
+      {id:'d-arka',text:'Modelde Ay’ın Güneş’e bakan yarısı hep aydınlık. Kırmızı işaretli yer hiç ışık alıyor mu? “Ay’ın arka yüzü hep karanlıktır.” görüşü doğru mu?',options:['Yanlış; Ay döndükçe her yüzü sırayla Güneş ışığı alır, arka yüzü yalnızca Dünya’ya dönük değildir.','Doğru; Dünya’dan göremediğimiz yüz hiç ışık almaz.','Doğru; arka yüzde Güneş hiç doğmaz.'],correct:0,expl:'Göremediğimiz yüz karanlık değildir; o yüzde de gündüz ve gece olur.'},
+    ];
+    // tablo
+    regTask('ay','d-tablo');
+    const ROWS=[['Kendi ekseni etrafında dönme','27g'],['Dünya etrafında dolanma','27g'],['Dünya ile birlikte Güneş etrafında dolanma','yil']];
+    const OPT=[['','— seç —'],['27g','≈ 27 gün 8 saat'],['29g','≈ 29,5 gün'],['24s','24 saat'],['yil','≈ 1 yıl']];
+    const YON=[['','— seç —'],['ters','saat yönünün tersi'],['ayni','saat yönü']];
+    const tb=el('table',{class:'tbl'},el('tr',{},el('th',{},'Ay’ın hareketi'),el('th',{},'Süre'),el('th',{},'Yön')));const sels=[];
+    ROWS.forEach(([a,s])=>{const s1=el('select',{style:'max-width:100%'},...OPT.map(([v,t])=>el('option',{value:v},t)));s1._a=s;const s2=el('select',{style:'max-width:100%'},...YON.map(([v,t])=>el('option',{value:v},t)));s2._a='ters';sels.push(s1,s2);tb.append(el('tr',{},el('td',{},a),el('td',{},s1),el('td',{},s2)))});
+    const tf=el('div',{class:'fb hidden'});
+    const tcard=el('div',{class:'card'},el('h3',{},'Hareket tablosu'),el('p',{class:'hint'},'Sınavda sık gelen tabloyu doldur.'),el('div',{style:'overflow-x:auto'},tb),el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;sels.forEach(s=>{const ok=s.value===s._a;s.style.borderColor=ok?'var(--ok)':'var(--bad)';if(ok)k++});const all=k===sels.length;tf.className='fb '+(all?'ok':'bad');tf.innerHTML=all?'<b>Hepsi doğru.</b> Ay’ın bütün hareketleri saatin dönme yönünün tersinedir. 29,5 gün ise evrelerin tamamlanma süresidir.':`<b>${k} / ${sels.length} doğru.</b> Dolanma süresi ile evre süresini karıştırma.`;if(all)markDone('d-tablo')}},'Kontrol et'),tf);
+    b.append(el('div',{class:'grid2'},el('div',{},el('div',{class:'card'},svg,el('div',{class:'row',style:'margin-top:8px;align-items:flex-start'},view,el('div',{style:'flex:1;min-width:200px'},el('p',{class:'hint',style:'margin:0 0 6px'},'Solda: Dünya’dan bakan birinin gördüğü yüz. Hızlar görünür olsun diye artırıldı.'),modeChips,el('div',{style:'height:8px'}),playB,read))),el('div',{style:'height:14px'}),tcard),taskCard('ay',TL)));
+    draw();
+  })();
+})();
+
+/* =====================================================================
+   2) EVRE LABORATUVARI — FB.5.1.3
+   ===================================================================== */
+(function(){
+  const v=views.evre;
+  v.append(el('div',{class:'card'},el('h2',{},'Evre Laboratuvarı ',el('span',{class:'kod'},'FB.5.1.3')),
+    el('p',{class:'lead'},'Ay’ı yörüngede sürükle ya da günleri ilerlet. Solda üstten görünüş, sağda Dünya’dan görünüş var. Sonra evreleri tanı, modelde konumunu bul, sırala ve takvimde hesapla.')));
+  const box=segParts(v,[['model','1. Model'],['tani','2. Evreyi tanı'],['konum','3. Konumu bul'],['sira','4. Sırala ve hesapla']]);
+  const CX=230,CY=160,RO=110;
+  const posOf=e=>{const th=(180+e)*RAD;return[CX+RO*Math.cos(th),CY-RO*Math.sin(th)]};
+  const topBase=(svg)=>{arrowDefs(svg);sunRays(svg,8,320);svg.append(sv('circle',{cx:CX,cy:CY,r:RO,fill:'none',stroke:'var(--line)','stroke-dasharray':'5 5'}));
+    svg.append(sv('path',{d:`M${CX+RO+16},${CY+30} A${RO+16},${RO+16} 0 0 0 ${CX+RO+4},${CY-50}`,fill:'none',stroke:'var(--accent2)','stroke-width':2,'marker-end':`url(#okm${svg._u})`}));
+    svg.append(sv('circle',{cx:CX,cy:CY,r:24,fill:'#2f7fc0'}));svg.append(sv('text',{x:CX,y:CY+4,'text-anchor':'middle','font-size':10,fill:'#fff','font-weight':700},'Dünya'))};
+
+  /* --- Model --- */
+  (function(){
+    const b=box.model;const st={e:45,gizle:false,play:false};
+    const svg=sv('svg',{viewBox:'0 0 400 320',class:'stage',role:'img','aria-label':'Ay’ın Dünya etrafındaki konumu, üstten görünüş. Ay’ı sürükleyebilirsin.',style:'touch-action:none;cursor:grab'});
+    const big=sv('svg',{viewBox:'0 0 200 200',class:'stage',style:'max-width:220px;margin-inline:auto',role:'img','aria-label':'Dünya’dan görünüş'});
+    const name=el('p',{style:'font-family:var(--f-display);font-size:1.4rem;font-weight:700;margin:6px 0 0;text-align:center'});
+    const info=el('p',{class:'mono',style:'text-align:center;margin:2px 0'});
+    const draw=()=>{svg.innerHTML='';topBase(svg);const[mx,my]=posOf(st.e);
+      svg.append(sv('line',{x1:CX,y1:CY,x2:mx,y2:my,stroke:'var(--ink2)','stroke-dasharray':'2 4'}));
+      svg.append(moonTop(mx,my,17));
+      svg.append(sv('circle',{cx:mx,cy:my,r:26,fill:'transparent',stroke:'var(--accent2)','stroke-width':1.5,'stroke-dasharray':'3 3'}));
+      big.innerHTML='';big.append(sv('rect',{x:0,y:0,width:200,height:200,fill:'#0e1628',rx:8}));big.append(phaseG(100,100,78,st.e));
+      const ad=evreAdi(st.e);name.textContent=st.gizle?'?':ad;info.textContent=`Yeni aydan bu yana: ${fmt(gunOf(st.e),1)} gün`;rng.value=fmt0();out.textContent=fmt(gunOf(st.e),1)+' gün';
+      let pos='';if(ad==='Yeni ay')pos='Ay, Güneş ile Dünya’nın arasında. Dünya’ya bakan yüzü ışık almıyor.';else if(ad==='Dolunay')pos='Dünya, Güneş ile Ay’ın arasında. Aydınlık yüzün tamamı Dünya’ya dönük.';else if(ad==='İlk dördün')pos='Sağ yarısı aydınlık: “D”. Yeni aydan yaklaşık 1 hafta sonra.';else if(ad==='Son dördün')pos='Sol yarısı aydınlık: ters “D”. Dolunaydan yaklaşık 1 hafta sonra.';else pos=norm(st.e)<180?'Sağ tarafı aydınlık: Ay büyüyor (yeni aydan dolunaya).':'Sol tarafı aydınlık: Ay küçülüyor (dolunaydan yeni aya).';
+      expl.textContent=st.gizle?'Adı gizli: görünüşe bakıp evreyi kendin söyle.':pos;
+      TL.forEach(x=>x._tick&&x._tick())};
+    const fmt0=()=>String(Math.round(gunOf(st.e)*2)/2);
+    const expl=el('p',{class:'hint',style:'text-align:center;min-height:2.6em'});
+    const rng=el('input',{type:'range',min:0,max:29.5,step:0.5,value:3});const out=el('output');
+    rng.addEventListener('input',()=>{st.e=+rng.value/29.5*360;draw()});
+    let drag=false;
+    const setFromEvent=ev=>{const r=svg.getBoundingClientRect();const x=(ev.clientX-r.left)/r.width*400,y=(ev.clientY-r.top)/r.height*320;const th=Math.atan2(-(y-CY),x-CX)/RAD;st.e=norm(th-180);draw()};
+    svg.addEventListener('pointerdown',ev=>{drag=true;svg.setPointerCapture(ev.pointerId);setFromEvent(ev)});
+    svg.addEventListener('pointermove',ev=>{if(drag)setFromEvent(ev)});
+    svg.addEventListener('pointerup',()=>{drag=false});
+    let raf=null,last=0;
+    const loop=ts=>{if(!st.play){raf=null;return}const dt=last?Math.min(50,ts-last):16;last=ts;st.e=norm(st.e+dt*0.03);draw();raf=requestAnimationFrame(loop)};
+    const playB=el('button',{class:'btn sm',type:'button',onclick:()=>{st.play=!st.play;playB.textContent=st.play?'❚❚ Durdur':'▶ Oynat';if(st.play&&!raf){last=0;raf=requestAnimationFrame(loop)}}},'▶ Oynat');
+    const step=el('button',{class:'btn sm ghost',type:'button',onclick:()=>{st.e=norm(st.e+360/29.5*7.375);draw()}},'+1 hafta');
+    const gz=el('button',{class:'chip',type:'button','aria-pressed':'false',onclick:()=>{st.gizle=!st.gizle;gz.setAttribute('aria-pressed',String(st.gizle));draw()}},'Evre adını gizle');
+    const jump=el('div',{class:'chips'},...ANA.map(k=>el('button',{class:'chip',type:'button',onclick:()=>{st.e=k*45;draw()}},EVRE[k])));
+    const near=(e,c,t=12)=>{const d=Math.abs(norm(e-c));return Math.min(d,360-d)<=t};
+    const TL=[
+      {id:'e-yeni',text:'Ay’ı <b>yeni ay</b> konumuna getir (sürükleyerek).',check:()=>near(st.e,0),status:()=>'Yeni ay: Ay görünmüyor.',why:{q:'Yeni ay evresinde Güneş, Dünya ve Ay nasıl sıralanır?',options:['Ay, Güneş ile Dünya’nın arasındadır; Ay’ın Dünya’ya bakan yüzü ışık almaz.','Dünya, Güneş ile Ay’ın arasındadır; Dünya’nın gölgesi Ay’ı kapatır.','Güneş, Dünya ile Ay’ın arasındadır.'],correct:0,expl:'Yeni ayda Ay ortadadır. Aydınlık yarısı Güneş’e, karanlık yarısı Dünya’ya bakar.'}},
+      {id:'e-dolunay',text:'Ay’ı <b>dolunay</b> konumuna getir.',check:()=>near(st.e,180),status:()=>'Dolunay: Ay tam yuvarlak görünüyor.',why:{q:'Dolunayda kim ortadadır?',options:['Dünya, Güneş ile Ay’ın arasındadır.','Ay, Güneş ile Dünya’nın arasındadır.','Güneş, Dünya ile Ay’ın arasındadır.'],correct:0,expl:'Dolunayda Dünya ortadadır; Ay’ın aydınlık yüzünün tamamı Dünya’ya dönüktür.'}},
+      {id:'e-ilk',text:'<b>İlk dördün</b> evresini bul.',check:()=>near(st.e,90),status:()=>'İlk dördün: sağ yarısı aydınlık.',why:{q:'İlk dördün ile ilgili hangisi doğrudur?',options:['Yeni aydan yaklaşık 1 hafta sonra görülür; sağ yarısı aydınlıktır (“D”).','Dolunaydan yaklaşık 1 hafta sonra görülür; sol yarısı aydınlıktır.','Ay’ın Dünya’nın gölgesine girdiği evredir.'],correct:0,expl:'İlk dördün “D”, son dördün ters “D” gibi görünür.'}},
+      {id:'e-son',text:'<b>Son dördün</b> evresini bul.',check:()=>near(st.e,270),status:()=>'Son dördün: sol yarısı aydınlık.',why:{q:'Son dördünden yaklaşık 1 hafta sonra hangi evre görülür?',options:['Yeni ay','Dolunay','İlk dördün'],correct:0,expl:'Sıra: dolunay → son dördün → (hilal) → yeni ay → (hilal) → ilk dördün → …'}},
+      {id:'e-gun',text:'“+1 hafta” düğmesiyle yeni aydan dolunaya git. Yeni aydan dolunaya yaklaşık kaç gün geçer?',options:['14–15 gün','7 gün','29,5 gün','27 gün 8 saat'],correct:0,expl:'İki ana evre arası yaklaşık 1 haftadır; yeni ay → ilk dördün → dolunay iki hafta, yani 29,5 günün yarısıdır.'},
+      {id:'e-neden',text:'Modelde Ay’ın Güneş’e bakan yarısı hep aydınlık. Evreler neden oluşur?',options:['Ay Dünya’nın etrafında dolanırken aydınlık yarının Dünya’dan görünen kısmı değişir.','Dünya’nın gölgesi Ay’ın üzerine düşer.','Ay’ın ışığı bir ay boyunca azalıp çoğalır.','Bulutlar Ay’ın bir kısmını kapatır.'],correct:0,expl:'Evreler Dünya’nın gölgesiyle oluşmaz; Ay’ın Dünya’nın etrafındaki konumunun değişmesiyle oluşur.'},
+    ];
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('div',{class:'pair'},el('div',{},svg,el('p',{class:'hint',style:'margin:4px 0 0'},'Üstten görünüş. Ay’ı yörüngede sürükle.')),el('div',{},big,name,info,expl)),
+      el('div',{class:'ctl',style:'margin-top:8px'},el('label',{},'Yeni aydan bu yana geçen gün',out),rng),el('div',{class:'row'},playB,step,gz),el('div',{style:'height:6px'}),jump),taskCard('evre',TL)));
+    draw();
+  })();
+
+  /* --- Evreyi tanı --- */
+  (function(){
+    const b=box.tani;regTask('evre','e-tani');
+    const NAMES=['Yeni ay','Hilal','İlk dördün','Şişkin ay','Dolunay','Son dördün'];
+    let order,qi,wrong;const area=el('div'),info=el('p',{class:'mono'});
+    const start=()=>{order=shuffle([0,1,2,3,4,5,6,7]);qi=0;wrong=0;ask()};
+    const ask=()=>{area.innerHTML='';info.textContent=`Görünüş ${qi+1} / 8 · yanlış: ${wrong}`;const k=order[qi],ans=EVRE[k];const fb=el('div',{class:'fb hidden'});
+      const big=sv('svg',{viewBox:'0 0 200 200',width:170,height:170,role:'img','aria-label':'Dünya’dan görünen Ay'});big.append(sv('rect',{width:200,height:200,fill:'#0e1628',rx:10}),phaseG(100,100,80,k*45));
+      const btns=NAMES.map(n=>el('button',{class:'opt',type:'button',onclick:()=>{if(n===ans){btns.forEach(x=>x.disabled=true);btns[NAMES.indexOf(n)].classList.add('right');fb.className='fb ok';fb.innerHTML='<b>Doğru.</b> '+(k===1||k===3?'Sağ tarafı aydınlık: Ay büyüyor.':k===5||k===7?'Sol tarafı aydınlık: Ay küçülüyor.':'');nx.classList.remove('hidden')}else{wrong++;info.textContent=`Görünüş ${qi+1} / 8 · yanlış: ${wrong}`;btns[NAMES.indexOf(n)].classList.add('wrong');btns[NAMES.indexOf(n)].disabled=true;fb.className='fb bad';fb.innerHTML='<b>Değil.</b> Aydınlık kısım ne kadar büyük? Sağda mı solda mı?'}}},n));
+      const nx=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;if(qi<8)ask();else{area.innerHTML='';const ok=wrong<=1;area.append(el('div',{class:'fb '+(ok?'ok':'info'),html:`<b>Bitti!</b> 8 görünüşü ${wrong} yanlışla tamamladın.`+(ok?' Görev tamamlandı.':' En fazla 1 yanlışla bitirince görev tamamlanır.')}),el('button',{class:'btn',type:'button',onclick:start},'Yeni tur'));if(ok)markDone('e-tani')}}},'Sonraki');
+      area.append(el('div',{class:'row',style:'align-items:flex-start'},big,el('div',{style:'flex:1;min-width:200px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px'},...btns)),fb,nx)};
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('h3',{},'Dünya’dan görünüşe bakıp evreyi adlandır'),el('p',{class:'hint'},'Sekiz görünüşü en fazla 1 yanlışla bitir.'),info,area),
+      el('div',{class:'card'},el('h3',{},'Kolay hatırlama yolu'),el('p',{html:'<b>Sağı aydınlıksa Ay büyüyor</b> (yeni aydan dolunaya):'}),el('div',{class:'row'},...[0,45,90,135,180].map(e=>phaseSVG(e,44))),el('p',{html:'<b>Solu aydınlıksa Ay küçülüyor</b> (dolunaydan yeni aya):'}),el('div',{class:'row'},...[180,225,270,315,0].map(e=>phaseSVG(e,44))),el('p',{class:'hint',html:'Ana evreler: yeni ay, ilk dördün (“D”), dolunay, son dördün (ters “D”). Ara evreler: hilal ve şişkin ay.'}))));
+    start();
+  })();
+
+  /* --- Konumu bul --- */
+  (function(){
+    const b=box.konum;regTask('evre','e-konum');
+    let order,qi,wrong,locked;const info=el('p',{class:'mono'}),fb=el('div',{class:'fb hidden'});
+    const svg=sv('svg',{viewBox:'0 0 400 320',class:'stage',role:'img','aria-label':'Yörüngede sekiz konum'});
+    const target=el('div',{style:'text-align:center'});
+    const nx=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;if(qi<8)ask();else{const ok=wrong<=1;fb.className='fb '+(ok?'ok':'info');fb.innerHTML=`<b>Bitti!</b> ${wrong} yanlış.`+(ok?' Görev tamamlandı.':' En fazla 1 yanlışla bitirince görev tamamlanır.');nx.classList.add('hidden');again.classList.remove('hidden');if(ok)markDone('e-konum')}}},'Sonraki');
+    const again=el('button',{class:'btn hidden',type:'button',onclick:()=>start()},'Yeni tur');
+    const draw=(mark)=>{svg.innerHTML='';topBase(svg);for(let k=0;k<8;k++){const[x,y]=posOf(k*45);const g=sv('g',{style:'cursor:pointer',tabindex:0,role:'button','aria-label':'Konum '+(k+1)});
+      if(mark&&mark.k===k){g.append(moonTop(x,y,16));g.append(sv('circle',{cx:x,cy:y,r:22,fill:'none',stroke:mark.ok?'var(--ok)':'var(--bad)','stroke-width':3}))}
+      else g.append(sv('circle',{cx:x,cy:y,r:15,fill:'var(--panel)',stroke:'var(--accent2)','stroke-width':2,'stroke-dasharray':'3 2'}));
+      g.addEventListener('click',()=>pickK(k));g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pickK(k)}});svg.append(g)}};
+    const pickK=k=>{if(locked)return;const ans=order[qi];if(k===ans){locked=true;draw({k,ok:true});fb.className='fb ok';fb.innerHTML='<b>Doğru.</b> '+(ans===0?'Yeni ayda Ay, Güneş ile Dünya’nın arasındadır.':ans===4?'Dolunayda Dünya, Güneş ile Ay’ın arasındadır.':'Ay saatin dönme yönünün tersine dolanır; yeni aydan sonra önce sağ tarafı aydınlanır.');nx.classList.remove('hidden')}else{wrong++;info.textContent=`Görünüş ${qi+1} / 8 · yanlış: ${wrong}`;draw({k,ok:false});fb.className='fb bad';fb.innerHTML='<b>Değil.</b> Bu konumdaki Ay’ın Dünya’ya bakan tarafının ne kadarı aydınlık?'}};
+    const ask=()=>{locked=false;fb.className='fb hidden';nx.classList.add('hidden');again.classList.add('hidden');info.textContent=`Görünüş ${qi+1} / 8 · yanlış: ${wrong}`;target.innerHTML='';const s=sv('svg',{viewBox:'0 0 200 200',width:130,height:130,role:'img','aria-label':'Dünya’dan görünen Ay'});s.append(sv('rect',{width:200,height:200,fill:'#0e1628',rx:10}),phaseG(100,100,80,order[qi]*45));target.append(s,el('p',{class:'hint'},'Dünya’dan böyle görünüyor. Ay yörüngenin neresinde?'));draw()};
+    const start=()=>{order=shuffle([0,1,2,3,4,5,6,7]);qi=0;wrong=0;ask()};
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},svg),el('div',{class:'card'},el('h3',{},'Modelde konumu bul'),el('p',{class:'hint'},'Sınavdaki el feneri–küre modeli soruları gibi: görünüşe bakıp Ay’ın konumuna tıkla. En fazla 1 yanlışla bitir.'),info,target,fb,nx,again)));
+    start();
+  })();
+
+  /* --- Sırala ve hesapla --- */
+  (function(){
+    const b=box.sira;regTask('evre','e-sira');regTask('evre','e-takvim');
+    // sıralama
+    let set,startK,picked,okRounds=0;const sArea=el('div'),sInfo=el('p',{class:'mono'}),sFb=el('div',{class:'fb hidden'});
+    const L='KLMNP';
+    const sNew=()=>{startK=pick(ANA);const others=shuffle([0,1,2,3,4,5,6,7].filter(k=>k!==startK)).slice(0,4);set=shuffle([startK,...others]);picked=[];sFb.className='fb hidden';sDraw()};
+    const sDraw=()=>{sArea.innerHTML='';sInfo.textContent=`Doğru tur: ${okRounds} / 3`;
+      sArea.append(el('p',{html:`Evreleri <b>${EVRE[startK].toLocaleLowerCase('tr-TR')}</b> evresinden başlayarak gerçekleşme sırasına göre tıkla.`}));
+      sArea.append(el('div',{class:'row'},...set.map((k,i)=>{const used=picked.includes(i);const bt=el('button',{class:'opt',type:'button',style:'width:auto;text-align:center;padding:6px',disabled:used,onclick:()=>{picked.push(i);sDraw();if(picked.length===5)sCheck()}},phaseSVG(k*45,52),el('div',{style:'font-weight:700'},L[i]+(used?' ('+(picked.indexOf(i)+1)+')':'')));return bt})));
+      sArea.append(el('p',{class:'mono'},'Sıran: '+(picked.map(i=>L[i]).join(' → ')||'—')),picked.length<5?el('button',{class:'btn sm ghost',type:'button',onclick:()=>{picked=[];sFb.className='fb hidden';sDraw()}},'Baştan seç'):null)};
+    const sCheck=()=>{const right=set.map((k,i)=>i).sort((a,c)=>norm((set[a]-startK)*45)-norm((set[c]-startK)*45));const ok=right.every((x,i)=>x===picked[i]);
+      if(ok){okRounds++;sFb.className='fb ok';sFb.innerHTML='<b>Doğru.</b> '+right.map(i=>L[i]+' ('+EVRE[set[i]].toLocaleLowerCase('tr-TR')+')').join(' → ');if(okRounds>=3)markDone('e-sira')}else{sFb.className='fb bad';sFb.innerHTML='<b>Olmadı.</b> Doğrusu: '+right.map(i=>L[i]).join(' → ')+'. Sıra: yeni ay → hilal → ilk dördün → şişkin ay → dolunay → şişkin ay → son dördün → hilal.'}
+      sInfo.textContent=`Doğru tur: ${okRounds} / 3`;sArea.append(el('button',{class:'btn sm',type:'button',onclick:sNew},'Yeni soru'))};
+    // takvim
+    let streak=0;const tArea=el('div'),tInfo=el('p',{class:'mono'});
+    const tNew=()=>{tArea.innerHTML='';tInfo.textContent=`Art arda doğru: ${streak} / 5`;const k=pick([2,4,6]),day=rnd(1,6);const kind=rnd(0,3);
+      let q,opts,ans,ex;
+      if(kind<3){const n=rnd(1,3);ans=(k+2*n)%8;q=`Defne ayın ${day}${ek(day)} <b>${EVRE[k].toLocaleLowerCase('tr-TR')}</b> evresini gözlemledi. Ayın ${day+7*n}${ek(day+7*n)} hangi evreyi görür?`;opts=ANA.map(x=>EVRE[x]);ans=EVRE[ans];ex=`Her hafta bir sonraki ana evreye geçilir: ${n} hafta = ${n} ana evre ileri.`}
+      else{q=`Defne ayın ${day}${ek(day)} <b>${EVRE[k].toLocaleLowerCase('tr-TR')}</b> evresini gözlemledi. Aynı evreyi yeniden yaklaşık kaç gün sonra görür?`;opts=['Yaklaşık 29,5 gün','Yaklaşık 7 gün','Yaklaşık 14–15 gün','Yaklaşık 365 gün'];ans=opts[0];ex='Evrelerin tamamlanması yaklaşık 29,5 gün (1 ay) sürer.'}
+      const fb=el('div',{class:'fb hidden'});const bs=shuffle(opts).map(o=>el('button',{class:'opt',type:'button',onclick:()=>{bs.forEach(x=>x.disabled=true);const ok=o===ans;bs.find(x=>x.textContent===o).classList.add(ok?'right':'wrong');if(!ok)bs.find(x=>x.textContent===ans).classList.add('right');streak=ok?streak+1:0;tInfo.textContent=`Art arda doğru: ${streak} / 5`;fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Yanlış.</b> ')+ex;if(streak>=5)markDone('e-takvim');tArea.append(el('button',{class:'btn sm',type:'button',onclick:tNew},'Sonraki'))}},o));
+      tArea.append(el('p',{html:q}),...bs,fb)};
+    const ek=d=>{const s=String(d);const l=s[s.length-1];if(s.endsWith('0'))return ({'10':'’unda','20':'’sinde','30':'’unda'}[s.slice(-2)]||'’unda');return {'1':'’inde','2':'’sinde','3':'’ünde','4':'’ünde','5':'’inde','6':'’sında','7':'’sinde','8':'’inde','9':'’unda'}[l]};
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('h3',{},'Sırala'),el('p',{class:'hint'},'Üç soruyu doğru bitirince görev tamamlanır.'),sInfo,sArea,sFb),el('div',{class:'card'},el('h3',{},'Gözlem takvimi'),el('p',{class:'hint'},'İki ana evre arası yaklaşık 1 hafta, bütün evreler yaklaşık 29,5 gün. Art arda 5 doğru yap.'),tInfo,tArea)));
+    sNew();tNew();
+  })();
+})();
+
+/* =====================================================================
+   3) GÜNEŞ–DÜNYA–AY MODELİ — FB.5.1.4
+   ===================================================================== */
+(function(){
+  const v=views.gda;
+  v.append(el('div',{class:'card'},el('h2',{},'Güneş, Dünya ve Ay Modeli ',el('span',{class:'kod'},'FB.5.1.4')),
+    el('p',{class:'lead'},'Hatalı bir animasyonu düzelt, bir yılı izle, büyüklük modeli için malzeme seç.')));
+  const box=segParts(v,[['anim','1. Animasyonu düzelt'],['buyuk','2. Büyüklük modeli'],['dy','3. Doğru mu, yanlış mı?']]);
+
+  /* --- Animasyon --- */
+  (function(){
+    const b=box.anim;
+    const M=[['gd','Güneş’in kendi ekseni etrafında dönmesi'],['dd','Dünya’nın kendi ekseni etrafında dönmesi'],['dg','Dünya’nın Güneş etrafında dolanması'],['ad','Ay’ın kendi ekseni etrafında dönmesi'],['ag','Ay’ın Dünya etrafında dolanması']];
+    const st={on:{gd:false,dd:true,dg:true,ad:false,ag:true},yon:{gd:1,dd:-1,dg:1,ad:1,ag:-1},t:0,play:false,hiz:4,angles:{gd:0,dd:0,dg:200,ad:0,ag:0},fixedOnce:false};
+    // yon: 1 = saatin tersine (doğru), -1 = saat yönünde
+    const svg=sv('svg',{viewBox:'0 0 620 340',class:'stage',role:'img','aria-label':'Güneş, Dünya ve Ay animasyonu'});
+    const SX=300,SY=170,EA=240,EB=130;
+    const draw=()=>{svg.innerHTML='';arrowDefs(svg);
+      svg.append(sv('ellipse',{cx:SX,cy:SY,rx:EA,ry:EB,fill:'none',stroke:'var(--line)','stroke-dasharray':'5 5'}));
+      svg.append(sv('circle',{cx:SX,cy:SY,r:46,fill:'#f5b833'}));
+      const ga=st.angles.gd*RAD;svg.append(sv('circle',{cx:SX+30*Math.cos(ga),cy:SY-30*Math.sin(ga),r:6,fill:'#c76b00'}));
+      svg.append(sv('text',{x:SX,y:SY+64,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'var(--ink)'},'Güneş'));
+      const da=st.angles.dg*RAD;const ex=SX+EA*Math.cos(da),ey=SY-EB*Math.sin(da);
+      svg.append(sv('circle',{cx:ex,cy:ey,r:46,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 4'}));
+      svg.append(sv('circle',{cx:ex,cy:ey,r:18,fill:'#2f7fc0'}));
+      const dda=st.angles.dd*RAD;svg.append(sv('circle',{cx:ex+12*Math.cos(dda),cy:ey-12*Math.sin(dda),r:4,fill:'#9fe3c3'}));
+      svg.append(sv('text',{x:ex,y:ey-22,'text-anchor':'middle','font-size':11,'font-weight':700,fill:'var(--ink)',stroke:'var(--paper)','stroke-width':3,'paint-order':'stroke'},'Dünya'));
+      const aa=st.angles.ag*RAD;const mx=ex+46*Math.cos(aa),my=ey-46*Math.sin(aa);
+      svg.append(sv('circle',{cx:mx,cy:my,r:8,fill:'#c9c6bd',stroke:RIM}));
+      const ada=st.angles.ad*RAD;svg.append(sv('circle',{cx:mx+5*Math.cos(ada),cy:my-5*Math.sin(ada),r:2.4,fill:'#e0584a'}));
+      svg.append(sv('text',{x:mx,y:my-12,'text-anchor':'middle','font-size':10,fill:'var(--ink2)'},'Ay'));
+      read.innerHTML='';const row=(a,c)=>read.append(el('dt',{},a),el('dd',{},c));
+      row('Geçen süre',fmt(st.t,0)+' gün');row('Dünya’nın dönme sayısı',fmt(Math.floor(st.t),0));row('Ay’ın Dünya etrafında dolanma sayısı',fmt(st.t/27.33,1));row('Dünya’nın Güneş etrafında dolanma sayısı',fmt(st.t/365.25,2));
+    };
+    const read=el('dl',{class:'read'});
+    // görsel hızlar (derece/gün): okunabilir olsun diye ölçeklendi
+    const VIS={gd:360/25,dd:40,dg:360/365.25,ad:360/27.33,ag:360/27.33};
+    let raf=null,last=0;
+    const loop=ts=>{if(!st.play){raf=null;return}const dt=last?Math.min(50,ts-last):16;last=ts;const days=dt/1000*st.hiz;st.t+=days;
+      for(const[k]of M){if(st.on[k])st.angles[k]+=st.yon[k]*VIS[k]*days}
+      if(st.on.ad&&st.on.ag&&st.yon.ad===st.yon.ag)st.angles.ad=st.angles.ag+180; // eşit süre: aynı yüz Dünya’ya dönük
+      draw();TL.forEach(x=>x._tick&&x._tick());raf=requestAnimationFrame(loop)};
+    const playB=el('button',{class:'btn sm',type:'button',onclick:()=>{st.play=!st.play;playB.textContent=st.play?'❚❚ Durdur':'▶ Oynat';if(st.play&&!raf){last=0;raf=requestAnimationFrame(loop)}}},'▶ Oynat');
+    const HIZ=[[4,'1 sn = 4 gün'],[30,'1 sn = 30 gün'],[90,'1 sn = 90 gün']];
+    const hiz=el('div',{class:'chips'},...HIZ.map(([h,t])=>el('button',{class:'chip',type:'button','aria-pressed':h===st.hiz?'true':'false',onclick:e=>{st.hiz=h;hiz.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true')}},t)));
+    const ctl=el('table',{class:'tbl'},el('tr',{},el('th',{},'Hareket'),el('th',{},'Açık mı?'),el('th',{},'Yön')));
+    const allOk=()=>M.every(([k])=>st.on[k]&&st.yon[k]===1);
+    M.forEach(([k,t])=>{const cb=el('input',{type:'checkbox',style:'width:18px;height:18px'});cb.checked=st.on[k];cb.addEventListener('change',()=>{st.on[k]=cb.checked;draw();TL.forEach(x=>x._tick&&x._tick())});
+      const yb=el('button',{class:'chip',type:'button',onclick:()=>{st.yon[k]*=-1;yb.textContent=st.yon[k]===1?'↺ saatin tersine':'↻ saat yönünde';draw();TL.forEach(x=>x._tick&&x._tick())}},st.yon[k]===1?'↺ saatin tersine':'↻ saat yönünde');
+      ctl.append(el('tr',{},el('td',{},t),el('td',{},cb),el('td',{},yb)))});
+    const TL=[
+      {id:'g-duzelt',text:'Ece’nin animasyonunda hatalar ve eksikler var. Tablodan hareketleri aç ve yönlerini düzelt; animasyon doğru olunca görev açılır.',check:allOk,status:()=>'Beş hareketin hepsi açık ve saatin dönme yönünün tersine.',why:{q:'Doğru modelde hangisi geçerlidir?',options:['Güneş, Dünya ve Ay’ın bütün dönme ve dolanma hareketleri saatin dönme yönünün tersinedir.','Dünya saat yönünde, Ay saat yönünün tersine döner.','Güneş hareket etmez; yalnızca Dünya ve Ay hareket eder.'],correct:0,expl:'Güneş de kendi ekseni etrafında batıdan doğuya, yani saatin dönme yönünün tersine döner.'}},
+      {id:'g-yil',text:'Animasyonu hızlandırıp <b>bir yıl</b> (365 gün) geçmesini izle.',check:()=>st.t>=365,status:()=>'Bir yıl tamamlandı.',why:{q:'Dünya, Güneş etrafında bir kez dolanırken kendi ekseni etrafında yaklaşık kaç kez döner?',options:['Yaklaşık 365 kez','1 kez','Yaklaşık 12 kez','Yaklaşık 27 kez'],correct:0,expl:'Dönme 24 saat (1 gün), dolanma yaklaşık 365 gün 6 saat sürer.'}},
+      {id:'g-ay',text:'Ay hangi gök cisimlerinin etrafında dolanır?',options:['Dünya’nın etrafında; ayrıca Dünya ile birlikte Güneş’in etrafında','Yalnızca Güneş’in etrafında','Yalnızca Dünya’nın etrafında','Hiçbirinin etrafında dolanmaz, yalnızca döner'],correct:0,expl:'Ay, Dünya etrafında dolanırken Dünya ile birlikte Güneş’in etrafında da dolanır.'},
+      {id:'g-gunes',text:'Güneş’i gün içinde sabah doğuda, öğlen tepede, akşam batıda görürüz. Bunun nedeni nedir?',options:['Dünya’nın kendi ekseni etrafında dönmesi','Güneş’in Dünya etrafında dolanması','Ay’ın Dünya etrafında dolanması','Dünya’nın Güneş etrafında dolanması'],correct:0,expl:'Güneş’in gökyüzündeki konumunun gün içinde değişmesi Dünya’nın dönme hareketinin sonucudur.'},
+    ];
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},svg,el('div',{class:'row',style:'margin-top:8px'},playB,hiz),el('p',{class:'hint'},'Hızlar görünür olsun diye değiştirildi; sayaçlar gerçek süreleri gösterir. Noktalar her cismin kendi etrafında dönüşünü gösterir.'),read,el('h3',{style:'margin-top:10px'},'Hareketler'),el('div',{style:'overflow-x:auto'},ctl)),taskCard('gda',TL)));
+    draw();
+  })();
+
+  /* --- Büyüklük modeli --- */
+  (function(){
+    const b=box.buyuk;regTask('gda','g-malzeme');
+    const MAL=[['Plaj topu',60],['Karpuz',50],['Basketbol topu',48],['Portakal',20],['Elma',18],['Mandalina',15],['Erik',10],['Bilye',4],['Nohut',3]];
+    const sel={G:'',D:'',A:''};
+    const svg=sv('svg',{viewBox:'0 0 600 170',class:'stage',role:'img','aria-label':'Seçilen malzemeler'});
+    const fb=el('div',{class:'fb hidden'});
+    const draw=()=>{svg.innerHTML='';let x=20;[['G','Güneş','#f5b833'],['D','Dünya','#2f7fc0'],['A','Ay','#c9c6bd']].forEach(([k,ad,c])=>{const m=MAL.find(z=>z[0]===sel[k]);const r=m?m[1]:14;svg.append(sv('circle',{cx:x+r,cy:90,r,fill:m?c:'none',stroke:m?'none':'var(--line)','stroke-dasharray':'4 3'}));svg.append(sv('text',{x:x+r,y:165,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':700},ad+(m?': '+m[0]:'')));x+=2*r+70})};
+    const mk=(k,ad)=>{const s=el('select',{},el('option',{value:''},'— seç —'),...MAL.map(([n])=>el('option',{value:n},n)));s.addEventListener('change',()=>{sel[k]=s.value;draw();fb.className='fb hidden'});return el('label',{class:'row',style:'margin:4px 0'},el('span',{style:'min-width:70px;font-weight:700'},ad),s)};
+    const check=()=>{const sz=k=>(MAL.find(z=>z[0]===sel[k])||[0,0])[1];if(!sel.G||!sel.D||!sel.A){fb.className='fb bad';fb.innerHTML='Üç gök cismi için de malzeme seç.';return}
+      const ok=sz('G')>sz('D')&&sz('D')>sz('A');fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=ok?'<b>Doğru model.</b> Hacimsel büyüklük sırası: Güneş > Dünya > Ay. (Gerçek oranları göstermek için aşağıdaki çizime bak.)':'<b>Olmadı.</b> Modelde büyüklük sırası Güneş > Dünya > Ay olmalı.';if(ok)markDone('g-malzeme')};
+    // gerçek oran
+    const real=sv('svg',{viewBox:'0 0 600 150',class:'stage',role:'img','aria-label':'Gerçek oranlarla Güneş, Dünya ve Ay'});
+    real.append(sv('circle',{cx:-640,cy:75,r:700,fill:'#f5b833'}));real.append(sv('text',{x:20,y:20,'font-size':12,'font-weight':700,fill:'#7a4a00'},'Güneş (yalnızca kenarı sığıyor)'));
+    real.append(sv('circle',{cx:300,cy:75,r:6.4,fill:'#2f7fc0'}));real.append(sv('text',{x:300,y:100,'text-anchor':'middle','font-size':11,fill:'var(--ink)'},'Dünya'));
+    real.append(sv('circle',{cx:340,cy:75,r:1.75,fill:'#c9c6bd',stroke:RIM,'stroke-width':.5}));real.append(sv('text',{x:345,y:65,'font-size':11,fill:'var(--ink)'},'Ay'));
+    b.append(el('div',{class:'grid2'},el('div',{class:'card'},el('h3',{},'Malzeme seç'),el('p',{class:'hint'},'Güneş, Dünya ve Ay’ın hacimsel büyüklüklerini gösteren bir model için malzeme seç.'),mk('G','Güneş'),mk('D','Dünya'),mk('A','Ay'),el('div',{style:'height:6px'}),el('button',{class:'btn sm',type:'button',onclick:check},'Kontrol et'),fb,el('div',{style:'height:8px'}),svg),
+      el('div',{},el('div',{class:'card'},el('h3',{},'Gerçekte ne kadar farklı?'),real,el('p',{class:'hint'},'Aynı ölçekte çizilince Güneş, Dünya’dan çok çok daha büyüktür; Ay ise Dünya’dan küçüktür. Meyvelerle yapılan modeller gerçek oranları değil, büyüklük sırasını gösterir. Uzaklıkları da gerçek ölçekte göstermek mümkün olmaz.')),el('div',{style:'height:14px'}),taskCard('gda',[{id:'g-oran',text:'Karpuz, elma ve erik ile yapılan bir Güneş–Dünya–Ay modeli neyi doğru gösterir?',options:['Gök cisimlerinin hacimsel büyüklük sırasını','Gök cisimlerinin gerçek büyüklük oranlarını','Gök cisimleri arasındaki gerçek uzaklıkları','Gök cisimlerinin yapıldığı maddeleri'],correct:0,expl:'Model, Güneş > Dünya > Ay sırasını gösterir; gerçek oranlar çok daha farklıdır.'}],'Görev'))));
+    draw();
+  })();
+
+  /* --- Doğru mu, yanlış mı? --- */
+  (function(){
+    const b=box.dy;regTask('gda','g-dy');
+    const IT=[['Dünya ve Ay’ın dolanma yönleri aynıdır.',true,'İkisi de saatin dönme yönünün tersine dolanır.'],['Güneş, Dünya ve Ay aynı yönde döner.',true,'Hepsi saatin dönme yönünün tersine döner.'],['Dünya’nın dönme ve dolanma süreleri birbirine eşittir.',false,'Dönme 24 saat, dolanma yaklaşık 365 gün 6 saat.'],['Ay, kendi etrafında dönme ve Dünya etrafında dolanma hareketini yaklaşık aynı sürede tamamlar.',true,'İkisi de yaklaşık 27 gün 8 saat.'],['Dünya, dolanma hareketini 24 saatte tamamlar.',false,'24 saat dönme süresidir.'],['Dünya’nın Güneş çevresindeki dolanma süresi, Ay’ın Dünya çevresindeki dolanma süresinden daha uzundur.',true,'365 gün 6 saat > 27 gün 8 saat.'],['Ay’ın dönme süresi, Dünya’nın dönme süresinden daha kısadır.',false,'Ay’ın dönmesi yaklaşık 27 gün 8 saat, Dünya’nınki 24 saat.'],['Hacimsel büyüklüğü en küçük olan Ay’dır.',true,'Güneş > Dünya > Ay.'],['Güneş kendi ekseni etrafında dönmez.',false,'Güneş batıdan doğuya döner.']];
+    const items=shuffle(IT);const ans=items.map(()=>null);
+    const tb=el('table',{class:'tbl'},el('tr',{},el('th',{},'İfade'),el('th',{},'D / Y')));
+    const rows=items.map(([t],i)=>{const bD=el('button',{class:'chip',type:'button','aria-pressed':'false',onclick:()=>set(i,true)},'D'),bY=el('button',{class:'chip',type:'button','aria-pressed':'false',onclick:()=>set(i,false)},'Y');const note=el('div',{class:'hint'});tb.append(el('tr',{},el('td',{},t,note),el('td',{style:'white-space:nowrap'},bD,' ',bY)));return{bD,bY,note}});
+    const set=(i,v2)=>{ans[i]=v2;rows[i].bD.setAttribute('aria-pressed',String(v2===true));rows[i].bY.setAttribute('aria-pressed',String(v2===false))};
+    const fb=el('div',{class:'fb hidden'});
+    b.append(el('div',{class:'card'},el('h3',{},'Doğru mu, yanlış mı?'),el('p',{class:'hint'},'Ders kitabındaki pekiştirme etkinliğine benzer. Hepsini doğru işaretleyince görev tamamlanır. Yanlış ifadeleri kafanda düzelterek oku.'),el('div',{style:'overflow-x:auto'},tb),el('div',{style:'height:8px'}),el('button',{class:'btn sm',type:'button',onclick:()=>{let k=0;items.forEach(([t,a,ex],i)=>{const ok=ans[i]===a;if(ok)k++;rows[i].note.innerHTML=ans[i]===null?'':(ok?'✓ ':'✗ ')+ex;rows[i].note.style.color=ok?'var(--ok)':'var(--bad)'});const all=k===items.length;fb.className='fb '+(all?'ok':'bad');fb.innerHTML=all?'<b>Hepsi doğru.</b>':`<b>${k} / ${items.length} doğru.</b>`;if(all)markDone('g-dy')}},'Kontrol et'),fb));
+  })();
+})();
+
+/* =====================================================================
+   4) KARMA TUR
+   ===================================================================== */
+(function(){
+  const v=views.karma;regTask('karma','k-tur');
+  const K={A:'Ay’ın özellikleri ve hareketleri (FB.5.1.2)',E:'Ay’ın evreleri (FB.5.1.3)',G:'Güneş, Dünya ve Ay (FB.5.1.4)'};
+  const KST={A:'ay',E:'evre',G:'gda'};
+  const P=e=>'<span style="display:inline-block;vertical-align:middle">'+phaseHTML(e,34)+'</span>';
+  const BANK=[
+    ['A','Ay’ı geceleri parlak görmemizin nedeni nedir?',['Güneş’ten aldığı ışığı yansıtması','Kendi ışığını üretmesi','Yüzeyindeki yanardağlar','Dünya’nın gölgesi'],'Ay ışık kaynağı değildir.'],
+    ['A','Ay’da kraterlerin çok olmasının nedeni nedir?',['Atmosferi yok denecek kadar ince olduğu için gök taşları yanmadan çarpar.','Ay’da çok yanardağ vardır.','Ay’da rüzgâr çok sert eser.','Ay çok sıcak olduğu için yüzeyi erir.'],'Dünya’da gök taşlarının çoğu atmosferde yanar.'],
+    ['A','Astronotların ayak izleri Ay’da neden silinmez?',['Rüzgâr ve yağış olmadığı için','Ay’ın yüzeyi buzla kaplı olduğu için','Ay’da gece hiç olmadığı için','Ay döndüğü için'],'Atmosfer yok denecek kadar incedir.'],
+    ['A','Ay’ın koyu renkli görünen bölgeleri nedir?',['Düzlükler','Dağlık alanlar','Denizler','Bulutlar'],'Açık renkli bölgeler engebelidir.'],
+    ['A','Ay’ın kendi ekseni etrafında dönme süresi yaklaşık ne kadardır?',['27 gün 8 saat','24 saat','29,5 gün','365 gün 6 saat'],'Dolanma süresi de yaklaşık 27 gün 8 saattir.'],
+    ['A','Dünya’dan Ay’ın hep aynı yüzünü görmemizin nedeni nedir?',['Dönme ve dolanma sürelerinin yaklaşık eşit olması','Ay’ın hiç dönmemesi','Ay’ın arka yüzünün karanlık olması','Dünya’nın Ay’dan büyük olması'],'Ay bir tur dolanırken kendi etrafında da bir tur döner.'],
+    ['A','Ay’daki büyük sıcaklık farkı yüzeyde neye yol açar?',['Kayaların parçalanmasını hızlandırır.','Yağmur yağmasına neden olur.','Ay’ın parlamasına neden olur.','Kraterleri kapatır.'],'Gündüz yaklaşık 125 °C, gece yaklaşık −174 °C.'],
+    ['E','Yeni ay evresinde hangisi ortadadır?',['Ay','Dünya','Güneş','Hiçbiri; aynı hizada değillerdir'],'Yeni ayda Ay, Güneş ile Dünya’nın arasındadır.'],
+    ['E','Dolunay evresinde hangisi ortadadır?',['Dünya','Ay','Güneş','Hiçbiri'],'Dolunayda Dünya, Güneş ile Ay’ın arasındadır.'],
+    ['E','Dünya’dan '+P(90)+' böyle görünen evre hangisidir?',['İlk dördün','Son dördün','Hilal','Şişkin ay'],'Sağ yarısı aydınlık: “D”.'],
+    ['E','Dünya’dan '+P(270)+' böyle görünen evre hangisidir?',['Son dördün','İlk dördün','Dolunay','Hilal'],'Sol yarısı aydınlık: ters “D”.'],
+    ['E','Dünya’dan '+P(45)+' böyle görünen evreden sonra hangi ana evre gelir?',['İlk dördün','Son dördün','Yeni ay','Dolunay'],'Sağı aydınlık hilal: Ay büyüyor, sıradaki ana evre ilk dördün.'],
+    ['E','İki ana evre arasında yaklaşık ne kadar zaman geçer?',['1 hafta','1 gün','1 ay','29,5 gün'],'Bütün evrelerin tamamlanması yaklaşık 29,5 gün sürer.'],
+    ['E','Bütün evrelerin tamamlanması yaklaşık ne kadar sürer?',['29,5 gün','27 gün 8 saat','7 gün','365 gün'],'Bu süreye 1 ay denir.'],
+    ['E','Ay’ın evreleri neden oluşur?',['Ay dolanırken aydınlık yarısının Dünya’dan görünen kısmı değiştiği için','Dünya’nın gölgesi Ay’a düştüğü için','Ay’ın ışığı azalıp çoğaldığı için','Bulutlar yüzünden'],'Gölge yanılgısına dikkat.'],
+    ['E','Ayın 3’ünde dolunay gözlenirse ayın 10’unda hangi evre görülür?',['Son dördün','İlk dördün','Yeni ay','Dolunay'],'1 hafta sonra bir sonraki ana evre.'],
+    ['E','Hangisi ana evre değildir?',['Hilal','Yeni ay','İlk dördün','Dolunay'],'Ara evreler hilal ve şişkin aydır.'],
+    ['G','Hacimsel büyüklüğe göre doğru sıralama hangisidir?',['Güneş > Dünya > Ay','Dünya > Güneş > Ay','Güneş > Ay > Dünya','Ay > Dünya > Güneş'],'Güneş en büyük, Ay en küçüktür.'],
+    ['G','Güneş, Dünya ve Ay’ın hareketlerinin yönü için ortak özellik nedir?',['Hepsi saatin dönme yönünün tersinedir.','Hepsi saat yönündedir.','Güneş hareket etmez.','Ay’ınki ters yöndedir.'],'Batıdan doğuya, saatin dönme yönünün tersine.'],
+    ['G','Dünya’nın kendi ekseni etrafındaki dönme süresi nedir?',['24 saat','27 gün 8 saat','365 gün 6 saat','29,5 gün'],'Dolanma süresi yaklaşık 365 gün 6 saattir.'],
+    ['G','Güneş’in gün içinde gökyüzünde farklı yerlerde görünmesinin nedeni nedir?',['Dünya’nın dönme hareketi','Güneş’in Dünya etrafında dolanması','Ay’ın dolanması','Dünya’nın dolanma hareketi'],'Dünya kendi ekseni etrafında döner.'],
+    ['G','Karpuz, elma ve erik ile model yapılacak. Erik hangi gök cismini temsil eder?',['Ay','Dünya','Güneş','Hiçbiri'],'En küçük malzeme en küçük gök cismini temsil eder.'],
+    ['G','Hangisi hem dönme hem dolanma hareketi yapar?',['Dünya ve Ay','Yalnızca Güneş','Yalnızca Ay','Güneş ve Ay'],'Güneş’in bu ünitede yalnızca dönme hareketi incelenir.'],
+  ];
+  const PLAN={A:4,E:5,G:3};
+  let Q=[],qi=0,res=[];const area=el('div');
+  v.append(el('div',{class:'card'},el('h2',{},'Karma Tur'),el('p',{class:'lead'},'Bütün istasyonlardan karışık 12 soru. Her sorudan önce ne kadar emin olduğunu seç: en çok, emin olup yanlış yaptığın konuları çalışman gerekir.'),area));
+  const start=()=>{Q=[];for(const[k,n]of Object.entries(PLAN))Q.push(...shuffle(BANK.filter(b=>b[0]===k)).slice(0,n));Q=shuffle(Q);qi=0;res=[];ask()};
+  const intro=()=>{area.innerHTML='';if(S.karma)area.append(el('p',{class:'hint'},`Son turun: ${S.karma.score} / ${S.karma.total}.`));area.append(el('button',{class:'btn',type:'button',onclick:start},S.karma?'Yeni tur başlat':'Turu başlat'))};
+  const ask=()=>{area.innerHTML='';const q=Q[qi];let conf=null;
+    const ansBox=el('div',{class:'body hidden'});const fb=el('div',{class:'fb hidden'});
+    const confRow=el('div',{class:'conf'},'Ne kadar eminsin?',...[['e','Eminim'],['b','Biraz'],['t','Tahmin']].map(([k,t])=>el('button',{class:'chip',type:'button','aria-pressed':'false',onclick:e=>{conf=k;confRow.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));e.currentTarget.setAttribute('aria-pressed','true');ansBox.classList.remove('hidden')}},t)));
+    const next=el('button',{class:'btn hidden',type:'button',onclick:()=>{qi++;qi<Q.length?ask():finish()}},qi<Q.length-1?'Sonraki soru':'Sonucu gör');
+    const answer=ok=>{res.push({k:q[0],ok,conf,q:q[1].replace(/<[^>]+>/g,'').replace(/\s+/g,' ')});fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'<b>Doğru.</b> ':'<b>Yanlış.</b> ')+q[3];next.classList.remove('hidden');confRow.querySelectorAll('button').forEach(b=>b.disabled=true)};
+    const order=shuffle(q[2].map((o,i)=>i));const bs=order.map(i=>el('button',{class:'opt',type:'button',onclick:()=>{bs.forEach(b=>b.disabled=true);const ok=i===0;bs[order.indexOf(i)].classList.add(ok?'right':'wrong');if(!ok)bs[order.indexOf(0)].classList.add('right');answer(ok)}},q[2][i]));ansBox.append(...bs);
+    area.append(el('div',{class:'qcard'},el('p',{class:'mono'},`Soru ${qi+1} / ${Q.length} · ${K[q[0]]}`),el('p',{style:'font-size:1.05rem;font-weight:700',html:q[1]}),confRow,ansBox,fb,next))};
+  const finish=()=>{area.innerHTML='';const score=res.filter(r=>r.ok).length;S.karma={score,total:res.length,at:Date.now()};markDone('k-tur');save();GC('karma/'+score+'-'+res.length);
+    area.append(el('p',{style:'font-size:1.1rem'},el('b',{},`Sonuç: ${score} / ${res.length}`)));
+    for(const k of Object.keys(PLAN)){const rs=res.filter(r=>r.k===k);if(!rs.length)continue;const p=rs.filter(r=>r.ok).length/rs.length;area.append(el('div',{class:'kbar'},el('span',{},K[k]),el('span',{class:'bar'},el('i',{style:`width:${p*100}%;background:${p>=.99?'var(--ok)':p>=.5?'var(--warn)':'var(--bad)'}`})),el('span',{class:'mono'},`${rs.filter(r=>r.ok).length}/${rs.length}`)))}
+    const conf=res.filter(r=>!r.ok&&r.conf==='e');
+    if(conf.length)area.append(el('div',{class:'fb bad',html:'<b>Emin olup yanlış yaptıkların</b> (önce bunları çalış):<br>'+conf.map(r=>'• '+r.q).join('<br>')}));
+    const weak=[...new Set(res.filter(r=>!r.ok).map(r=>KST[r.k]))];
+    if(weak.length)area.append(el('p',{},'Tekrar etmen önerilen istasyonlar: ',...weak.map(w=>el('button',{class:'chip',type:'button',onclick:()=>show(w)},STATIONS.find(s=>s.id===w).ad))));
+    else area.append(el('div',{class:'fb ok',html:'<b>Harika!</b> Bütün soruları doğru yaptın.'}));
+    area.append(el('div',{style:'height:8px'}),el('button',{class:'btn',type:'button',onclick:start},'Yeni tur'))};
+  intro();
+})();
+
+/* =====================================================================
+   0) HARİTA
+   ===================================================================== */
+const SINAV=['“Nedenini açıklayınız” gördüğünde: sonuç + çünkü.','Ay ışık kaynağı değildir; Güneş’ten aldığı ışığı yansıtır.','Atmosfer yok denecek kadar ince → gök taşı yanmadan çarpar (krater), rüzgâr ve yağış yok (izler kalır), sıcaklık farkı çok büyük.','Koyu bölgeler düzlük, açık bölgeler engebeli.','Ay’ın dönmesi = Dünya etrafında dolanması ≈ 27 gün 8 saat → hep aynı yüz. Evreler ≈ 29,5 gün.','Yeni ay: Ay ortada. Dolunay: Dünya ortada. Evreler gölgeyle oluşmaz.','Sağı aydınlık → büyüyor (ilk dördün “D”); solu aydınlık → küçülüyor (son dördün ters “D”). Ana evreler arası ≈ 1 hafta.','Hepsi saatin dönme yönünün tersine. Dünya: dönme 24 saat, dolanma ≈ 365 gün 6 saat. Büyüklük: Güneş > Dünya > Ay.'];
+const CHECK=['Ay’ın yüzey ve atmosfer özelliklerini sonuçlarıyla açıklayabiliyorum.','Ay’ın dönme ve dolanma sürelerini, yönlerini ve hep aynı yüzü görmemizin nedenini yazabiliyorum.','Modelde Ay’ın konumuna bakıp evreyi çizebiliyor ve adlandırabiliyorum.','Evreleri sıralayıp tarih ve gün hesabı yapabiliyorum.','Güneş, Dünya ve Ay’ın hareketlerini oklarla doğru yönde gösterebiliyorum.','Büyüklük modeli için uygun malzeme seçip nedenini açıklayabiliyorum.'];
+function renderHarita(){
+  const v=views.harita;v.innerHTML='';
+  v.append(el('div',{class:'card'},el('h2',{},'Nereden başlamalı?'),el('p',{class:'lead'},'Önerilen sıra: Ay’ı Tanı → Evre Laboratuvarı → Güneş, Dünya ve Ay → Karma Tur. Kazanımlar MEB 5. sınıf Fen Bilimleri Senaryo 2’ye göre seçildi; sınavdaki 7 sorunun 3’ü evrelerden gelir.')));
+  const grid=el('div',{class:'stations'});
+  const DESC={ay:'Gök taşı gönder, gece–gündüz sıcaklığını izle; Ay’ın dönmesini ve dolanmasını modelde karşılaştır.',evre:'Ay’ı yörüngede sürükle, evreyi gör; adlandır, konumunu bul, sırala ve takvimde hesapla.',gda:'Hatalı animasyonu düzelt, bir yılı izle, büyüklük modeli için malzeme seç.',karma:'Karışık 12 soru ve güven işaretiyle zayıf noktalarını gör.'};
+  STATIONS.slice(1).forEach(s=>{const ts=TASKS[s.id]||[];const d=ts.filter(t=>S.done[t]).length;
+    grid.append(el('div',{class:'card st'},el('h3',{},s.ad),el('span',{class:'kod',style:'align-self:flex-start'},s.kod),el('p',{class:'hint'},DESC[s.id]),el('div',{class:'ring'},el('span',{class:'bar'},el('i',{style:`width:${ts.length?d/ts.length*100:0}%`})),`${d}/${ts.length}`),el('button',{class:'btn sm',type:'button',onclick:()=>show(s.id)},d?'Devam et':'Başla')))});
+  v.append(grid);
+  const two=el('div',{class:'grid2'});
+  two.append(el('div',{class:'card'},el('h3',{},'Cebimdeki 8 cümle'),el('ol',{class:'rules'},...SINAV.map(t=>el('li',{},t)))));
+  const ck=el('div',{class:'card'},el('h3',{},'Kendimi kontrol ediyorum'));
+  CHECK.forEach((t,i)=>{const cb=el('input',{type:'checkbox',id:'ck'+i,style:'width:18px;height:18px;accent-color:var(--ok);flex:none'});cb.checked=!!S.check[i];cb.addEventListener('change',()=>{S.check[i]=cb.checked;save()});ck.append(el('label',{class:'row',for:'ck'+i,style:'align-items:flex-start;margin:4px 0;cursor:pointer;flex-wrap:nowrap'},cb,el('span',{},t)))});
+  ck.append(el('div',{style:'height:8px'}),el('button',{class:'btn ghost sm',type:'button',onclick:()=>{if(confirm('Bütün ilerleme silinsin mi?')){S={done:{},karma:null,check:{}};save();location.reload()}}},'İlerlemeyi sıfırla'));
+  two.append(ck);v.append(two);
+}
+function updateProgress(){
+  let all=0,d=0;STATIONS.slice(1).forEach(s=>{const ts=TASKS[s.id]||[];const dd=ts.filter(t=>S.done[t]).length;all+=ts.length;d+=dd;const c=$('#tc-'+s.id);if(c)c.textContent=ts.length?`${dd}/${ts.length}`:''});
+  $('#totTxt').textContent=`${d} / ${all} görev`;$('#totBar').style.width=(all?d/all*100:0)+'%';
+}
+renderHarita();updateProgress();
+try{const t=sessionStorage.getItem(KEY+'-tab');if(t&&views[t])show(t)}catch(e){}
+
+})();
+</script>
+<script data-goatcounter="https://yedogan-aplets.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
