@@ -66,184 +66,112 @@ const DERS_SIRASI=["Matematik","Fen Bilimleri","Fizik","Kimya","Biyoloji","Türk
 </script>
 <style>
 :root{--bg:#f5f3ed;--card:#fffefb;--fg:#1c2230;--mute:#5d6576;--line:#dcd6c8;--soft:#ebe6da;--acc:#1f4e8c;--acc-bg:#e3ebf7;--new:#a3470f;--new-bg:#fbe8d9;--ok:#2f6b3a}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13161c;--card:#1b1f27;--fg:#e7eaf0;--mute:#9ba3b4;--line:#2d3340;--soft:#232834;--acc:#90b5ee;--acc-bg:#22304a;--new:#f0a46e;--new-bg:#3a2618;--ok:#8fd09b;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#13161c;--card:#1b1f27;--fg:#e7eaf0;--mute:#9ba3b4;--line:#2d3340;--soft:#232834;--acc:#90b5ee;--acc-bg:#22304a;--new:#f0a46e;--new-bg:#3a2618;--ok:#8fd09b;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root{--bg:#13161c;--card:#1b1f27;--fg:#e7eaf0;--mute:#9ba3b4;--line:#2d3340;--soft:#232834;--acc:#90b5ee;--acc-bg:#22304a;--new:#f0a46e;--new-bg:#3a2618;--ok:#8fd09b;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 "Atkinson Hyperlegible",system-ui,sans-serif}
-.wrap{max-width:920px;margin:0 auto;padding-inline:16px}
-header{padding-block:32px 8px}
-h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:clamp(1.6rem,4vw,2.1rem);margin:0;text-wrap:balance}
-.lead{color:var(--mute);margin:4px 0 0}
-.bar{background:var(--bg);padding-block:12px 10px;border-bottom:1px solid var(--line)}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{padding:40px 0 16px}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.2rem)}
+h2{font-size:1.3rem;margin:22px 0 4px}
+h3{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:18px 0 8px}
 .search{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 12px}
 .search:focus-within{border-color:var(--acc)}
 .search svg{flex:none;color:var(--mute)}
 .search input{flex:1;min-width:0;border:0;background:none;color:var(--fg);font:inherit;padding:11px 0;outline:none}
 .search button{border:0;background:none;color:var(--mute);font:inherit;cursor:pointer;padding:4px}
-.crumbs{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:.95rem}
-.crumbs button{border:0;background:none;color:var(--acc);font:inherit;font-weight:700;cursor:pointer;padding:2px 0}
-.crumbs .sep{color:var(--mute)}
-.crumbs .here{font-weight:700}
-.status{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:.88rem;color:var(--mute)}
-.linkbtn{border:0;background:none;color:var(--acc);font:inherit;font-weight:700;cursor:pointer;padding:0}
-main{padding-block:16px 48px}
-h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.15rem;margin:0 0 10px;display:flex;align-items:baseline;gap:8px}
-h2 small{font:400 .85rem "Atkinson Hyperlegible",system-ui,sans-serif;color:var(--mute)}
-.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;padding:16px;border-radius:12px;cursor:pointer;min-height:96px}
-.tile:hover:not(:disabled){border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
-.tile:focus-visible,.crumbs button:focus-visible,.btn:focus-visible,.tag:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-.tile b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.5rem;line-height:1.1}
-.tile .sub{color:var(--mute);font-size:.88rem}
-.tile .badge{margin-top:auto}
-.tile:disabled{opacity:.45;cursor:default}
-.tile.ders b{font-size:1.2rem}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:20px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--fg);font:inherit;padding:16px;border-radius:12px;cursor:pointer}
+.tile:hover{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.tile b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.5rem;line-height:1.15}
+.tile span{color:var(--mute);font-size:.88rem}
+.back{border:0;background:none;color:var(--acc);font:inherit;font-weight:700;cursor:pointer;padding:0;margin-top:18px}
 ul{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
-li{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:14px 16px;border-top:1px solid var(--line)}
+li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-top:1px solid var(--line)}
 li:first-child{border-top:0}
-section+section{margin-top:22px}
-.main{min-width:0}
-.t{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.t a{font-weight:700;font-size:1.05rem;color:var(--fg);text-decoration:none}
+li>div{min-width:0}
+.where{font-size:.8rem;color:var(--mute);margin:0}
+.t a{font-weight:700;color:var(--fg);text-decoration:none}
 .t a:hover{color:var(--acc);text-decoration:underline}
-.badge{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:99px;background:var(--soft);color:var(--mute)}
+.d{color:var(--mute);font-size:.92rem;margin:2px 0 0}
+.badge{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:99px;margin-left:6px;vertical-align:2px;background:var(--acc-bg);color:var(--acc)}
 .badge.new{background:var(--new-bg);color:var(--new)}
-.badge.lang{background:var(--acc-bg);color:var(--acc)}
-.d{color:var(--mute);font-size:.93rem;margin:3px 0 6px;max-width:68ch}
-.where{font-size:.8rem;color:var(--mute);margin:0 0 4px}
-.tags{display:flex;flex-wrap:wrap;gap:4px 6px}
-.tag{border:0;background:var(--soft);color:var(--fg);font:inherit;font-size:.78rem;padding:1px 8px;border-radius:6px;cursor:pointer}
-.tag:hover{background:var(--acc-bg);color:var(--acc)}
-.code{font-size:.78rem;color:var(--mute);font-variant-numeric:tabular-nums}
-.act{display:flex;flex-direction:column;gap:6px;align-items:stretch;justify-content:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;border:1px solid var(--acc);background:var(--acc);color:var(--bg);font:inherit;font-size:.9rem;font-weight:700;padding:6px 14px;border-radius:8px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.act{display:flex;gap:6px;flex:none}
+.btn{border:1px solid var(--acc);background:var(--acc);color:var(--bg);font:inherit;font-size:.88rem;font-weight:700;padding:6px 12px;border-radius:8px;text-decoration:none;cursor:pointer;white-space:nowrap}
 .btn.ghost{background:transparent;color:var(--acc)}
 .btn.done{border-color:var(--ok);color:var(--ok)}
-mark{background:var(--new-bg);color:inherit;border-radius:3px;padding:0 1px}
-.empty{padding:28px 16px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px}
-footer{color:var(--mute);font-size:.85rem;padding-block:0 32px}
+.tile:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.empty{padding:28px 16px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
+footer{color:var(--mute);font-size:.85rem;padding:32px 0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-@media (min-width:700px) and (min-height:640px){.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5}}
-@media (max-width:560px){li{grid-template-columns:1fr}.act{flex-direction:row}.act .btn{flex:1}.pick{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){li{flex-direction:column;align-items:stretch}.act .btn{flex:1;text-align:center}.pick{grid-template-columns:repeat(2,1fr)}}
 </style></head><body>
 <div class="wrap">
-<header>
-  <h1>Appletler</h1>
-  <p class="lead" id="lead"></p>
-</header>
-<div class="bar">
-  <label class="search">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <span class="sr">Ara</span>
-    <input id="q" type="search" placeholder="Ara: açıortay, rasyonel, DNA, uzay kirliliği…" autocomplete="off">
-    <button id="clr" type="button" hidden aria-label="Aramayı temizle">✕</button>
-  </label>
-  <nav class="crumbs" id="crumbs" aria-label="Konum"></nav>
-  <div class="status"><span id="count" aria-live="polite"></span><button class="linkbtn" id="share" type="button" hidden>Bu sayfanın linkini kopyala</button></div>
-</div>
+<header><h1>Appletler</h1></header>
+<label class="search">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <span class="sr">Ara</span>
+  <input id="q" type="search" placeholder="Ara…" autocomplete="off">
+  <button id="clr" type="button" hidden aria-label="Aramayı temizle">✕</button>
+</label>
 <main id="list"></main>
-<footer>Hazırlayan: Yunus Emre Doğan · Appletler tarayıcıda çalışır; ilerleme her öğrencinin kendi tarayıcısında saklanır.</footer>
+<footer>Hazırlayan: Yunus Emre Doğan</footer>
 </div>
 <script>
 (function(){
-const LANG={tr:"Türkçe",en:"English"};
 const norm=s=>String(s).toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ı/g,'i');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const slug=s=>norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const days=d=>(Date.now()-new Date(d+'T00:00:00').getTime())/864e5;
+const isNew=a=>(Date.now()-new Date(a.eklendi+'T00:00:00'))/864e5<=30;
 const base=location.href.replace(/[?#].*$/,'').replace(/index\.html$/,'');
-const items=APPLETLER.map((a,i)=>({...a,i,hay:norm([a.ad,a.aciklama,a.ders,a.alan,a.kazanim,a.sinif+'. sinif',LANG[a.dil],a.anahtar||'',...a.konular].join(' '))}));
-const dersSira=d=>{const k=DERS_SIRASI.indexOf(d);return k<0?99:k};
-const sortDers=(x,y)=>dersSira(x)-dersSira(y)||x.localeCompare(y,'tr');
-const ALL_GRADES=[5,6,7,8,9,10,11,12];
+const items=APPLETLER.map(a=>({...a,hay:norm([a.ad,a.aciklama,a.ders,a.alan,a.kazanim,a.sinif+'. sinif',a.anahtar||'',...a.konular].join(' '))}));
+const sira=d=>{const k=DERS_SIRASI.indexOf(d);return k<0?99:k};
+const byDers=(x,y)=>sira(x)-sira(y)||x.localeCompare(y,'tr');
+const byItem=(x,y)=>y.eklendi.localeCompare(x.eklendi)||(x.dil==='tr'?0:1)-(y.dil==='tr'?0:1)||x.ad.localeCompare(y.ad,'tr');
+const GRADES=[...new Set(items.map(a=>a.sinif))].sort((a,b)=>a-b);
 
 const st={q:'',sinif:null,ders:null};
-try{const u=new URLSearchParams(location.search);st.q=u.get('q')||'';const s=u.get('sinif');st.sinif=s?+s:null;const d=u.get('ders');if(d){const m=items.find(a=>slug(a.ders)===d);st.ders=m?m.ders:null}}catch(e){}
+try{const u=new URLSearchParams(location.search);st.q=u.get('q')||'';const s=+u.get('sinif');st.sinif=GRADES.includes(s)?s:null;const d=u.get('ders');if(d&&st.sinif){const m=items.find(a=>slug(a.ders)===d);st.ders=m?m.ders:null}}catch(e){}
 
-const $=id=>document.getElementById(id);
-const qEl=$('q');qEl.value=st.q;
-$('lead').textContent=`${items.length} applet · ${new Set(items.map(a=>a.ders)).size} ders · ${new Set(items.map(a=>a.sinif)).size} sınıf düzeyi. Önce sınıfını, sonra dersini seç; her appletin linkini kopyalayıp Classroom'a ekleyebilirsin.`;
+const $=id=>document.getElementById(id), qEl=$('q'), L=$('list');
+qEl.value=st.q;
 
-const matchQ=a=>{if(!st.q)return true;const terms=norm(st.q).split(/\s+/).filter(Boolean);return terms.every(t=>a.hay.includes(t))};
-function hl(text){
-  if(!st.q)return esc(text);
-  const terms=norm(st.q).split(/\s+/).filter(t=>t.length>1);if(!terms.length)return esc(text);
-  const n=norm(text);if(n.length!==text.length)return esc(text);
-  const marks=new Array(text.length).fill(false);
-  for(const t of terms){let i=n.indexOf(t);while(i>-1){for(let k=i;k<i+t.length;k++)marks[k]=true;i=n.indexOf(t,i+1)}}
-  let out='',on=false;for(let k=0;k<text.length;k++){if(marks[k]!==on){out+=on?'</mark>':'<mark>';on=marks[k]}out+=esc(text[k])}
-  return out+(on?'</mark>':'');
-}
-const hasNew=arr=>arr.some(a=>days(a.eklendi)<=30);
-function go(sinif,ders){st.sinif=sinif;st.ders=ders;update();window.scrollTo({top:0})}
-
-function renderCrumbs(){
-  const c=$('crumbs');c.innerHTML='';
-  if(st.q){c.innerHTML=`<span class="here">Arama sonuçları</span>`;return}
-  const mk=(t,fn)=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=fn;c.appendChild(b)};
-  const sep=()=>{const s=document.createElement('span');s.className='sep';s.textContent='›';c.appendChild(s)};
-  const here=t=>{const s=document.createElement('span');s.className='here';s.textContent=t;s.setAttribute('aria-current','page');c.appendChild(s)};
-  if(!st.sinif){here('Sınıflar');return}
-  mk('Sınıflar',()=>go(null,null));sep();
-  if(!st.ders){here(st.sinif+'. sınıf');return}
-  mk(st.sinif+'. sınıf',()=>go(st.sinif,null));sep();here(st.ders);
-}
-function itemLi(a,showWhere){
+function row(a,where){
   const li=document.createElement('li');
-  const isNew=days(a.eklendi)<=30;
-  li.innerHTML=`<div class="main">${showWhere?`<p class="where">${a.sinif}. sınıf · ${esc(a.ders)}</p>`:''}<div class="t"><a href="${esc(a.dosya)}">${hl(a.ad)}</a>${isNew?'<span class="badge new">Yeni</span>':''}<span class="badge">${esc(a.alan)}</span>${a.dil!=='tr'?`<span class="badge lang" lang="${esc(a.dil)}">${esc(LANG[a.dil]||a.dil)}</span>`:''}</div>
-    <p class="d" ${a.dil==='en'?'lang="en"':''}>${hl(a.aciklama)}</p>
-    <div class="tags">${a.konular.map(k=>`<button type="button" class="tag" ${a.dil==='en'?'lang="en"':''}>${hl(k)}</button>`).join('')}${a.kazanim?`<span class="code">${esc(a.kazanim)}</span>`:''}</div></div>
-    <div class="act"><a class="btn" href="${esc(a.dosya)}">Aç</a><button type="button" class="btn ghost copy">Linki kopyala</button></div>`;
-  li.querySelectorAll('.tag').forEach(b=>b.onclick=()=>{qEl.value=b.textContent;st.q=b.textContent;update();qEl.focus()});
-  li.querySelector('.copy').onclick=e=>copy(base+a.dosya,e.currentTarget);
+  li.innerHTML=`<div>${where?`<p class="where">${a.sinif}. sınıf · ${esc(a.ders)}</p>`:''}<div class="t"><a href="${esc(a.dosya)}">${esc(a.ad)}</a>${isNew(a)?'<span class="badge new">Yeni</span>':''}${a.dil==='en'?'<span class="badge" lang="en">English</span>':''}</div><p class="d"${a.dil==='en'?' lang="en"':''}>${esc(a.aciklama)}</p></div>
+  <div class="act"><a class="btn" href="${esc(a.dosya)}">Aç</a><button type="button" class="btn ghost">Linki kopyala</button></div>`;
+  li.querySelector('button').onclick=e=>copy(base+a.dosya,e.currentTarget);
   return li;
 }
+function list(arr,where){const ul=document.createElement('ul');arr.forEach(a=>ul.appendChild(row(a,where)));return ul}
+function go(s){st.sinif=s;st.ders=null;update();window.scrollTo({top:0})}
+
 function render(){
-  const L=$('list');L.innerHTML='';
-  renderCrumbs();
-  // arama: bütün appletlerde düz liste
+  L.innerHTML='';
   if(st.q){
-    const res=items.filter(matchQ).sort((x,y)=>x.sinif-y.sinif||sortDers(x.ders,y.ders)||y.eklendi.localeCompare(x.eklendi));
-    $('count').textContent=`${res.length} applet bulundu`;
-    if(!res.length){L.innerHTML=`<div class="empty">Bu aramaya uyan applet yok. <button class="linkbtn" type="button" id="reset">Aramayı temizle</button></div>`;$('reset').onclick=()=>{st.q='';qEl.value='';update()};return}
-    const ul=document.createElement('ul');res.forEach(a=>ul.appendChild(itemLi(a,true)));L.appendChild(ul);return;
+    const terms=norm(st.q).split(/\s+/).filter(Boolean);
+    const res=items.filter(a=>terms.every(t=>a.hay.includes(t))).sort((x,y)=>x.sinif-y.sinif||byDers(x.ders,y.ders)||byItem(x,y));
+    if(!res.length){L.innerHTML='<div class="empty">Bu aramaya uyan applet yok.</div>';return}
+    const h=document.createElement('h3');h.textContent=res.length+' sonuç';L.append(h,list(res,true));return;
   }
-  // 1. adım: sınıf
   if(!st.sinif){
-    $('count').textContent='1. adım: sınıfını seç';
-    const sec=document.createElement('section');sec.innerHTML='<h2>Sınıfını seç</h2>';
     const g=document.createElement('div');g.className='pick';
-    for(const s of ALL_GRADES){const arr=items.filter(a=>a.sinif===s);const b=document.createElement('button');b.type='button';b.className='tile';b.disabled=!arr.length;
-      const dersler=[...new Set(arr.map(a=>a.ders))].sort(sortDers);
-      b.innerHTML=`<b>${s}. sınıf</b><span class="sub">${arr.length?arr.length+' applet · '+dersler.map(esc).join(', '):'Henüz applet yok'}</span>${hasNew(arr)?'<span class="badge new">Yeni</span>':''}`;
-      if(arr.length)b.onclick=()=>go(s,null);g.appendChild(b)}
-    sec.appendChild(g);L.appendChild(sec);return;
+    for(const s of GRADES){const arr=items.filter(a=>a.sinif===s);const b=document.createElement('button');b.type='button';b.className='tile';
+      b.innerHTML=`<b>${s}. sınıf</b><span>${[...new Set(arr.map(a=>a.ders))].sort(byDers).map(esc).join(' · ')}</span>`;
+      b.onclick=()=>go(s);g.appendChild(b)}
+    L.appendChild(g);return;
   }
-  const inGrade=items.filter(a=>a.sinif===st.sinif);
-  // 2. adım: ders
-  if(!st.ders){
-    const dersler=[...new Set(inGrade.map(a=>a.ders))].sort(sortDers);
-    $('count').textContent='2. adım: dersini seç';
-    const sec=document.createElement('section');sec.innerHTML=`<h2>${st.sinif}. sınıf <small>dersini seç</small></h2>`;
-    const g=document.createElement('div');g.className='pick';
-    if(!dersler.length){L.innerHTML='<div class="empty">Bu sınıf için henüz applet yok.</div>';return}
-    for(const d of dersler){const arr=inGrade.filter(a=>a.ders===d);const b=document.createElement('button');b.type='button';b.className='tile ders';
-      b.innerHTML=`<b>${esc(d)}</b><span class="sub">${arr.length} applet</span>${hasNew(arr)?'<span class="badge new">Yeni</span>':''}`;b.onclick=()=>go(st.sinif,d);g.appendChild(b)}
-    sec.appendChild(g);L.appendChild(sec);return;
+  const back=document.createElement('button');back.type='button';back.className='back';back.textContent='← Tüm sınıflar';back.onclick=()=>go(null);
+  const h=document.createElement('h2');h.textContent=st.sinif+'. sınıf';L.append(back,h);
+  const inG=items.filter(a=>a.sinif===st.sinif&&(!st.ders||a.ders===st.ders));
+  for(const d of [...new Set(inG.map(a=>a.ders))].sort(byDers)){
+    const h3=document.createElement('h3');h3.textContent=d;L.append(h3,list(inG.filter(a=>a.ders===d).sort(byItem),false));
   }
-  // 3. adım: appletler
-  const arr=inGrade.filter(a=>a.ders===st.ders).sort((x,y)=>y.eklendi.localeCompare(x.eklendi)||(x.dil==='tr'?0:1)-(y.dil==='tr'?0:1)||x.ad.localeCompare(y.ad,'tr'));
-  $('count').textContent=`${arr.length} applet`;
-  if(!arr.length){L.innerHTML='<div class="empty">Bu sınıf ve ders için henüz applet yok.</div>';return}
-  const sec=document.createElement('section');sec.innerHTML=`<h2>${st.sinif}. sınıf · ${esc(st.ders)} <small>${arr.length} applet</small></h2>`;
-  const ul=document.createElement('ul');arr.forEach(a=>ul.appendChild(itemLi(a,false)));sec.appendChild(ul);L.appendChild(sec);
 }
-function viewUrl(){const u=new URLSearchParams();if(st.q)u.set('q',st.q);else{if(st.sinif)u.set('sinif',st.sinif);if(st.ders)u.set('ders',slug(st.ders))}const s=u.toString();return base+(s?'?'+s:'')}
 function update(){
   $('clr').hidden=!st.q;
-  $('share').hidden=!(st.q||st.sinif);
-  try{history.replaceState(null,'',viewUrl())}catch(e){}
+  const u=new URLSearchParams();if(st.q)u.set('q',st.q);else if(st.sinif){u.set('sinif',st.sinif);if(st.ders)u.set('ders',slug(st.ders))}
+  try{history.replaceState(null,'',base+(u.toString()?'?'+u:''))}catch(e){}
   render();
 }
 function copy(text,btn){
@@ -255,8 +183,6 @@ function copy(text,btn){
 let tm;qEl.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>{st.q=qEl.value.trim();update()},120)});
 qEl.addEventListener('keydown',e=>{if(e.key==='Escape'){qEl.value='';st.q='';update()}});
 $('clr').onclick=()=>{qEl.value='';st.q='';update();qEl.focus()};
-$('share').onclick=e=>copy(viewUrl(),e.currentTarget);
-document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==qEl){e.preventDefault();qEl.focus()}});
 update();
 })();
 </script>
